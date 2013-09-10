@@ -2,4 +2,8 @@
 Befehlen `ls` und `cd` vertraut machen."
 
 prompt {
+    if command =~ "next" {
+        "jaha"
+        lesson("lektion2")
+    }
 }
