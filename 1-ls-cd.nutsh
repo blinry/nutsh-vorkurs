@@ -1,0 +1,110 @@
+lesson_name("Umsehen und Bewegen - `ls` und `cd`")
+
+def common_mistakes {
+    if command == "1s" {
+        "Das ist ein kleines L, keine Eins! Probieren Sie's nochmal!"
+    }
+    if command == ".." {
+        "`..` ist der Name des Verzeichnisses, Sie müssen noch dazusagen, was
+        Sie damit machen möchten. Um \"hinzugehen\", schreiben Sie `cd` davor."
+    }
+    if command == "cd.." {
+        "Da fehlt noch ein Leerzeichen zwischen `cd` und `..`!"
+    }
+}
+
+def stayinroot {
+    if !(run("pwd") =~ run("echo $ROOT")) {
+        run("cd $ROOT")
+        "Bleiben Sie bitte erstmal in diesem Ordner."
+    }
+}
+
+run("ROOT=/tmp/nutsh")
+
+run("rm -rf $ROOT")
+run("mkdir $ROOT")
+run("cd $ROOT")
+
+run("mkdir schuhkarton")
+run("mkdir schrank")
+run("touch schrank/jacke")
+run("touch schrank/hut")
+run("touch linker_schuh")
+
+"Als erstes lernen Sie, wie man sich im Dateisystem umsieht und herumbewegt."
+
+"Tippen Sie mal `ls` ein und drücken Sie Enter."
+
+common_mistakes, stayinroot {
+    prompt {
+        if command == "ls" {
+            expect("ls")
+            "Genau. `ls` steht kurz für \"list\" und zeigt Ihnen die Dateien und
+            Verzeichnisse an, die sich in Ihrem aktuellen Verzeichnis
+            befinden. Die Verzeichnisse werden dabei blau dargestellt."
+
+            "Sie sind gerade in einem Ordner namens `/tmp/nutsh` - der aktuelle
+            Ordner steht auch immer im Prompt, der mit dem Dollarzeichen
+            endet."
+
+            break
+        }
+    }
+
+    "Sie haben vielleicht gesehen, dass sich hier ein Verzeichnis namens
+    `schrank` befindet. Um dieses zu Ihrem aktuellen Verzeichnis zu machen,
+    tippen Sie `cd`, dann ein Leerzeichen und dann den Namen des Verzeichnisses,
+    in das Sie möchten. Begeben Sie sich doch mal in den Schrank und sehen Sie sich
+    mit `ls` darin um!"
+
+    prompt {
+        if run("pwd") == run("echo $ROOT/schrank") {
+            if output =~ "jacke" {
+                expect("cd schrank; pwd; ls")
+                "Genau. Haben Sie bemerkt, wie sich der Prompt geändert hat?"
+                break
+            }
+        }
+    }
+
+    "Und wenn Sie wieder aus dem Schrank herausmöchten? Die Abkürzung für das
+    Verzeichnis oberhalb des aktuellen ist `..`!"
+
+    prompt {
+        if run("pwd") == run("echo $ROOT") {
+            expect("cd ..")
+            break
+        }
+    }
+
+    "Gut. So, nun brauchen wir ein wenig Magie... *pling*"
+
+    "[Der Schrank rumpelt und ächzt]"
+
+    run("mkdir -p $ROOT/schrank/magische_tür/tür{1..3}")
+    run("touch $ROOT/schrank/magische_tür/tür2/rechter_schuh")
+
+    "Im Schrank hat sich nun etwas verändert. Gehen Sie hinein und suchen Sie den rechten Schuh."
+
+    prompt {
+        if run("pwd") == run("echo $ROOT/schrank/magische_tür/tür2") {
+            if command =~ "ls" {
+                expect("cd schrank/magische_tür/tür2; ls")
+                "Sie haben ihn gefunden! Nun kommen Sie bitte wieder aus dem Schrank heraus!"
+                break
+            }
+        }
+    }
+
+    prompt {
+        if run("pwd") == run("echo $ROOT") {
+            expect("ls")
+            expect("cd ../../..")
+            expect("cd ..; cd ..; cd ..")
+            break
+        }
+    }
+
+    "Gut! Das war die Einführung in `ls` und `cd`. Es sind die beiden Befehle, die man bei der Arbeit auf der Kommandozeile am häufigsten benutzt."
+}
