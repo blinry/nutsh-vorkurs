@@ -15,38 +15,42 @@ def success {
 "Lassen Sie uns direkt einsteigen. In der nächsten Zeile finden Sie den sogenannten `Prompt`. Dieser signalisiert soviel wie \"Sie können mir jetzt einen Befehl geben\". Tippen Sie einfach mal irgendwas Zufälliges ein (zum Beispiel `blablabla`) und drücken Sie Enter."
 
 prompt {
-    if success {
-        expect("ls")
-        "Das war sogar ein Befehl, der existiert! Wir wollen erstmal absichtlich einen Fehler herbeiführen, probieren Sie doch mal einen anderen Befehl aus."
-    } else {
+    if ! success {
         expect("fuuuuuuu")
         say("Genau. Das gab jetzt eine Fehlermeldung, weil es den Befehl `"+command+"`, den Sie eingegeben haben, nicht gibt. Als nächstes probieren Sie mal einen Befehl aus, den es gibt: `cal`.")
         break
+    } else {
+        expect("ls")
+        "Das war sogar ein Befehl, der existiert! Wir wollen erstmal absichtlich einen Fehler herbeiführen, probieren Sie doch mal einen anderen Befehl aus."
     }
 }
 
 prompt {
     if success && command =~ "^cal" {
+        expect("cal")
         "`cal` zeigt eine Kalenderseite für den aktuellen Monat an. Probieren Sie mal aus, dahinter ein Leerzeichen und eine Jahreszahl zu schreiben."
         break
     }
 }
 
 prompt {
-    if command =~ `cal\d` {
-        "Da fehlt noch das Leerzeichen zwischen `cal` und der Jahreszahl."
-    }
     if success && command =~ `^cal\s+\d+` {
+        expect("cal 2013")
         "Hier sehen Sie ein ganz grundlegendes Prinzip: Ein Befehl besteht immer aus dem Namen des Programms (hier `cal`) und einer beliebigen Anzahl an `Argumenten`, die genauer bestimmen, wie sich das Programm verhält."
 
-        "Sie können sich einen bestimmten Monat eines Jahres anzeigen lassen, indem sie wie folgt zwei Argumente angeben: `cal [Nummer des Monats] [Jahreszahl]`. Damit können Sie zum Beispiel nachsehen, an welchem Wochentag Sie geboren sind."
+        "Sie können sich einen bestimmten Monat eines Jahres anzeigen lassen, indem Sie wie folgt zwei Argumente angeben: `cal [Nummer des Monats] [Jahreszahl]`. Damit können Sie zum Beispiel nachsehen, an welchem Wochentag Sie geboren sind."
 
         break
+    }
+    if command =~ `cal\d` {
+        expect("cal2013")
+        "Da fehlt noch das Leerzeichen zwischen `cal` und der Jahreszahl."
     }
 }
 
 prompt {
     if command =~`^cal\s+\d+\s+\d+` {
+        expect("cal 1 1 2013")
         "Sehenswert ist auch `cal 9 1752`!"
 
         "Wenn Sie bereit sind, die Lektion abzuschließen, rufen Sie einfach wieder `cal` ohne Argumente auf."
@@ -56,6 +60,7 @@ prompt {
 
 prompt {
     if command == "cal" {
+        expect("cal")
         break
     }
 }

@@ -64,6 +64,8 @@ common_mistakes, stayinroot {
                 expect("cd schrank; pwd; ls")
                 "Genau. Haben Sie bemerkt, wie sich der Prompt geändert hat?"
                 break
+            } else {
+                say("out: "+output)
             }
         }
     }
@@ -99,7 +101,6 @@ common_mistakes, stayinroot {
 
     prompt {
         if run("pwd") == run("echo $ROOT") {
-            expect("ls")
             expect("cd ../../..")
             expect("cd ..; cd ..; cd ..")
             break

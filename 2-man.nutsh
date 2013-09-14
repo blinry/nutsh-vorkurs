@@ -8,9 +8,11 @@ lesson_name("Hilfe zur Selbsthilfe - `man`")
 
 prompt {
     if command =~ `^man\s+cal` {
+        expect("man cal", "q")
         break
     }
     if command =~ `^man\s+\w+` {
+        expect("man ls", "q")
         "Das war jetzt eine andere Seite, öffnen Sie einmal die von `cal`."
     }
 }
@@ -23,6 +25,7 @@ prompt {
 
 prompt {
     if command =~ `^man\s+man` {
+        expect("man man", "q")
         "Genau. Damit ist diese Lektion zu Ende."
         break
     }
