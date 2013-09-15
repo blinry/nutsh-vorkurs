@@ -1,4 +1,4 @@
-lesson_name("Mehr ls")
+lesson_name("Dateisystem und Pfade")
 go_home
 
 "Ihnen steht auf den Rechnern des GITZ ein eigenes Verzeichnis zur Verfügung, in dem Sie Daten speichern können. Dieses heißt unter Linux *Heimat-* oder *Home-Verzeichis*. Weil es so wichtig ist, ist `cd` so eingestellt, dass es standardmäßig ins Home-Verzeichnis geht, wenn man keine Argumente aufführt. Probieren Sie das einmal aus!"
@@ -30,7 +30,9 @@ prompt {
     }
 }
 
-"Von hier aus können Sie nicht weiter \"hochgehen\". Wenn Sie mögen, schauen Sie sich hier kurz um und gehen Sie in einige Ordner hinein. Kaputtmachen können Sie dabei nichts - Sie haben nur in Ihrem Homeverzeichnis Schreibrechte. Wenn Sie weitermachen möchten, gehen Sie wieder dorthin zurück (zum Beispiel mit `cd ~`)."
+"Von hier aus können Sie nicht weiter \"hochgehen\". Wenn Sie mögen, schauen Sie sich hier kurz um und gehen Sie in einige Ordner hinein. Interessant sind beispielsweise die Ordner `/bin` (enthält Programme), `/dev` (enthält Gerätedateien) oder `/etc` (Konfigurationsdateien). Kaputtmachen können Sie dabei nichts - Sie haben nur in Ihrem Homeverzeichnis Schreibrechte."
+
+"Wenn Sie weitermachen möchten, gehen Sie wieder dorthin zurück (zum Beispiel mit `cd ~`)."
 
 prompt {
     if run("pwd") == run(`echo "$HOME"`) {
@@ -43,7 +45,7 @@ prompt {
 
 "Immer, wenn Sie einen Pfad \"vom aktuellen Verzeichnis aus\" angeben, ist das ein relativer Pfad. Absolute Pfade beginnen mit einem Slash, und beziehen sich aufs Wurzelverzeichnis."
 
-"Beispiel. Wenn Sie `ls` ein Verzeichnis als Argument geben, listet es die Inhalte dieses Verzeichnisses auf. Lassen Sie sich (von hier aus) die Inhalte des Root-Ordners anzeigen."
+"Beispiel. Wenn Sie hinter `ls` einen Verzeichnisnamen schreiben, listet es die Inhalte dieses Verzeichnisses auf. Lassen Sie sich (von hier aus) die Inhalte des Root-Ordners anzeigen."
 
 prompt {
     if output =~ "var" && output =~ "usr" {

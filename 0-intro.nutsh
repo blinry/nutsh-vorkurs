@@ -58,7 +58,7 @@ prompt {
     }
 }
 
-"Noch zwei Hinweise zu diesem Tutorial-Programm, der Nut Shell: Eine laufende Lektion können Sie mit `exit` verlassen."
+"Noch zwei Hinweise zu diesem Tutorial-Programm, der Nut Shell: Eine laufende Lektion können Sie mit `exit` abbrechen."
 
 "Und schließlich möchten wir Ihnen noch das \"Sprechen\" beibringen: Tippen Sie mal `echo help`!"
 

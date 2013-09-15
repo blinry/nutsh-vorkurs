@@ -5,6 +5,7 @@ run("touch linker_schuh")
 run("mkdir schrank")
 run("touch schrank/jacke")
 run("touch schrank/hut")
+run("rm -rf schrank/magische_tür")
 
 "Als erstes lernen Sie die zwei wichtigsten Befehle: Wie man sich im Dateisystem umsieht und herumbewegt."
 
@@ -44,7 +45,7 @@ common_mistakes, stayinroot {
     }
 
     "Und wenn Sie wieder aus dem Schrank herausmöchten? Die Abkürzung für das
-    Verzeichnis oberhalb des aktuellen ist `..`!"
+    Verzeichnis oberhalb des aktuellen sind zwei Punkte: `..`!"
 
     prompt {
         if run("pwd") == run("echo $ROOT") {

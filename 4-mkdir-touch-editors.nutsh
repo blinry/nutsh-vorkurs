@@ -1,4 +1,4 @@
-lesson_name("Dateien erschaffen und ansehen - mkdir, wc, diff, Editoren")
+lesson_name("Dateien erschaffen und ansehen - mkdir und Editoren")
 go_home
 run(`rm -rf "$ROOT/wohnzimmer" "$ROOT/schlafzimmer" "$ROOT/badezimmer" "$ROOT/küche"`)
 
@@ -21,7 +21,7 @@ prompt {
 
 "Sehr schön."
 
-"Zum Erzeugen von neuen, leeren Dateien gibt es den Befehl `touch`. Bitte erstellen Sie einen `tisch` im Wohnzimmer und ein `bett` im Schlafzimmer."
+"Zum Erzeugen von neuen, leeren Textdateien gibt es den Befehl `touch`. Bitte erstellen Sie einen `tisch` im Wohnzimmer und ein `bett` im Schlafzimmer."
 
 prompt {
     if file("$ROOT/wohnzimmer/tisch") && file("$ROOT/schlafzimmer/bett") {

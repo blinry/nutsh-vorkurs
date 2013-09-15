@@ -33,7 +33,7 @@ prompt {
 
 "Die Manpage nennt noch zwei ganz typische, nützliche Optionen, die in vielen Befehlen eingebaut ist:"
 
-"Die eine gibt die Version des Befehls aus. Das kann praktisch sein, wenn man bei Fehlermeldungen im Internet nach Ratschlägen sucht. Bitte lassen Sie sich die Version Ihres `date`-Befehls ausgeben."
+"Die eine gibt die Version des Befehls aus. Das kann praktisch sein, wenn man bei Fehlermeldungen im Internet nach Ratschlägen sucht. Bitte lassen Sie sich die Version Ihres `cal`-Befehls ausgeben."
 
 prompt {
     if command =~ `^cal\s+(--version|-V)` {
@@ -55,11 +55,14 @@ prompt {
 
 "Ja. Man kann oft auf Verdacht `--help` an einen Befehl hängen, um eine Zusammenfassung der Manpage angezeigt zu bekommen."
 
-"Und eine letzte Frage: Was, wenn Sie vergessen haben, wie man den Befehl `man` selbst benutzt?"
+"Oft gibt es Optionen in zwei Varianten: Eine kurze Version mit einem Bindestrich vorneweg sowie eine lange Version mit zwei Bindestrichen."
+
+"Eine letzte Frage: Was, wenn Sie vergessen haben, wie man den Befehl `man` selbst benutzt?"
 
 prompt {
-    if command =~ `^man\s+man` {
+    if command =~ `^man\s+man` || command =~ `^man\s+--help` {
         expect("man man", "q")
+        expect("man --help")
         "Genau. Damit ist diese Lektion zu Ende."
         break
     }
