@@ -18,9 +18,9 @@ prompt {
     }
 }
 
-"Es ist ganz typisch, dass Befehle `Optionen` haben. Das sind Argumente, die mit einem Bindestrich beginnen und das Verhalten des Befehls ändern. Beispielsweise hat `cal` eine Option `-s`, die Wochen mit einem Sonntag beginnen lässt."
+"Es ist ganz typisch, dass Befehle *Optionen* haben. Das sind Argumente, die mit einem Bindestrich beginnen und das Verhalten des Befehls ändern. Beispielsweise hat `cal` eine Option `-s`, die Wochen mit einem Sonntag beginnen lässt."
 
-"Der wichtige Abschnitt `SYNOPSIS` in der Handbuchseite/Manpage beschreibt, wo man Optionen hinschreiben kann."
+"Der wichtige Abschnitt *SYNOPSIS* in der Handbuchseite/Manpage beschreibt, wo man Optionen hinschreiben kann."
 
 "Aufgabe: Finden Sie heraus, wie man `cal` dazu bringt, den aktuellen, vergangenen und kommenden Monat auf einmal anzuzeigen - und probieren Sie das dann einmal aus."
 

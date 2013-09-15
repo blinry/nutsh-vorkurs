@@ -1,11 +1,11 @@
-lesson_name("Intro - Begrüßung und erste Beispiele mit `cal`")
+lesson_name("Intro - Begrüßung und erste Beispiele mit cal")
 go_home
 
 "Hallo, herzlich willkommen beim praktischen Teil des Vorkurses."
 
 "In den kommenden zwei Wochen möchten wir Sie in die Geheimnisse der Kommandozeile einweihen. Die Kommandozeile ist eine sehr mächtige und effiziente Art und Weise, einen Computer zu bedienen."
 
-"Lassen Sie uns direkt einsteigen. In der nächsten Zeile finden Sie den sogenannten `Prompt`. Dieser signalisiert soviel wie \"Sie können mir jetzt einen Befehl geben\". Tippen Sie einfach mal irgendwas Zufälliges ein (zum Beispiel `blablabla`) und drücken Sie Enter."
+"Lassen Sie uns direkt einsteigen. In der nächsten Zeile finden Sie den sogenannten *Prompt*. Dieser signalisiert soviel wie \"Sie können mir jetzt einen Befehl geben\". Tippen Sie einfach mal irgendwas Zufälliges ein (zum Beispiel `blablabla`) und drücken Sie Enter."
 
 prompt {
     if ! success {
@@ -29,7 +29,7 @@ prompt {
 prompt {
     if success && command =~ `^cal\s+\d+` {
         expect("cal 2013")
-        "Hier sehen Sie ein ganz grundlegendes Prinzip: Ein Befehl besteht immer aus dem Namen des Programms (hier `cal`) und einer beliebigen Anzahl an `Argumenten`, die genauer bestimmen, wie sich das Programm verhält."
+        "Hier sehen Sie ein ganz grundlegendes Prinzip: Ein Befehl besteht immer aus dem Namen des Programms (hier `cal`) und einer beliebigen Anzahl an *Argumenten*, die genauer bestimmen, wie sich das Programm verhält."
 
         "Sie können sich einen bestimmten Monat eines Jahres anzeigen lassen, indem Sie wie folgt zwei Argumente angeben: `cal [Nummer des Monats] [Jahreszahl]`. Damit können Sie zum Beispiel nachsehen, an welchem Wochentag Sie geboren sind."
 

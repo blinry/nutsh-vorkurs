@@ -1,7 +1,7 @@
-lesson_name("Mehr `ls`")
+lesson_name("Mehr ls")
 go_home
 
-"Ihnen steht auf den Rechnern des GITZ ein eigenes Verzeichnis zur Verfügung, in dem Sie Daten speichern können. Dieses heißt unter Linux `Heimat-` oder `Home-Verzeichis`. Weil es so wichtig ist, ist `cd` so eingestellt, dass es standardmäßig ins Home-Verzeichnis geht, wenn man keine Argumente aufführt. Probieren Sie das einmal aus!"
+"Ihnen steht auf den Rechnern des GITZ ein eigenes Verzeichnis zur Verfügung, in dem Sie Daten speichern können. Dieses heißt unter Linux *Heimat-* oder *Home-Verzeichis*. Weil es so wichtig ist, ist `cd` so eingestellt, dass es standardmäßig ins Home-Verzeichnis geht, wenn man keine Argumente aufführt. Probieren Sie das einmal aus!"
 
 prompt {
     if command == "cd" {
@@ -21,7 +21,7 @@ prompt {
     }
 }
 
-"Der Pfad, der da ausgegeben wird, beginnt mit einem Schrägstrich (`Slash`), sehen Sie? `/` ist das sogenannte `Root-` oder `Wurzelverzeichnis`, der oberste Ort in der Verzeichnishierarchie. Lassen Sie uns dort einmal hingehen."
+"Der Pfad, der da ausgegeben wird, beginnt mit einem Schrägstrich (*Slash*), sehen Sie? `/` ist das sogenannte *Root-* oder *Wurzelverzeichnis*, der oberste Ort in der Verzeichnishierarchie. Lassen Sie uns dort einmal hingehen."
 
 prompt {
     if run("pwd") == "/" {
@@ -39,7 +39,7 @@ prompt {
     }
 }
 
-"Zwei ganz wesentliche Konzepte sind `absolute` und `relative` Pfade."
+"Zwei ganz wesentliche Konzepte sind *absolute* und *relative* Pfade."
 
 "Immer, wenn Sie einen Pfad \"vom aktuellen Verzeichnis aus\" angeben, ist das ein relativer Pfad. Absolute Pfade beginnen mit einem Slash, und beziehen sich aufs Wurzelverzeichnis."
 
