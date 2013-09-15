@@ -1,0 +1,53 @@
+lesson_name("Mehr `ls`")
+/*
+
+run("mkdir -p /tmp/nutsh")
+run("cd /tmp/nutsh")
+
+"Ihnen steht auf den Rechnern des GITZ ein eigenes Verzeichnis zur Verfügung, in dem Sie Daten speichern können. Dieses heißt unter Linux `Heimat-` oder `Home-Verzeichis`. Weil es so wichtig ist, ist `cd` so eingestellt, dass es standardmäßig ins Home-Verzeichnis geht, wenn man keine Argumente aufführt. Probieren Sie das einmal aus!"
+
+prompt {
+    if command == "cd" {
+        break
+    }
+}
+
+"Der Teil des Promptes, der das aktuelle Verzeichnis anzeigt, enthält nun eine Tilde - dies ist eine weitere Abkürzung: Sie können immer, wenn Sie Ihr Home-Verzeichnis meinen, eine Tilde dafür schreiben. Um das auszuprobieren, gehen Sie bitte noch einmal zurück nach `/tmp/nutsh` und dann nach `~`."
+
+prompt {
+    if run("pwd") == "/tmp/nutsh" {
+        prompt {
+            if run("pwd") == run("echo $HOME") {
+                if command =~ "~" {
+                } else {
+                    "Nagut, so geht's auch. Wie gesagt, den gleichen Effekt erreichen Sie mit `cd ~`."
+                }
+                break
+            }
+        }
+        break
+    }
+}
+
+"Um herauszufinden, wie Ihr Homeverzeichnis unabgekürzt heißt, können Sie den Befehl `pwd` benutzen (\"print working directory\")."
+
+prompt {
+    if command =~ "^pwd" {
+        break
+    }
+}
+
+"Der Pfad, der da ausgegeben wird, beginnt mit einem Schrägstrich (`Slash`), sehen Sie? Das ist das sogenannte `Root-` oder `Wurzelverzeichnis`, der oberste Ort in der Verzeichnishierarchie. Lassen Sie uns dort einmal hingehen."
+
+prompt {
+    if run("pwd") == "/" {
+        break
+    }
+}
+
+"Von hier aus können Sie nicht weiter \"hochgehen\"."
+
+"Zwei ganz wesentliche Konzepte sind `absolute` und `relative` Pfade. 
+
+"Sie wissen ja bereits, dass `..` für das Verzeichnis \"oberhalb\" des aktuellen steht."
+*/

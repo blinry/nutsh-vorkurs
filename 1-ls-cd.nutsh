@@ -1,25 +1,5 @@
 lesson_name("Umsehen und Bewegen - `ls` und `cd`")
 
-def common_mistakes {
-    if command == "1s" {
-        "Das ist ein kleines L, keine Eins! Probieren Sie's nochmal!"
-    }
-    if command == ".." {
-        "`..` ist der Name des Verzeichnisses, Sie müssen noch dazusagen, was
-        Sie damit machen möchten. Um \"hinzugehen\", schreiben Sie `cd` davor."
-    }
-    if command == "cd.." {
-        "Da fehlt noch ein Leerzeichen zwischen `cd` und `..`!"
-    }
-}
-
-def stayinroot {
-    if !(run("pwd") =~ run("echo $ROOT")) {
-        run("cd $ROOT")
-        "Bleiben Sie bitte erstmal in diesem Ordner."
-    }
-}
-
 run("ROOT=/tmp/nutsh")
 
 run("rm -rf $ROOT")
@@ -54,9 +34,9 @@ common_mistakes, stayinroot {
 
     "Sie haben vielleicht gesehen, dass sich hier ein Verzeichnis namens
     `schrank` befindet. Um dieses zu Ihrem aktuellen Verzeichnis zu machen,
-    tippen Sie `cd`, dann ein Leerzeichen und dann den Namen des Verzeichnisses,
-    in das Sie möchten. Begeben Sie sich doch mal in den Schrank und sehen Sie sich
-    mit `ls` darin um!"
+    tippen Sie `cd` (vom Englischen \"change directory\"), dann ein Leerzeichen
+    und dann den Namen des Verzeichnisses, in das Sie möchten. Begeben Sie sich
+    doch mal in den Schrank und sehen Sie sich mit `ls` darin um!"
 
     prompt {
         if run("pwd") == run("echo $ROOT/schrank") {
@@ -64,8 +44,6 @@ common_mistakes, stayinroot {
                 expect("cd schrank; pwd; ls")
                 "Genau. Haben Sie bemerkt, wie sich der Prompt geändert hat?"
                 break
-            } else {
-                say("out: "+output)
             }
         }
     }
@@ -107,5 +85,5 @@ common_mistakes, stayinroot {
         }
     }
 
-    "Gut! Das war die Einführung in `ls` und `cd`. Es sind die beiden Befehle, die man bei der Arbeit auf der Kommandozeile am häufigsten benutzt."
+    "Gut! Das war eine erste Einführung in `ls` und `cd`. Es sind die beiden Befehle, die man bei der Arbeit auf der Kommandozeile am häufigsten benutzt."
 }

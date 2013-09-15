@@ -17,9 +17,42 @@ prompt {
     }
 }
 
-//"Finden Sie heraus, wie man `cal` dazu bringt, den aktuellen, vergangenen und kommenden Monat auf einmal anzuzeigen - und probieren Sie das dann einmal aus."
+"Es ist ganz typisch, dass Befehle `Optionen` haben. Das sind Argumente, die mit einem Bindestrich beginnen und das Verhalten des Befehls ändern. Beispielsweise hat `cal` eine Option `-s`, die Wochen mit einem Sonntag beginnen lässt."
 
-"[Weitere Aufgaben]"
+"Der wichtige Abschnitt `SYNOPSIS` in der Handbuchseite/Manpage beschreibt, wo man Optionen hinschreiben kann."
+
+"Aufgabe: Finden Sie heraus, wie man `cal` dazu bringt, den aktuellen, vergangenen und kommenden Monat auf einmal anzuzeigen - und probieren Sie das dann einmal aus."
+
+prompt {
+    if command =~ `^cal\s+-3` {
+        expect("cal -3")
+        break
+    }
+}
+
+"Die Manpage nennt noch zwei ganz typische, nützliche Optionen, die in vielen Befehlen eingebaut ist:"
+
+"Die eine gibt die Version des Befehls aus. Das kann praktisch sein, wenn man bei Fehlermeldungen im Internet nach Ratschlägen sucht. Bitte lassen Sie sich die Version Ihres `date`-Befehls ausgeben."
+
+prompt {
+    if command =~ `^cal\s+(--version|-V)` {
+        expect("cal -V")
+        expect("cal --version")
+        break
+    }
+}
+
+"Die zweite Option, die Sie noch nachschlagen sollten, gibt eine kurze und knappe Hilfe zu dem Befehl aus."
+
+prompt {
+    if command =~ `^cal\s+(--help|-h)` {
+        expect("cal -h")
+        expect("cal --help")
+        break
+    }
+}
+
+"Ja. Man kann oft auf Verdacht `--help` an einen Befehl hängen, um quasi eine komprimierte Manpage angezeigt zu bekommen."
 
 "Und eine letzte Frage: Was, wenn Sie vergessen haben, wie man den Befehl `man` selbst benutzt?"
 

@@ -1,0 +1,19 @@
+def common_mistakes {
+    if command == "1s" {
+        "Das ist ein kleines L, keine Eins! Probieren Sie's nochmal!"
+    }
+    if command == ".." {
+        "`..` ist der Name des Verzeichnisses, Sie müssen noch dazusagen, was
+        Sie damit machen möchten. Um \"hinzugehen\", schreiben Sie `cd` davor."
+    }
+    if command == "cd.." {
+        "Da fehlt noch ein Leerzeichen zwischen `cd` und `..`!"
+    }
+}
+
+def stayinroot {
+    if !(run("pwd") =~ run("echo $ROOT")) {
+        run("cd $ROOT")
+        "Bleiben Sie bitte erstmal in diesem Ordner."
+    }
+}
