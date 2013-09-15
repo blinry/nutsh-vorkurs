@@ -63,14 +63,11 @@ prompt {
     if output =~ "null" && output =~ "tty" {
         if !(run("pwd") == "/dev") {
             expect("cd; ls /dev")
-            say("?")
             break
         } else {
             expect("cd /dev; pwd; ls")
             "OK, aber bitte gehen Sie zurück ins Homeverzeichnis und geben Sie das Verzeichnis als Argument an `ls`."
         }
-    } else {
-        "ah k"
     }
 }
 
@@ -95,3 +92,10 @@ prompt {
 }
 
 "Gut gemacht! Probieren Sie das an weiteren Beispielen aus, bis Sie glauben, das Prinzip verstanden zu haben, dann gehen Sie mit `echo fertig` zur nächsten Lektion."
+
+prompt {
+    if ready {
+        expect("echo fertig")
+        break
+    }
+}

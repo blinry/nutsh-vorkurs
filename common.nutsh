@@ -52,3 +52,7 @@ def file(f) {
 def help {
     return(command =~ `echo\s+(help|hilfe)`)
 }
+
+def ready {
+    return(command =~ `echo\s+(fertig|ready)`)
+}
