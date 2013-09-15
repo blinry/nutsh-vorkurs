@@ -1,0 +1,145 @@
+lesson_name("Dateien erschaffen und ansehen - mkdir, wc, diff, Editoren")
+go_home
+
+say("Dann wollen wir uns hier mal weiter einrichten. `"+run("pwd")+"` soll in diesem Tutorial Ihr \"Flur\" sein, von dem einige \"Zimmer\" abgehen.")
+
+"Mit dem Befehl `mkdir` (\"make directory\") legen Sie ein neues Verzeichnis an."
+
+"Bitte erstellen Sie ein `wohnzimmer`, eine `küche`, ein `schlafzimmer` und ein `badezimmer`. Von der Küche aus soll es noch zum `esszimmer` weitergehen. Sie können auch weitere Räume anlegen, wenn Sie möchten."
+
+prompt {
+    if dir("$ROOT/wohnzimmer") && dir("$ROOT/küche") && dir("$ROOT/schlafzimmer") && dir("$ROOT/badezimmer") && dir("$ROOT/küche/esszimmer") {
+        expect("mkdir -p wohnzimmer küche küche/esszimmer schlafzimmer badezimmer")
+        break
+    }
+    if help {
+        expect("echo help")
+        say("Lesen Sie die Manpage des Befehls `mkdir`, um zu lernen, wie man ihn benutzt. Dann legen Sie in `"+run("echo $ROOT")+"` die Ordner `wohnzimmer`, `küche`, `küche/esszimmer`, `schlafzimmer` und `badezimmer` an.")
+    }
+}
+
+"Sehr schön."
+
+"Zum Erzeugen von neuen, leeren Dateien gibt es den Befehl `touch`. Bitte erstellen Sie einen `tisch` im Wohnzimmer und ein `bett` im Schlafzimmer."
+
+prompt {
+    if file("$ROOT/wohnzimmer/tisch") && file("$ROOT/schlafzimmer/bett") {
+        expect("touch wohnzimmer/tisch schlafzimmer/bett")
+        break
+    }
+}
+
+run(`NUTSH_DATEI="$ROOT/wohnzimmer/datei.txt"`)
+run(`echo -e "Bitte korrigieren Sie die Fehler in den folgenden Zeilen:\n\n- Papier ist weiß.\n- Wolken sind weiß.\n- Kühe trinken Wasser." > /tmp/nutsh_file`)
+
+def create_file {
+    run(`echo -e "Bitte korrigieren Sie die Fehler in den folgenden Zeilen:\n\n- Paapier isst wweiß.\n- Wolkn snd wß.\n- Kühe trinken Milch." > "$NUTSH_DATEI"`)
+}
+
+def editors_done {
+    say(run("echo $NUTSH_GEDIT$NUTSH_VIM$NUTSH_EMACS"))
+    return(run("echo $NUTSH_GEDIT$NUTSH_VIM$NUTSH_EMACS") == "111")
+}
+
+create_file
+
+"OK, im Wohnzimmer finden Sie eine weitere neue Datei, in der Sie einige Fehler korrigieren sollen."
+
+"Um Dateien zu bearbeiten, gibt es viele Möglichkeiten - wir wollen heute mal drei der verbreitetsten Texteditoren unter Linux ausprobieren: `gedit`, `vim` und `emacs`. Sagen Sie bitte (mit `echo`) mit welchem der drei Sie anfangen möchten."
+
+def check_file(editor) {
+    if runs(`grep 'Papier ist weiß' "$NUTSH_DATEI"`) &&
+       runs(`grep 'Wolken sind weiß' "$NUTSH_DATEI"`) &&
+       runs(`grep 'Kühe trinken Wasser' "$NUTSH_DATEI"`) {
+       run("NUTSH_"+editor+"=1")
+       if ! editors_done {
+           "Gut. Nennen Sie den Editor, mit dem Sie weitermachen möchten."
+       }
+       return("true")
+    } else {
+        "Die Datei enthält noch Fehler, schauen Sie nochmal rein."
+        return("")
+    }
+}
+
+prompt {
+    if command =~ `echo\s[Gg]edit` {
+        expect("echo gedit")
+        "Gedit ist ein graphischer Texteditor, der Ihnen vielleicht am vertrautesten sein wird - er arbeitet genauso wie Standard-Texteditoren unter Windows oder Mac OS."
+
+        "Beachten Sie: Wenn Sie die Datei gleich mit `gedit [Dateiname]` öffnen, wird dieses Terminalfenster so lange nicht benutzbar sein, bis Sie den Editor wieder schließen. Man sagt, das Programm \"läuft im Vordergrund\" - dazu später mehr."
+
+        prompt {
+            if command =~ "gedit" {
+                if check_file("GEDIT") {
+                    expect("cp /tmp/nutsh_file \"$NUTSH_DATEI\"; echo gedit")
+                    break
+                }
+            }
+        }
+
+        "Gedit hat einige nützliche Plugins. Wenn Sie mehr lernen möchten, werfen Sie einen Blick ins Hilfe-Menü."
+    }
+    if command =~ `echo\s[Vv]im` {
+        expect("echo vim")
+        "Vim ist insofern einzigartig, als es verschiedene Bearbeitungs-Modi hat. Im \"Insert-Modus\" können Sie Text eingeben, im \"Normal-Modus\" können Sie mit verschiedenen Tasten sehr effizient Text löschen/verändern."
+
+        "Zur Bedienung von Vim müssen Sie sich nur zwei Dinge merken:"
+
+        "Mit der Taste `i` gelangen Sie in den Insert-Modus und können Text vor der Cursorposition eingeben. Mit `Escape` verlassen Sie diesem Modus wieder, um zum Beispiel den Cursor herumzubewegen."
+
+        "Und mit `:x`, gefolgt von `Enter`, speichern Sie die Datei und beenden Vim."
+
+        "Und wenn Sie mögen, nehmen Sie noch folgende Dinge mit:"
+
+        "Die Taste `x` im Normal-Modus löscht das Zeichen unter dem Cursor."
+
+        "`cw` auf dem Anfang eines Wortes löscht dieses Wort und wechselt in den Insert-Modus."
+
+        prompt {
+            if command =~ "vim" {
+                if check_file("VIM") {
+                    expect("cp /tmp/nutsh_file \"$NUTSH_DATEI\"; echo vim")
+                    break
+                }
+            }
+        }
+
+        "Wenn Sie mehr über Vim lernen wollen, empfiehlt sich der `vimtutor`, den Sie über genau dieses Kommando starten."
+    }
+    if command =~ `echo\s[Ee]macs` {
+        expect("echo emacs")
+        "Emacs ist sehr mächtig und hat viele eingebaute Erweiterungen (Spiele, Chatbots, Mailclients, ... Die Bedienung erfolgt über zahlreiche Tastenkürzel, weshalb manche sagen, sein Name wäre eine Abkürzung für \"Escape-Meta-Alt-Control-Shift\"."
+
+        "Am besten starten Sie die Kommandozeilen-Version von Emacs mittels der Option `-nw` (\"no window\")."
+
+        "Für Emacs müssen Sie folgende Befehle kennen:"
+
+        "`Strg-x Strg-s` speichert die Datei."
+
+        "Und `Strg-x Strg-c` beendet Emacs."
+
+        prompt {
+            if command =~ "emacs" {
+                if check_file("EMACS") {
+                    expect("cp /tmp/nutsh_file \"$NUTSH_DATEI\"; echo emacs")
+                    break
+                }
+            }
+        }
+
+        "Wenn Sie mehr über Emacs lernen möchten, können Sie das eingebaute Tutorial mit `Strg-h`, gefolgt von `t`, starten."
+    }
+    if editors_done {
+        break
+    }
+}
+
+"Machen Sie sich mit dem Editor, der Ihnen am besten gefallen hat, mit weiteren Beispielen noch etwas vertraut, oder starten Sie den `vimtutor` oder das Emacs-Tutorial (`Strg-h t`). Dann sagen Sie \"fertig\", um die Lektion abzuschließen."
+
+prompt {
+    if command =~ "echo\s+fertig" {
+        expect("echo fertig")
+        break
+    }
+}

@@ -1,4 +1,5 @@
 lesson_name("Mehr `ls`")
+go_home
 /*
 
 run("mkdir -p /tmp/nutsh")

@@ -1,6 +1,7 @@
-lesson_name("Hilfe zur Selbsthilfe - `man`")
+lesson_name("Hilfe zur Selbsthilfe - man")
+go_home
 
-"Die Kommandozeile hat eine hervorragende eingebaute Hilfe: Jeder Befehl bringt sein eigenes kleines \"Handbuch\" mit, in dem man nachschlagen kann, wie man ihn benutzt. Zum Öffnen dieses Handbuchs benutzt man das Kommando `man`, vom Englischen \"manual\", gefolgt vom Namen des Programms, über das man etwas wissen möchte."
+"Die Kommandozeile hat eine tolle eingebaute Hilfe: Jeder Befehl bringt sein eigenes kleines \"Handbuch\" mit, in dem man nachschlagen kann, wie man ihn benutzt. Zum Öffnen dieses Handbuchs benutzt man das Kommando `man`, vom Englischen \"manual\", gefolgt vom Namen des Programms, über das man etwas wissen möchte."
 
 "Öffnen Sie doch beispielsweise einmal das Handbuch des Befehls `cal`. Innerhalb der Handbuchseite können Sie mit den Pfeiltasten herumscrollen, mit der Taste `q` schließen Sie sie wieder."
 
@@ -52,7 +53,7 @@ prompt {
     }
 }
 
-"Ja. Man kann oft auf Verdacht `--help` an einen Befehl hängen, um quasi eine komprimierte Manpage angezeigt zu bekommen."
+"Ja. Man kann oft auf Verdacht `--help` an einen Befehl hängen, um eine Zusammenfassung der Manpage angezeigt zu bekommen."
 
 "Und eine letzte Frage: Was, wenn Sie vergessen haben, wie man den Befehl `man` selbst benutzt?"
 

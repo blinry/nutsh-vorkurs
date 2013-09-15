@@ -1,16 +1,9 @@
-lesson_name("Intro - Begrüßung und erste Beispiele mit `date`")
-
-def exit_code {
-    return(run("echo $?"))
-}
-
-def success {
-    return(exit_code == "0")
-}
+lesson_name("Intro - Begrüßung und erste Beispiele mit `cal`")
+go_home
 
 "Hallo, herzlich willkommen beim praktischen Teil des Vorkurses."
 
-"In den kommenden zwei Wochen möchte ich Sie in die Geheimnisse der Kommandozeile einweihen. Die Kommandozeile ist eine sehr mächtige und effiziente Art und Weise, einen Computer zu bedienen."
+"In den kommenden zwei Wochen möchten wir Sie in die Geheimnisse der Kommandozeile einweihen. Die Kommandozeile ist eine sehr mächtige und effiziente Art und Weise, einen Computer zu bedienen."
 
 "Lassen Sie uns direkt einsteigen. In der nächsten Zeile finden Sie den sogenannten `Prompt`. Dieser signalisiert soviel wie \"Sie können mir jetzt einen Befehl geben\". Tippen Sie einfach mal irgendwas Zufälliges ein (zum Beispiel `blablabla`) und drücken Sie Enter."
 
@@ -64,5 +57,20 @@ prompt {
         break
     }
 }
+
+"Noch zwei Hinweise zu diesem Tutorial-Programm, der Nut Shell: Eine laufende Lektion können Sie mit `exit` verlassen."
+
+"Und schließlich möchten wir Ihnen noch das \"Sprechen\" beibringen: Tippen Sie mal `echo help`!"
+
+prompt {
+    if command == "echo help" {
+        expect("echo help")
+        break
+    }
+}
+
+"`echo` gibt hierbei einfach den Text \"help\" auf der Konsole aus."
+
+"Wenn Sie einmal nicht weiterkommen, können Sie ausprobieren, ob Ihnen der Befehl `echo help` weitere Tipps gibt."
 
 "Soweit die kurze Einführung. Und nun viel Spaß mit dem Rest des Tutorials!"

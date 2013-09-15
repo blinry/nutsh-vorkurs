@@ -1,3 +1,17 @@
+def exit_code {
+    return(run("echo $?"))
+}
+
+def success {
+    return(exit_code == "0")
+}
+
+def go_home {
+    run(`ROOT="$HOME"/.nutsh`)
+    run(`mkdir -p "$ROOT"`)
+    run(`cd "$ROOT"`)
+}
+
 def common_mistakes {
     if command == "1s" {
         "Das ist ein kleines L, keine Eins! Probieren Sie's nochmal!"
@@ -16,4 +30,25 @@ def stayinroot {
         run("cd $ROOT")
         "Bleiben Sie bitte erstmal in diesem Ordner."
     }
+}
+
+def runs(cmd) {
+    run(cmd)
+    return(exit_code == "0")
+}
+
+def test(condition) {
+    return(runs("[[ "+condition+" ]]"))
+}
+
+def dir(d) {
+    return(test("-d \""+d+"\""))
+}
+
+def file(f) {
+    return(test("-f \""+f+"\""))
+}
+
+def help {
+    return(command =~ `echo\s+(help|hilfe)`)
 }
