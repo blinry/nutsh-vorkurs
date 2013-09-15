@@ -1,5 +1,6 @@
 lesson_name("Dateien erschaffen und ansehen - mkdir, wc, diff, Editoren")
 go_home
+run(`rm -rf "$ROOT/wohnzimmer" "$ROOT/schlafzimmer" "$ROOT/badezimmer" "$ROOT/küche"`)
 
 say("Dann wollen wir uns hier mal weiter einrichten. `"+run("pwd")+"` soll in diesem Tutorial Ihr \"Flur\" sein, von dem einige \"Zimmer\" abgehen.")
 
@@ -37,7 +38,6 @@ def create_file {
 }
 
 def editors_done {
-    say(run("echo $NUTSH_GEDIT$NUTSH_VIM$NUTSH_EMACS"))
     return(run("echo $NUTSH_GEDIT$NUTSH_VIM$NUTSH_EMACS") == "111")
 }
 
@@ -63,7 +63,7 @@ def check_file(editor) {
 }
 
 prompt {
-    if command =~ `echo\s[Gg]edit` {
+    if command =~ `echo\s+[Gg]edit` {
         expect("echo gedit")
         "Gedit ist ein graphischer Texteditor, der Ihnen vielleicht am vertrautesten sein wird - er arbeitet genauso wie Standard-Texteditoren unter Windows oder Mac OS."
 
@@ -80,7 +80,7 @@ prompt {
 
         "Gedit hat einige nützliche Plugins. Wenn Sie mehr lernen möchten, werfen Sie einen Blick ins Hilfe-Menü."
     }
-    if command =~ `echo\s[Vv]im` {
+    if command =~ `echo\s+[Vv]im` {
         expect("echo vim")
         "Vim ist insofern einzigartig, als es verschiedene Bearbeitungs-Modi hat. Im \"Insert-Modus\" können Sie Text eingeben, im \"Normal-Modus\" können Sie mit verschiedenen Tasten sehr effizient Text löschen/verändern."
 
@@ -107,7 +107,7 @@ prompt {
 
         "Wenn Sie mehr über Vim lernen wollen, empfiehlt sich der `vimtutor`, den Sie über genau dieses Kommando starten."
     }
-    if command =~ `echo\s[Ee]macs` {
+    if command =~ `echo\s+[Ee]macs` {
         expect("echo emacs")
         "Emacs ist sehr mächtig und hat viele eingebaute Erweiterungen (Spiele, Chatbots, Mailclients, ... Die Bedienung erfolgt über zahlreiche Tastenkürzel, weshalb manche sagen, sein Name wäre eine Abkürzung für \"Escape-Meta-Alt-Control-Shift\"."
 

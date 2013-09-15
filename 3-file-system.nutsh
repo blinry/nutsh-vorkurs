@@ -1,0 +1,97 @@
+lesson_name("Mehr `ls`")
+go_home
+
+"Ihnen steht auf den Rechnern des GITZ ein eigenes Verzeichnis zur Verfügung, in dem Sie Daten speichern können. Dieses heißt unter Linux `Heimat-` oder `Home-Verzeichis`. Weil es so wichtig ist, ist `cd` so eingestellt, dass es standardmäßig ins Home-Verzeichnis geht, wenn man keine Argumente aufführt. Probieren Sie das einmal aus!"
+
+prompt {
+    if command == "cd" {
+        expect("cd")
+        break
+    }
+}
+
+"Der Teil des Promptes, der das aktuelle Verzeichnis anzeigt, enthält nun einfach nur eine Tilde - dies ist eine weitere Abkürzung: Sie können immer, wenn Sie Ihr Home-Verzeichnis meinen, eine Tilde dafür schreiben."
+
+"Um herauszufinden, wie Ihr Homeverzeichnis unabgekürzt heißt, können Sie den Befehl `pwd` benutzen (\"print working directory\")."
+
+prompt {
+    if command =~ "^pwd" {
+        expect("pwd")
+        break
+    }
+}
+
+"Der Pfad, der da ausgegeben wird, beginnt mit einem Schrägstrich (`Slash`), sehen Sie? `/` ist das sogenannte `Root-` oder `Wurzelverzeichnis`, der oberste Ort in der Verzeichnishierarchie. Lassen Sie uns dort einmal hingehen."
+
+prompt {
+    if run("pwd") == "/" {
+        expect("cd /")
+        break
+    }
+}
+
+"Von hier aus können Sie nicht weiter \"hochgehen\". Wenn Sie mögen, schauen Sie sich hier kurz um und gehen Sie in einige Ordner hinein. Kaputtmachen können Sie dabei nichts - Sie haben nur in Ihrem Homeverzeichnis Schreibrechte. Wenn Sie weitermachen möchten, gehen Sie wieder dorthin zurück (zum Beispiel mit `cd ~`)."
+
+prompt {
+    if run("pwd") == run(`echo "$HOME"`) {
+        expect("cd ~")
+        break
+    }
+}
+
+"Zwei ganz wesentliche Konzepte sind `absolute` und `relative` Pfade."
+
+"Immer, wenn Sie einen Pfad \"vom aktuellen Verzeichnis aus\" angeben, ist das ein relativer Pfad. Absolute Pfade beginnen mit einem Slash, und beziehen sich aufs Wurzelverzeichnis."
+
+"Beispiel. Wenn Sie `ls` ein Verzeichnis als Argument geben, listet es die Inhalte dieses Verzeichnisses auf. Lassen Sie sich (von hier aus) die Inhalte des Root-Ordners anzeigen."
+
+prompt {
+    if output =~ "var" && output =~ "usr" {
+        if ! run("pwd") == "/" {
+            expect("cd; ls /")
+            break
+        } else {
+            expect("cd /; ls")
+            "OK, aber bitte gehen Sie zurück ins Homeverzeichnis und geben Sie das Verzeichnis als Argument an `ls`."
+        }
+    }
+}
+
+"Und die Inhalte des Verzeichnisses `/dev`, wo Dateien liegen, über die man die Hardware ansprechen kann?"
+
+prompt {
+    if output =~ "null" && output =~ "tty" {
+        if !(run("pwd") == "/dev") {
+            expect("cd; ls /dev")
+            say("?")
+            break
+        } else {
+            expect("cd /dev; pwd; ls")
+            "OK, aber bitte gehen Sie zurück ins Homeverzeichnis und geben Sie das Verzeichnis als Argument an `ls`."
+        }
+    } else {
+        "ah k"
+    }
+}
+
+"Und nun versuchen Sie Folgendes: Lassen Sie sich die Inhalte von `/dev` anzeigen, ohne dass der Pfad mit einem Slash beginnt. Mit anderen Worten, benutzen Sie einen Pfad relativ zu Ihrem Home-Verzeichnis! Dafür werden Sie einige `..` brauchen, die Sie mit Slashes getrennt aneinanderhängen können, um mehrere Verzeichnisse hochzugehen."
+
+prompt {
+    if output =~ "null" && output =~ "tty" {
+        if run("pwd") == run(`echo "$HOME"`) {
+            if command =~ `ls\s+\.\.` {
+                expect("cd /dev; ls ../dev; cd ~") // Cheat ;-)
+                break
+            }
+            if command =~ `ls\s+/` {
+                expect("cd; ls /dev")
+                "Das ist ein absoluter Pfad. Probieren Sie, einen relativen zu benutzen."
+            }
+        } else {
+            expect("cd /dev; ls")
+            "Bitte bleiben Sie in Ihrem Homeverzeichnis."
+        }
+    }
+}
+
+"Gut gemacht! Probieren Sie das an weiteren Beispielen aus, bis Sie glauben, das Prinzip verstanden zu haben, dann gehen Sie mit `echo fertig` zur nächsten Lektion."
