@@ -10,7 +10,7 @@ go_home
 "Drücken Sie dann einfach Enter, wenn Sie soweit sind."
 
 prompt {
-    expect("")
+    expect(" ")
     break
 }
 
