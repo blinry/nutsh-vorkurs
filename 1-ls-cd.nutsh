@@ -91,4 +91,13 @@ common_mistakes, stayinroot {
     }
 
     "Gut! Das war eine erste Einführung in `ls` und `cd`, wir werden uns diesen Befehlen später noch genauer widmen."
+
+    "Bitte sagen Sie `echo fertig`, wenn Sie die Lektion abschließen möchten."
+
+    prompt {
+        if ready {
+            expect("echo fertig")
+            break
+        }
+    }
 }

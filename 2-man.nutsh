@@ -63,7 +63,15 @@ prompt {
     if command =~ `^man\s+man` || command =~ `^man\s+--help` {
         expect("man man", "q")
         expect("man --help")
-        "Genau. Damit ist diese Lektion zu Ende."
+        break
+    }
+}
+
+"Genau. Damit ist diese Lektion zu Ende. Bitte sagen Sie `echo fertig`, um diese Lektion abzuschließen."
+
+prompt {
+    if ready {
+        expect("echo fertig")
         break
     }
 }

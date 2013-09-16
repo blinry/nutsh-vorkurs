@@ -84,4 +84,11 @@ prompt {
 
 "Soweit die kurze Einführung. Und nun viel Spaß mit dem Rest des Tutorials!"
 
-"Im nun folgenden Menü können Sie die nächste Lektion auswählen, indem Sie einfach ihre Nummer eingeben und Enter drücken."
+"Bitte \"sagen\" Sie `fertig`, wenn Sie die Lektion abschließen möchten."
+
+prompt {
+    if ready {
+        expect("echo fertig")
+        break
+    }
+}

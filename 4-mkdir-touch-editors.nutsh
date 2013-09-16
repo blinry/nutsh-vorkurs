@@ -140,7 +140,7 @@ prompt {
 "Machen Sie sich mit dem Editor, der Ihnen am besten gefallen hat, mit weiteren Beispielen noch etwas vertraut, oder starten Sie den `vimtutor` oder das Emacs-Tutorial (`Strg-h t`). Dann sagen Sie \"fertig\", um die Lektion abzuschließen."
 
 prompt {
-    if command =~ "echo\s+fertig" {
+    if ready {
         expect("echo fertig")
         break
     }
