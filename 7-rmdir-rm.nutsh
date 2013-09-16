@@ -18,7 +18,7 @@ prompt {
 
 "[Eine Ratte huscht durchs Zimmer]"
 
-run("touch wohnzimmer/ratte toilette/nasse_ratte schlafzimmer/maus küche/esszimmer/dicke_ratte schrank/ratte1 schrank/ratte2 schrank/ratte3")
+run("touch wohnzimmer/ratte toilette/nasse_ratte schlafzimmer/ratte küche/esszimmer/dicke_ratte schrank/ratte1 schrank/ratte2 schrank/ratte3")
 "Whoa, bei Ihnen ist wohl eine Ungezieferplage ausgebrochen! Überall in der Wohnung sind Nagetiere aufgetaucht! Suchen und *vernichten* Sie alle!"
 
 prompt {
