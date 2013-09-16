@@ -60,7 +60,7 @@ prompt {
 "Eine letzte Frage: Was, wenn Sie vergessen haben, wie man den Befehl `man` selbst benutzt?"
 
 prompt {
-    if command =~ `^man\s+man` || command =~ `^man\s+--help` {
+    if command =~ `^man\s+man` || command =~ `^man\s+-?-help` {
         expect("man man", "q")
         expect("man --help")
         break

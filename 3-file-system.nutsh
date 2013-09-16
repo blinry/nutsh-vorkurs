@@ -21,7 +21,7 @@ prompt {
     }
 }
 
-"Der Pfad, der da ausgegeben wird, beginnt mit einem Schrägstrich (*Slash*), sehen Sie? `/` ist das sogenannte *Root-* oder *Wurzelverzeichnis*, der oberste Ort in der Verzeichnishierarchie. Lassen Sie uns dort einmal hingehen."
+"Der Pfad, der da ausgegeben wird, beginnt mit einem Schrägstrich (*Slash*), sehen Sie? `/` ist das sogenannte *Wurzelverzeichnis*, der oberste Ort in der Verzeichnishierarchie. Lassen Sie uns dort einmal hingehen."
 
 prompt {
     if run("pwd") == "/" {
@@ -45,7 +45,7 @@ prompt {
 
 "Immer, wenn Sie einen Pfad \"vom aktuellen Verzeichnis aus\" angeben, ist das ein relativer Pfad. Absolute Pfade beginnen mit einem Slash, und beziehen sich aufs Wurzelverzeichnis."
 
-"Beispiel. Wenn Sie hinter `ls` einen Verzeichnisnamen schreiben, listet es die Inhalte dieses Verzeichnisses auf. Lassen Sie sich (von hier aus) die Inhalte des Root-Ordners anzeigen."
+"Beispiel. Wenn Sie hinter `ls` einen Verzeichnisnamen schreiben, listet es die Inhalte dieses Verzeichnisses auf. Lassen Sie sich (von hier aus) die Inhalte des Wurzelverzeichnisses anzeigen."
 
 prompt {
     if output =~ "var" && output =~ "usr" {
