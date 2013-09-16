@@ -15,7 +15,7 @@ prompt {
         } else {
             if command =~ "wohnzimmer" {
                 expect("ls wohnzimmer")
-                "Oh, jetzt haben Sie doch alles richtig getippt - bitte gehen Sie nochmal zurück und vertippen Sie sich ;-)"
+                "Oh, jetzt haben Sie doch alles richtig getippt - bitte vertippen Sie sich ;-)"
             }
         }
     }
@@ -34,7 +34,7 @@ prompt {
 
 "Die zweite Funktion heißt *Tab-Completion* und tut folgendes: Wenn Sie einen Pfad oder einen Dateinamen teilweise getippt haben, können Sie *Tab* drücken, um ihn automatisch vervollständigen zu lassen."
 
-"Wenn Sie bitte nochmal einen Ordner hochgehen, können Sie das ausprobieren, indem Sie `ls wohn` eintippen und dann *Tab* drücken (die Taste links neben Q)."
+"Sie können das ausprobieren, indem Sie `ls wohn` eintippen und dann *Tab* drücken (die Taste links neben Q)."
 
 prompt {
     if command =~ "^ls" {
@@ -45,18 +45,20 @@ prompt {
     }
 }
 
-"Sollte es mehrere Möglichkeiten geben, den Pfad zu ergänzen, wird beim ersten Tastendruck nichts passieren, beim zweiten werden Ihnen dann alle Möglichkeiten aufgelistet. Bitte gehen Sie (ein letztes Mal!) einen Ordner hoch, und probieren Sie aus, was bei `ls s` *Tab* *Tab* `r` *Tab* passiert."
+"Sollte es mehrere Möglichkeiten geben, den Pfad zu ergänzen, wird beim ersten Tastendruck nichts passieren, beim zweiten werden Ihnen dann alle Möglichkeiten aufgelistet. Bitte probieren Sie aus, was bei `ls s` *Tab* *Tab* *Tab* `r` *Tab* passiert."
 
 prompt {
     if command =~ "^ls" {
-        if command =~ "schlafzimmer" {
-            expect("ls schlafzimmer")
+        if command =~ "schrank" {
+            expect("ls schrank")
             break
         }
     }
 }
 
-"Als weiteres Beispiel probieren Sie Folgendes: Lassen Sie sich den vollständigen Pfad Ihres Home-Verzeichnisses mit `pwd` ausgeben. Wechseln Sie dann ins Wurzelverzeichnis `/` und gehen Sie dann wieder in Ihr Homeverzeichnis zurück, indem Sie den Pfad absolut angeben - also quasi die Ausgabe von `pwd` abtippen, und dabei möglichst oft *Tab* drücken."
+run(`cd "$ROOT"`) // can't hurt
+
+"Als weiteres Beispiel probieren Sie Folgendes: Lassen Sie sich den vollständigen Pfad dieses Verzeichnisses mit `pwd` ausgeben. Wechseln Sie dann ins Wurzelverzeichnis `/` und gehen Sie dann wieder in dieses Verzeichnis zurück, indem Sie den Pfad absolut angeben - also quasi die Ausgabe von `pwd` abtippen, und dabei möglichst oft *Tab* drücken."
 
 prompt {
     if run("pwd") == "/" {
@@ -66,8 +68,8 @@ prompt {
 }
 
 prompt {
-    if command =~ "^cd\s+/" && run("pwd") == run(`echo "$HOME"`) {
-        expect("cd /; cd $HOME") // cheat!
+    if command =~ "^cd\s+/" && run("pwd") == run(`echo "$ROOT"`) {
+        expect("cd /; cd $ROOT") // cheat!
         break
     }
 }
