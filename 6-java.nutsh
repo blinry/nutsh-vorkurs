@@ -22,8 +22,6 @@ prompt {
 "Um aus der Quelldatei ein lauffähiges Programm zu machen, gibt es den Befehl `javac` (Java compiler), der einfach als Argument die .java-Datei bekommt."
 
 prompt {
-    say(file("Selection.class")+" und "+file("fu.class"))
-    say(dir(".."))
     if file("Selection.class") {
         expect("javac Selection.java")
         break
@@ -33,9 +31,11 @@ prompt {
 "`javac` hat eine neue Datei namens `Selection.class` erstellt - dieses Programm kann man nun mit dem Befehl `java` starten - als Argument gibt man den Namen der Datei *vor dem Punkt* an."
 
 prompt {
-    if command =~ "java\s+Selection" {
+    if command =~ `java\s+Selection` {
         expect("java Selection")
         break
+    } else {
+        expect(" ")
     }
 }
 
@@ -44,7 +44,7 @@ prompt {
 "Öffnen Sie die .java-Datei und fügen Sie in der dritten Zeile einige zusätzliche, durch Kommas getrennte ganze Zahlen hinzu. Dann führen Sie wie zuvor `javac` und `java` aus."
 
 prompt {
-    if command =~ "java\s+Selection" {
+    if command =~ `java\s+Selection` {
         if ! (output =~ "(?m)^-23 42 1337$") {
             expect(`sed -i '3s/{.*}/{3,2,1,99}/' Selection.java; javac Selection.java; java Selection`)
             break

@@ -74,7 +74,7 @@ prompt {
     }
 }
 
-"Mit `echo fertig` schließen Sie die Lektion ab."
+"Benutzen Sie die beiden Funktionen in den kommenden Lektionen möglichst oft - sie machen das Leben auf der Kommandozeile wesentlich bequemer. Mit `echo fertig` schließen Sie die Lektion ab."
 
 prompt {
     if ready {
