@@ -1,0 +1,12 @@
+lesson_name("Links - ln")
+make_home
+
+"Mit `echo fertig` schließen Sie die Lektion ab."
+
+prompt {
+    if ready {
+        expect("echo fertig")
+        break
+    }
+}
+

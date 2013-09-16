@@ -1,4 +1,68 @@
 lesson_name("Prozessverwaltung - ps")
-go_home
+make_home
 
+"Der Befehl `ps` zeigt laufende Prozesse an. Ohne Argumente zeigt es nur die Prozesse auf dem aktuellen Terminal, das ist meistens ziemlich langweilig. Probieren Sie es trotzdem einmal aus?"
 
+prompt {
+    if command =~ "ps" {
+        expect("ps")
+        break
+    }
+}
+
+"Die Spalten bedeuten von links nach rechts: Prozess-ID, Terminal in dem der Prozess läuft, zusammengerechnete Zeit die der Prozess etwas getan hat, Name des Programms."
+
+"Die Manpage listet eine große Anzahl an Optionen auf, aber meistens braucht man nur ein paar davon:"
+
+"Mit der Option `-e` (\"every\") können Sie sich alle Prozesse anzeigen lassen, die auf dem Rechner laufen."
+
+prompt {
+    if command =~ `ps\s+-e` {
+        expect("ps -e")
+        break
+    }
+}
+
+"Und wenn sie als zweite Option noch `-H` (\"hierarchy\") dazusetzen, werden die Prozesse verschachtelt dargestellt: Wenn ein Prozess unter einem anderen eingerückt dargestellt wird, bedeutet dass, dass der obere Prozess den unteren gestartet hat."
+
+prompt {
+    if command =~ `ps\s+.*H` && command =~ `ps\s+.*e` {
+        expect("ps -eH")
+        if ! command =~ "(eH|He)" {
+            expect("ps -e -H")
+            "Wenn Sie mehrere der \"kurzen\" Optionen (die aus einem Buchstaben bestehen) auf einmal benutzen wollen, können Sie diese übrigens auch direkt hintereinanderschreiben, hier also zum Beispiel so: `ps -eH`"
+        }
+        break
+    }
+}
+
+"Der `ps`-Prozess gibt übrigens aus, das er selbst läuft. Finden Sie ihn? Er wurde von dem `bash`-Prozess gestartet, der wiederum von dem `nutsh`-Prozess gestartet wurde. Bitte geben Sie die Prozess-ID des bash-Prozesses mit `echo` aus."
+
+prompt {
+    if output =~ run("echo $$") {
+        expect("echo $$") // ... ;-)
+        break
+    }
+    if command =~ "echo" {
+        expect("echo blubb")
+        "Das war nicht die ID des `bash`-Prozesses."
+    }
+}
+
+"Und wenn man Details zu den Prozessen wissen möchte, ist die Option `-f` (\"full\") hilfreich. Das zeigt dann zusätzlich noch an, welcher Benutzer den Prozess gestartet hat, welche ID der Elternprozess hat, wann er gestartet wurde und mit welchen Argumenten er aufgerufen wurde."
+
+prompt {
+    if command =~ `ps\s+.*f` {
+        expect("ps -f")
+        break
+    }
+}
+
+"Jau! `echo fertig` schließt die Lektion ab."
+
+prompt {
+    if ready {
+        expect("echo fertig")
+        break
+    }
+}

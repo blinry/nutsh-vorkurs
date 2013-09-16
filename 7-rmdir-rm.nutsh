@@ -1,0 +1,96 @@
+lesson_name("Dateien löschen und verschieben - rmdir, cp, mv, rm")
+make_home
+
+run("touch wohnzimmer/datei.txt")
+
+"Nachdem wir gestern Ordner und Dateien angelegt haben (mit `mkdir` und `touch`), lernen Sie heute, wie man diese wieder löscht."
+
+"Zum Löschen einer Datei benutzen Sie `rm` (\"remove\"). Löschen Sie doch beispielsweise mal die `datei.txt` im Wohnzimmer."
+
+prompt {
+    if ! file("$ROOT/wohnzimmer/datei.txt") {
+        expect("rm wohnzimmer/datei.txt")
+        break
+    } else {
+        expect(" ")
+    }
+}
+
+"[Eine Ratte huscht durchs Zimmer]"
+
+run("touch wohnzimmer/ratte toilette/nasse_ratte schlafzimmer/maus küche/esszimmer/dicke_ratte schrank/ratte1 schrank/ratte2 schrank/ratte3")
+"Whoa, bei Ihnen ist wohl eine Ungezieferplage ausgebrochen! Überall in der Wohnung sind Nagetiere aufgetaucht! Suchen und *vernichten* Sie alle!"
+
+prompt {
+    if run(`find "$ROOT" | grep ratte`) == "" {
+        expect("rm */*ratte*; rm küche/esszimmer/*ratte")
+        break
+    } else {
+        expect(" ")
+    }
+}
+
+"Das war die letzte. Puh."
+
+"Was mit `rm` gelöscht wurde, ist nur sehr schwer bis unmöglich wiederherzustellen - mit dem Befehl müssen Sie also ein wenig aufpassen. Es wird von Ihnen erwartet, dass Sie wissen, was Sie tun! :-)"
+
+"Als nächstes löschen wir Ordner, das geht mit `rmdir` (\"remove directory\"). Aus Sicherheitsgründen funktioniert dies nur mit leeren Ordnern, sie müssen alle Inhalte also vorher bereits entfernt haben."
+
+"Entsorgen Sie doch beispielsweise mal den leeren Pizzakarton in der Küche."
+
+run(`mkdir "$ROOT/küche/pizzakarton"`)
+
+prompt {
+    if ! dir("$ROOT/küche/pizzakarton") {
+        expect("rmdir küche/pizzakarton")
+        break
+    }
+}
+
+"Wenn das doch immer so einfach wäre."
+
+"Eine etwas größere Aufgabe: In Ihrem Flur steht nun eine Kiste - bitte entfernen Sie diese und ihren Inhalt unter Zuhilfenahme von `rm` und `rmdir`. Sie müssen Sich dabei von unten nach oben vorarbeiten."
+
+def create_box {
+    run("cd $ROOT")
+    run("mkdir kiste")
+    run("mkdir kiste/dose")
+    run("touch kiste/dose/kekskrümel")
+    run("mkdir kiste/ordner")
+    run("touch kiste/ordner/steuerbescheid")
+    run("touch kiste/ordner/werbeflyer")
+    run("cd -")
+}
+
+create_box
+
+prompt {
+    if ! dir("$ROOT/kiste") {
+        expect(`rm -rf "$ROOT"`) // minor cheat
+        break
+    }
+}
+
+"Geschafft! Das war nun natürlich sehr mühselig. Es gibt daher eine Möglichkeit, ein Verzeichnis mitsamt seinem kompletten Inhalt zu löschen: Schauen Sie mal, ob Sie in der Manpage von `rm` die Option dafür finden. Sollten Sie nicht fündig werden, gibt es mit `echo help` einen Tipp."
+
+create_box
+
+prompt {
+    if ! dir("$ROOT/kiste") {
+        expect(`rm -rf "$ROOT"`)
+        break
+    }
+    if help {
+        expect("echo help")
+        "Was Sie suchen, ist eine Option, die ein Verzeichnis und seine Inhalte *rekursiv* löscht."
+    }
+}
+
+"Soweit so gut. Mit `echo fertig` schließen Sie die Lektion ab."
+
+prompt {
+    if ready {
+        expect("echo fertig")
+        break
+    }
+}

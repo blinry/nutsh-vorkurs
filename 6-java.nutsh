@@ -55,6 +55,8 @@ prompt {
     }
 }
 
+# TODO: Leerkarten?
+
 "Genau. Mit `echo fertig` schließen Sie die Lektion ab."
 
 prompt {
