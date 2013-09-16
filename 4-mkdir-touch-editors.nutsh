@@ -45,7 +45,7 @@ create_file
 
 "OK, im Wohnzimmer finden Sie eine weitere neue Datei, in der Sie einige Fehler korrigieren sollen."
 
-"Um Dateien zu bearbeiten, gibt es viele Möglichkeiten - wir wollen heute mal drei der verbreitetsten Texteditoren unter Linux ausprobieren: `gedit`, `vim` und `emacs`. Sagen Sie bitte (mit `echo`) mit welchem der drei Sie anfangen möchten."
+"Um Dateien zu bearbeiten, gibt es viele Möglichkeiten - wir wollen heute mal drei der verbreitetsten Texteditoren unter Linux ausprobieren: `gedit`, `vim` und `emacs`. Sie starten den Editor jeweils mit `[Editor] [Dateiname]`. Sagen Sie bitte (mit `echo`) mit welchem der drei Sie anfangen möchten."
 
 def check_file(editor) {
     if runs(`grep 'Papier ist weiß' "$NUTSH_DATEI"`) &&
@@ -94,7 +94,7 @@ prompt {
 
         "Die Taste `x` im Normal-Modus löscht das Zeichen unter dem Cursor."
 
-        "`cw` auf dem Anfang eines Wortes löscht dieses Wort und wechselt in den Insert-Modus."
+        "`cw` (\"change word\") auf dem Anfang eines Wortes löscht dieses Wort und wechselt in den Insert-Modus."
 
         prompt {
             if command =~ "vim" {
@@ -124,6 +124,8 @@ prompt {
                 if check_file("EMACS") {
                     expect("cp /tmp/nutsh_file \"$NUTSH_DATEI\"; echo emacs")
                     break
+                } else {
+                    expect("echo emacs")
                 }
             }
         }
