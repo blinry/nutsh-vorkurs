@@ -66,7 +66,7 @@ create_box
 
 prompt {
     if ! dir("$ROOT/kiste") {
-        expect(`rm -rf "$ROOT"`) // minor cheat
+        expect(`rm -rf "$ROOT/kiste"`) // minor cheat
         break
     }
 }
@@ -77,7 +77,7 @@ create_box
 
 prompt {
     if ! dir("$ROOT/kiste") {
-        expect(`rm -rf "$ROOT"`)
+        expect(`rm -rf "$ROOT/kiste"`)
         break
     }
     if help {

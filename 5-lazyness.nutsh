@@ -75,7 +75,7 @@ prompt {
 "Mit `echo fertig` schließen Sie die Lektion ab."
 
 prompt {
-    if fertig {
+    if ready {
         expect("echo fertig")
         break
     }
