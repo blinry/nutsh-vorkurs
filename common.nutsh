@@ -12,6 +12,13 @@ def go_home {
     run(`cd "$ROOT"`)
 }
 
+def make_home {
+    go_home
+    run(`cd "$ROOT"`)
+    run(`mkdir -p schrank wohnzimmer schlafzimmer badezimmer küche küche/esszimmer`)
+    run(`touch wohnzimmer/tisch schlafzimmer/bett`)
+}
+
 def common_mistakes {
     if command == "1s" {
         "Das ist ein kleines L, keine Eins! Probieren Sie's nochmal!"

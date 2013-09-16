@@ -74,10 +74,7 @@ common_mistakes, stayinroot {
         if command =~ "ls" {
             if output == "" {
                 expect("ls schrank/magische_tür/tür1")
-                if !(run("echo $NUTSH_ONCE") == "ok") {
-                    "Dieses Verzeichnis scheint leer zu sein."
-                    run("NUTSH_ONCE=ok")
-                }
+				"Dieses Verzeichnis scheint leer zu sein."
             }
         }
     }

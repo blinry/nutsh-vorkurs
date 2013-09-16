@@ -1,0 +1,82 @@
+lesson_name("History und Tab-Completion")
+make_home
+
+"Die Kommandozeile hat zwei Funktionen, die einem viel Zeit und Tipparbeit ersparen können."
+
+"Bei der ersten Funktion handelt es sich um die Kommandozeilen-Geschichte (*History*). Jedes Mal, wenn Sie eine Zeile eingeben, merkt sich die Shell das, und Sie können sich die Zeile später erneut anzeigen lassen. Das funktioniert ganz ähnlich wie die Chronik in einem Web-Browser."
+
+"Lassen Sie uns das mal ausprobieren. Tun Sie mal so, als wollten Sie sich mit `ls` den Inhalt des Wohnzimmers anzeigen lassen, bauen Sie dabei aber einen Tippfehler ein - zum Beispiel `wohnzimmr`."
+
+prompt {
+    if command =~ "^ls" {
+        if ! success {
+            expect("ls wohnzimmfuuu")
+            break
+        } else {
+            if command =~ "wohnzimmer" {
+                expect("ls wohnzimmer")
+                "Oh, jetzt haben Sie doch alles richtig getippt - bitte gehen Sie nochmal zurück und vertippen Sie sich ;-)"
+            }
+        }
+    }
+}
+
+"Und nun - statt die Zeile nochmal ganz einzutippen -  können *Pfeil nach oben* drücken, um sie sich wieder anzeigen zu lassen. Dann können Sie den Fehler beheben."
+
+prompt {
+    if success && command =~ "wohnzimmer" {
+        expect("ls wohnzimmer")
+        break
+    }
+}
+
+"Wenn man mehrmals *Pfeil nach oben*, kann man auch weiter in der Kommandogeschichte zurückgehen. Sehr praktisch."
+
+"Die zweite Funktion heißt *Tab-Completion* und tut folgendes: Wenn Sie einen Pfad oder einen Dateinamen teilweise getippt haben, können Sie *Tab* drücken, um ihn automatisch vervollständigen zu lassen."
+
+"Wenn Sie bitte nochmal einen Ordner hochgehen, können Sie das ausprobieren, indem Sie `ls wohn` eintippen und dann *Tab* drücken (die Taste links neben Q)."
+
+prompt {
+    if command =~ "^ls" {
+        if command =~ "wohnzimmer" {
+            expect("ls wohnzimmer")
+            break
+        }
+    }
+}
+
+"Sollte es mehrere Möglichkeiten geben, den Pfad zu ergänzen, wird beim ersten Tastendruck nichts passieren, beim zweiten werden Ihnen dann alle Möglichkeiten aufgelistet. Bitte gehen Sie (ein letztes Mal!) einen Ordner hoch, und probieren Sie aus, was bei `ls s` *Tab* *Tab* `r` *Tab* passiert."
+
+prompt {
+    if command =~ "^ls" {
+        if command =~ "schlafzimmer" {
+            expect("ls schlafzimmer")
+            break
+        }
+    }
+}
+
+"Als weiteres Beispiel probieren Sie Folgendes: Lassen Sie sich den vollständigen Pfad Ihres Home-Verzeichnisses mit `pwd` ausgeben. Wechseln Sie dann ins Wurzelverzeichnis `/` und gehen Sie dann wieder in Ihr Homeverzeichnis zurück, indem Sie den Pfad absolut angeben - also quasi die Ausgabe von `pwd` abtippen, und dabei möglichst oft *Tab* drücken."
+
+prompt {
+    if run("pwd") == "/" {
+        expect("cd /")
+        break
+    }
+}
+
+prompt {
+    if command =~ "^cd\s+/" && run("pwd") == run(`echo "$HOME"`) {
+        expect("cd /; cd $HOME") // cheat!
+        break
+    }
+}
+
+"Mit `echo fertig` schließen Sie die Lektion ab."
+
+prompt {
+    if fertig {
+        expect("echo fertig")
+        break
+    }
+}
