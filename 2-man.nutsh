@@ -43,7 +43,7 @@ prompt {
     }
 }
 
-"Die zweite Option, die Sie noch nachschlagen sollten, gibt eine kurze und knappe Hilfe zu dem Befehl aus."
+"Die zweite Option, die viele Befehle haben, ist `--help` - sie gibt eine kurze und knappe Hilfe zu dem Befehl aus."
 
 prompt {
     if command =~ `^cal\s+(--help|-h)` {

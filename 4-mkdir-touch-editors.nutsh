@@ -50,7 +50,7 @@ create_file
 def check_file(editor) {
     if runs(`grep 'Papier ist weiß' "$NUTSH_DATEI"`) &&
        runs(`grep 'Wolken sind weiß' "$NUTSH_DATEI"`) &&
-       runs(`grep 'Kühe trinken Wasser' "$NUTSH_DATEI"`) {
+       (runs(`grep 'Kühe trinken Wasser' "$NUTSH_DATEI"`) || runs(`grep 'Kühe geben Milch' "$NUTSH_DATEI"`)){
        run("NUTSH_"+editor+"=1")
        if ! editors_done {
            "Gut. Nennen Sie den Editor, mit dem Sie weitermachen möchten."
@@ -80,7 +80,7 @@ prompt {
 
         "Gedit hat einige nützliche Plugins. Wenn Sie mehr lernen möchten, werfen Sie einen Blick ins Hilfe-Menü."
     }
-    if command =~ `echo\s+[Vv]im` {
+    if command =~ `echo\s+[Vv]im?` {
         expect("echo vim")
         "Vim ist insofern einzigartig, als es verschiedene Bearbeitungs-Modi hat. Im \"Insert-Modus\" können Sie Text eingeben, im \"Normal-Modus\" können Sie mit verschiedenen Tasten sehr effizient Text löschen/verändern."
 
@@ -97,7 +97,7 @@ prompt {
         "`cw` (\"change word\") auf dem Anfang eines Wortes löscht dieses Wort und wechselt in den Insert-Modus."
 
         prompt {
-            if command =~ "vim" {
+            if command =~ "vim?" {
                 if check_file("VIM") {
                     expect("cp /tmp/nutsh_file \"$NUTSH_DATEI\"; echo vim")
                     break
