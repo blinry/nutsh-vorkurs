@@ -55,9 +55,7 @@ prompt {
     }
 }
 
-//TODO: Leerkarten?
-
-"Genau. Mit `echo fertig` schließen Sie die Lektion ab."
+"Genau. Wenn Sie bereits etwas Programmiererfahrung haben, können Sie versuchen, das Programm so zu ändern, dass es die Zahlen absteigend sortiert. Mit `echo fertig` schließen Sie dann die Lektion ab."
 
 prompt {
     if ready {
