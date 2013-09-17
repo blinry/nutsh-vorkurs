@@ -31,7 +31,7 @@ prompt {
 "`javac` hat eine neue Datei namens `Selection.class` erstellt - dieses Programm kann man nun mit dem Befehl `java` starten - als Argument gibt man den Namen der Datei *vor dem Punkt* an."
 
 prompt {
-    if command =~ `java\s+Selection` {
+    if command =~ `java\s+Selection` && success {
         expect("java Selection")
         break
     } else {
