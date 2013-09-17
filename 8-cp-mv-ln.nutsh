@@ -67,7 +67,7 @@ prompt {
     }
 }
 
-"Nun schreiben Sie mal in die Originaldatei etwas herein und überprüfen Sie dann die Inhalte der beiden Links. Der Unterschied zwischen den beiden Linktypen wird deutlich, wenn Sie `ls -l` ausführen."
+"Nun schreiben Sie mal in die Originaldatei etwas herein und überprüfen Sie dann die Inhalte der beiden Links (Pro-Tipp: Dateien kann man mit `cat` schnell und einfach auslesen). Der Unterschied zwischen den beiden Linktypen wird deutlich, wenn Sie `ls -l` ausführen."
 
 prompt {
     if command =~ "ls -l" {
@@ -78,9 +78,9 @@ prompt {
 
 "Die Option `-l` (\"long\") zeigt mehr Details zu den Dateien und Ordnern an (nämlich Zugriffsrechte, Anzahl der harten Links auf die selbe Datei, Besitzer, besitzende Gruppe, Dateigröße, Zeitpunkt der letzten Änderung)"
 
-"Die Zahl 2 in der zweiten Spalte der harten Links signalisiert, dass diese Datei nun zwei Namen hat. Der symbolische Link hingegen ist eine eigene spezielle Datei und verweist nur auf die Ursprungsdatei. Ehrlich gesagt - diese Links braucht man sehr selten. Aber vielleicht stoßen Sie mal irgendwo darauf."
+"Die Zahl 2 in der zweiten Spalte der harten Links signalisiert, dass diese Datei nun zwei Namen hat. Der symbolische Link hingegen ist eine eigene spezielle Datei und verweist nur auf die Ursprungsdatei. Ehrlich gesagt - diese Links braucht man sehr selten. Aber wenn Sie mal auf welche stoßen, wissen Sie, worum es sich dabei handelt."
 
-"Alles verstanden? Räumen Sie noch auf, wenn Sie mögen (löschen Sie das Geld im Flur und die die Burger in der Küche), und machen Sie, noch weitere Beispiele mit `cp` und `mv`. Sie können zum Beispiel mithilfe den Manpages mal herausfinden, wie man einen ganzen Ordner kopiert."
+"Alles verstanden? Räumen Sie noch auf, wenn Sie mögen (löschen Sie das Geld im Flur und die Burger im Esszimmer), und machen Sie noch weitere Beispiele mit `cp` und `mv`. Sie können zum Beispiel mithilfe der Manpages mal herausfinden, wie man einen ganzen Ordner kopiert."
 
 "Mit `echo fertig` schließen Sie dann die Lektion ab."
 

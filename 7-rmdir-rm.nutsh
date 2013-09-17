@@ -18,7 +18,7 @@ prompt {
 
 "[Eine Ratte huscht durchs Zimmer]"
 
-run("touch wohnzimmer/ratte toilette/nasse_ratte schlafzimmer/ratte küche/esszimmer/dicke_ratte schrank/ratte1 schrank/ratte2 schrank/ratte3")
+run(`touch "$ROOT"/wohnzimmer/ratte "$ROOT"/toilette/nasse_ratte "$ROOT"/schlafzimmer/ratte "$ROOT"/küche/esszimmer/dicke_ratte "$ROOT"/schrank/ratte1 "$ROOT"/schrank/ratte2 "$ROOT"/schrank/ratte3`)
 "Whoa, bei Ihnen ist wohl eine Ungezieferplage ausgebrochen! Überall in der Wohnung sind Nagetiere aufgetaucht! Suchen und *vernichten* Sie alle!"
 
 prompt {
@@ -86,7 +86,7 @@ prompt {
     }
 }
 
-"Soweit so gut. Mit `echo fertig` schließen Sie die Lektion ab."
+"So weit so gut. Mit `echo fertig` schließen Sie die Lektion ab."
 
 prompt {
     if ready {

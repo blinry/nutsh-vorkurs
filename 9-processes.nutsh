@@ -26,20 +26,24 @@ prompt {
 "Und wenn sie als zweite Option noch `-H` (\"hierarchy\") dazusetzen, werden die Prozesse verschachtelt dargestellt: Wenn ein Prozess unter einem anderen eingerückt dargestellt wird, bedeutet dass, dass der obere Prozess den unteren gestartet hat."
 
 prompt {
-    if command =~ `ps\s+.*H` && command =~ `ps\s+.*e` {
-        expect("ps -eH")
-        if ! command =~ "(eH|He)" {
-            expect("ps -e -H")
-            "Wenn Sie mehrere der \"kurzen\" Optionen (die aus einem Buchstaben bestehen) auf einmal benutzen wollen, können Sie diese übrigens auch direkt hintereinanderschreiben, hier also zum Beispiel so: `ps -eH`"
+    if command =~ `ps\s+.*H` {
+        if command =~ `ps\s+.*e` {
+            expect("ps -eH")
+            if ! command =~ "(eH|He)" {
+                expect("ps -e -H")
+                "Wenn Sie mehrere der \"kurzen\" Optionen (die aus einem Buchstaben bestehen) auf einmal benutzen wollen, können Sie diese übrigens auch direkt hintereinanderschreiben, hier also zum Beispiel so: `ps -eH`"
+            }
+            break
+        } else {
+            "Ja, geben Sie zusätzlich noch die vorherige Option `-e` an, sonst sieht man nicht besonders viel."
         }
-        break
     }
 }
 
 "Der `ps`-Prozess gibt übrigens aus, das er selbst läuft. Finden Sie ihn? Er wurde von dem `bash`-Prozess gestartet, der wiederum von dem `nutsh`-Prozess gestartet wurde. Bitte geben Sie die Prozess-ID des bash-Prozesses mit `echo` aus."
 
 prompt {
-    if output =~ run("echo $$") {
+    if output =~ run("echo $$") && command =~ "echo" {
         expect("echo $$") // ... ;-)
         break
     }
