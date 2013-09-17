@@ -1,0 +1,103 @@
+lesson_name("Kommandozeilen-Editor")
+make_home
+
+"Sie kennen ja bereits die automatische Vervollständigung von Dateinamen, wenn Sie *Tab* drücken und die Kommandozeilengeschichte mit *Pfeil hoch/runter*."
+
+"Es gibt noch weitere Funktionen, die es einfacher machen, Befehle einzugeben. Der Befehl `history` zum Beispiel gibt eine Liste aller Befehle aus, die Sie in der Vergangenheit eingetippt haben."
+
+prompt {
+    if command =~ "history" {
+        expect("history")
+        break
+    }
+}
+
+"Einige nützliche Tastenkombinationen sind außerdem *Strg-a*, *Strg-e*, *Strg-w*, *Strg-y* und *Strg-u*. Tippen Sie mal einige Wörter ein und versuchen Sie dann herauszufinden, was die Tastenkombinationen jeweils tun. Wenn Sie ein Kürzel nicht verstehen, können Sie sich mit `echo [Buchstabe]` eine Beschreibung anzeigen lassen. Mit `echo fertig` geht es dann weiter."
+
+prompt {
+    if ready {
+        expect("echo fertig")
+        break
+    }
+    if command =~ "echo\s+a" {
+        expect("echo a")
+        "Strg-a springt an den Anfang der Zeile."
+    }
+    if command =~ "echo\s+e" {
+        expect("echo e")
+        "Strg-e springt ans Ende der Zeile."
+    }
+    if command =~ "echo\s+w" {
+        expect("echo w")
+        "Strg-w löscht das Wort vor dem Cursor."
+    }
+    if command =~ "echo\s+y" {
+        expect("echo y")
+        "Strg-y fügt den zuletzt gelöschten Text wieder ein."
+    }
+    if command =~ "echo\s+u" {
+        expect("echo u")
+        "Strg-u löscht die den gesamten Text vor dem Cursor."
+    }
+}
+
+"Für die nächste Funktion brauchen wir ein wenig \"Material\" - geben Sie bitte hinereinander `echo eins`, `echo zwei` und `echo drei` ein."
+
+// TODO: mehr checks?
+prompt {
+    if command =~ "echo drei" {
+        expect("echo drei")
+        break
+    }
+    expect("echo zwei")
+    expect("echo eins")
+}
+
+"Wenn Sie `![Zeichenkette]` schreiben, wird der letzte Befehl ausgeführt, der mit der Zeichenkette beginnt - führen Sie erst `history` und dann `!e` aus, um das auszuprobieren."
+
+prompt {
+    if command =~ "history" {
+        expect("history")
+        break
+    }
+}
+
+prompt {
+    if output =~ `(?m)^drei$` {
+        expect("!e")
+        break
+    }
+}
+
+"In der ersten Zeile wird nochmal der gesamte Befehl angezeigt, der dabei ausgeführt wird."
+
+"Wenn Sie nicht nur am Anfang der Befehle, sondern auch in deren Mitte suchen möchten, können Sie `!?[Zeichenkette]` benutzen. Geben Sie damit zum Beispiel mal \"zwei\" aus, ohne dass Ihr Befehl mit echo beginnt."
+
+prompt {
+    if output =~ `(?m)^zwei$` && ! command =~ `^\s*echo` {
+        expect("!?zwei")
+        break
+    }
+}
+
+"Nachteil an diesen Abkürzungen ist, dass man vorher nicht sicher weiß, welcher Befehl ausgeführt werden wird - es gibt noch eine bessere Variante, die Sie sich unbedingt merken sollten:"
+
+"*Strg-r* wechselt in einen Suchmodus, in dem Sie Teile eines Befehls eintippen können. Dabei wird Ihnen live der neueste Befehl aus der History, der diesen Teil enthält angezeigt. Suchen Sie sich mit dieser Methode mal eine Ihrer `echo fertig`-Zeilen heraus und führen Sie diese aus."
+
+prompt {
+    if output == "fertig" && ! command =~ `^\s*echo` {
+        expect("fert")
+        break
+    }
+}
+
+"Versuchen Sie - unter Zuhilfenahme von `history` und *Strg-r* noch weitere ältere Befehle herauszusuchen und auszuführen. Wenn Sie die Pfeiltasten *Links* oder *Rechts* betätigen, bevor Sie *Enter* drücken, können Sie den gefundenen Befehl auch noch verändern."
+
+"Sie kennen das: Mit `echo fertig` schließen Sie die Lektion schließlich ab."
+
+prompt {
+    if ready {
+        expect("echo fertig")
+        break
+    }
+}

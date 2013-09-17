@@ -1,0 +1,43 @@
+lesson_name("Aliase")
+make_home
+
+"Es gibt einen Befehl, um Kürzel für oft benutzte Kommandos zu definieren, dieser heißt `alias`. Man benutzt ihn wie folgt:"
+
+"`alias kürzel=\"langeform -mit --optionen\"`"
+
+"Zum Beispiel können Sie sich ein Kürzel namens `ps` erstellen, das für die Langform `ps -eH` steht. Definieren Sie sich einen solchen Alias und probieren Sie ihn aus."
+
+prompt {
+    if command =~ "ps$" {
+        if run("alias|grep ps") =~ "ps\s+-eH" {
+            expect("alias ps=\"ps -eH\"; ps")
+            break
+        }
+    } else {
+        expect("alias ps=\"ps -eH\"")
+    }
+    if command =~ "ps" && command =~ " = " {
+        expect("alisa ps = \"ps -eH\"")
+        "Um das Gleichheits-Zeichen dürfen keine Leerzeichen stehen."
+    }
+}
+
+"Genau. Definieren Sie sich noch drei weitere Aliase (die zum Beispiel `ls` standardmäßig mit `-l` aufrufen, `cal` mit `-3` aufrufen, oder die dafür sorgen, dass `j` den Befehl `java` startet. Mit `alias` ohne Argumente können Sie sich alle momentan definierten Aliase ausgeben lassen."
+
+prompt {
+    if command =~ "alias$" {
+        if run("alias|head -4|wc -l") == "4" {
+            expect("alias x=x; alias y=y; alias z=z; alias")
+            break
+        }
+    }
+}
+
+"Probieren Sie die Aliase jeweils einmal aus - mit `echo fertig` schließen Sie dann die Lektion ab."
+
+prompt {
+    if ready {
+        expect("echo fertig")
+        break
+    }
+}

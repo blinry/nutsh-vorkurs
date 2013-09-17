@@ -25,7 +25,7 @@ prompt {
 "Aufgabe: Finden Sie heraus, wie man `cal` dazu bringt, den aktuellen, vergangenen und kommenden Monat auf einmal anzuzeigen - und probieren Sie das dann einmal aus."
 
 prompt {
-    if command =~ `^cal\s+-3` {
+    if command =~ `^cal\s+.*-3` {
         expect("cal -3")
         break
     }
