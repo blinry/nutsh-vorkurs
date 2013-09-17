@@ -15,24 +15,15 @@ common_mistakes, stayinroot {
     prompt {
         if command == "ls" {
             expect("ls")
-            "Genau. `ls` steht kurz für \"list\" und zeigt Ihnen die Dateien
-            und Verzeichnisse an, die sich in Ihrem aktuellen Verzeichnis
-            befinden. Die Verzeichnisse werden dabei blau dargestellt, die
-            weißen Einträge sind Dateien."
+            "Genau. `ls` steht kurz für \"list\" und zeigt Ihnen die Dateien und Verzeichnisse an, die sich in Ihrem aktuellen Verzeichnis befinden. Die Verzeichnisse werden dabei blau dargestellt, die weißen Einträge sind Dateien."
 
-            say("Sie sind gerade in einem Ordner namens `"+run("pwd")+"` - der aktuelle
-            Ordner steht auch immer im Prompt, der mit dem Dollarzeichen
-            endet.")
+            say("Sie sind gerade in einem Ordner namens `"+run("pwd")+"` - der aktuelle Ordner steht auch immer im Prompt, der mit dem Dollarzeichen endet.")
 
             break
         }
     }
 
-    "Sie haben vielleicht gesehen, dass sich hier ein Verzeichnis namens
-    `schrank` befindet. Um dieses zu Ihrem aktuellen Verzeichnis zu machen,
-    tippen Sie `cd` (vom Englischen \"change directory\"), dann ein Leerzeichen
-    und dann den Namen des Verzeichnisses, in das Sie möchten. Bewegen Sie sich
-    damit doch mal in den Schrank und sehen Sie sich mit `ls` darin um!"
+    "Sie haben vielleicht gesehen, dass sich hier ein Verzeichnis namens `schrank` befindet. Um dieses zu Ihrem aktuellen Verzeichnis zu machen, tippen Sie `cd` (vom Englischen \"change directory\"), dann ein Leerzeichen und dann den Namen des Verzeichnisses, in das Sie möchten. Bewegen Sie sich damit doch mal in den Schrank und sehen Sie sich mit `ls` darin um!"
 
     prompt {
         if run("pwd") == run("echo $ROOT/schrank") {
@@ -44,8 +35,7 @@ common_mistakes, stayinroot {
         }
     }
 
-    "Und wenn Sie wieder aus dem Schrank herausmöchten? Die Abkürzung für das
-    Verzeichnis oberhalb des aktuellen sind zwei Punkte: `..`!"
+    "Und wenn Sie wieder aus dem Schrank herausmöchten? Die Abkürzung für das Verzeichnis oberhalb des aktuellen sind zwei Punkte: `..`!"
 
     prompt {
         if run("pwd") == run("echo $ROOT") {
