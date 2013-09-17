@@ -73,6 +73,8 @@ prompt {
 
 "Geschafft! Das war nun natürlich sehr mühselig. Es gibt daher eine Möglichkeit, ein Verzeichnis mitsamt seinem kompletten Inhalt zu löschen: Schauen Sie mal, ob Sie in der Manpage von `rm` die Option dafür finden. Sollten Sie nicht fündig werden, gibt es mit `echo help` einen Tipp."
 
+"Wir haben Ihnen wieder ein Kiste in den Flur gestellt - diese können Sie nun versuchen, mit einem einzgen Befehl zu löschen."
+
 create_box
 
 prompt {

@@ -85,7 +85,7 @@ prompt {
 "*Strg-r* wechselt in einen Suchmodus, in dem Sie Teile eines Befehls eintippen können. Dabei wird Ihnen live der neueste Befehl aus der History, der diesen Teil enthält angezeigt. Suchen Sie sich mit dieser Methode mal eine Ihrer `echo fertig`-Zeilen heraus und führen Sie diese aus."
 
 prompt {
-    if output == "fertig" && ! command =~ `^\s*echo` {
+    if output == "fertig" {
         expect("fert")
         break
     }
