@@ -32,11 +32,15 @@ def common_mistakes {
     }
 }
 
-def stayinroot {
-    if !(run("pwd") =~ run("echo $ROOT")) {
-        run("cd $ROOT")
+def stayin(d) {
+    if !(run("pwd") =~ run(`echo "`+d+`"`)) {
+        run(`cd "`+d+`"`)
         "Bleiben Sie bitte erstmal in diesem Ordner."
     }
+}
+
+def stayinroot {
+    stayin("$HOME")
 }
 
 def runs(cmd) {

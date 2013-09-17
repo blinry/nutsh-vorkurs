@@ -1,9 +1,51 @@
 lesson_name("Quoting")
 make_home
 
+"Manchmal möchte man nun nicht, dass die Shell Wildcard-Ersetzungen durchführt. In diesem Fall kann man doppelte Anführungszeichen um den Text setzen."
 
+"Gehen Sie noch mal in den Ordner '/bin' und geben Sie mit `echo` den *Text* \"*a*\" aus."
 
-"Mit `echo fertig` schließen Sie die Lektion ab."
+prompt {
+    if in("/bin") {
+        expect("cd /bin")
+        break
+    }
+}
+
+prompt {
+    if output =~ `\*a\*` {
+        expect("echo \"*a*\"")
+        break
+    } else {
+        if command =~ `\*a\*` {
+            expect("echo *a*")
+            "Setzen Sie Anführungszeichen um den Text, ansonsten ersetzt die Shell die Wildcards."
+        }
+    }
+}
+
+"Die Anführungszeichen helfen auch, wenn Sie mit Dateien arbeiten, die Leerzeichen im Namen haben. In Ihrem Wohnzimmer liegt nun die Datei `10 euro schein`, außerdem die Dateien `10`, `euro` und `schein` - Ihre Aufgabe ist es, mit `cat` den Inhalt der ersten Datei auszugeben."
+
+run(`echo "Dies ist die Datei \"10 euro schein\"" > "$ROOT/wohnzimmer/10 euro schein"`)
+run(`echo "Dies ist die Datei \"10\"" > "$ROOT/wohnzimmer/10"`)
+run(`echo "Dies ist die Datei \"euro\"" > "$ROOT/wohnzimmer/euro"`)
+run(`echo "Dies ist die Datei \"schein\"" > "$ROOT/wohnzimmer/schein"`)
+
+prompt {
+    if output =~ "Dies ist die Datei \"10 euro schein\"" {
+        expect(`cd "$ROOT"; cat "wohnzimmer/10 euro schein"`)
+        break
+    } else {
+        if command =~ "10 euro schein" {
+            if output =~ `"euro` || output =~ `"schein` {
+                expect(`cd "$ROOT/wohnzimmer"; cat 10 euro schein`)
+                "Die Shell denkt wegen der Leerzeichen, es wären drei einzelne Dateien gemeint - wenn Sie Anführungszeichen um die drei Wörter setzen, fasst sie es als einen einzigen Parameter auf."
+            }
+        }
+    }
+}
+
+"Genau. Und das war's auch schon. `fertig`?"
 
 prompt {
     if ready {

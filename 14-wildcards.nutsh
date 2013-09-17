@@ -54,28 +54,30 @@ prompt {
     }
 }
 
-prompt {
-    if command =~ `\?\?\?` {
-        expect("echo ???")
-        break
+stayin("/bin") {
+    prompt {
+        if command =~ `\?\?\?` {
+            expect("echo ???")
+            break
+        }
     }
-}
 
-"Und alle Dateien, deren zweiter Buchstabe ein *b* ist?"
+    "Und alle Dateien, deren zweiter Buchstabe ein *b* ist?"
 
-prompt {
-    if command =~ `\?b\*` {
-        expect(`ls ?b*`)
-        break
+    prompt {
+        if command =~ `\?b\*` {
+            expect(`ls ?b*`)
+            break
+        }
     }
-}
 
-"Alle Dateien, die mindestens zwei *a* enthalten?"
+    "Alle Dateien, die mindestens zwei *a* enthalten?"
 
-prompt {
-    if command =~ `\*a\*a\*` {
-        expect(`ls *a*a*`)
-        break
+    prompt {
+        if command =~ `\*a\*a\*` {
+            expect(`ls *a*a*`)
+            break
+        }
     }
 }
 
