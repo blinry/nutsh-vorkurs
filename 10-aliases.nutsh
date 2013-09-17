@@ -16,13 +16,15 @@ prompt {
     } else {
         expect("alias ps=\"ps -eH\"")
     }
-    if command =~ "ps" && command =~ " = " {
-        expect("alisa ps = \"ps -eH\"")
+    if command =~ "ps" && (command =~ "= " || command =~ " =") {
+        expect("alias ps = \"ps -eH\"")
         "Um das Gleichheits-Zeichen dürfen keine Leerzeichen stehen."
     }
 }
 
 "Genau. Definieren Sie sich noch drei weitere Aliase (die zum Beispiel `ls` standardmäßig mit `-l` aufrufen, `cal` mit `-3` aufrufen, oder die dafür sorgen, dass `j` den Befehl `java` startet. Mit `alias` ohne Argumente können Sie sich alle momentan definierten Aliase ausgeben lassen."
+
+"Übrigens: Spannend ist auch die Option `-a` von `ls` - sie zeigt *versteckte* Dateien an, das sind diejenigen, die mit einem Punkt beginnen. In Ihrem Homeverzeichnis befinden sich bereits so einige versteckte Dateien, hauptsächlich Konfigurationsdateien. Schauen Sie einmal nach!"
 
 prompt {
     if command =~ "alias$" {

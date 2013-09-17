@@ -1,7 +1,7 @@
 lesson_name("grep")
 make_home
 
-"TODO"
+"Der Befehl `grep` sucht"
 
 "Mit `echo fertig` schließen Sie die Lektion ab."
 

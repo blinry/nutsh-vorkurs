@@ -3,7 +3,7 @@ make_home
 
 "Manchmal möchte man nun nicht, dass die Shell Wildcard-Ersetzungen durchführt. In diesem Fall kann man doppelte Anführungszeichen um den Text setzen."
 
-"Gehen Sie noch mal in den Ordner '/bin' und geben Sie mit `echo` den *Text* \"*a*\" aus."
+say("Gehen Sie noch mal in den Ordner '/bin' und geben Sie mit `echo` den *Text* \"*a*\" aus.")
 
 prompt {
     if in("/bin") {

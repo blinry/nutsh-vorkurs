@@ -1,0 +1,98 @@
+lesson_name("Variablen")
+make_home
+
+"In Variablen kann man Werte zum späteren oder wiederholten Gebrauch speichern. Sie schreiben dafür:"
+
+"`VARIABLENNAME=\"Wert\"`"
+
+"Den Wert kann man sich dann wieder ausgeben lassen, indem man dann ein Dollarzeichen vor den Namen schreibt (`$VARIABLENNAME`) - dies wird vor der Ausführung dann durch den darin gespeicherten Wert ersetzt."
+
+"Es ist ganz, ganz üblich den Variablennamen in Großbuchstaben zu schreiben, um ihn besser von Befehlen unterscheiden zu können."
+
+"Zur Übung setzen Sie die Variable `ANTWORT` auf den Wert `42`. Lassen Sie sich dann mit `echo` den Wert wieder ausgeben."
+
+prompt {
+    if run("echo $ANTWORT") == "42" {
+        expect("ANTWORT=42")
+        break
+    }
+    if command =~ "^ANTWORT" && (command =~ "= " || command =~ " =") {
+        "Um das Gleichheits-Zeichen dürfen keine Leerzeichen stehen, sonst wird der Teil vor dem Leerzeichen als Befehl aufgefasst."
+    }
+}
+
+prompt {
+    if command =~ `^echo.*ANTWORT` && output =~ "42" {
+        expect("echo $ANTWORT")
+        break
+    }
+    if command =~ "echo\s+ANTWORT" {
+        "Um den Wert auszugeben, setzen sie noch ein Dollarzeichen vor den Variablennamen."
+    }
+}
+
+"Die *bash*-Shell setzt standardmäßig bereits einige Variablen, zum Beispiel `HOME`. Lassen Sie sich diese Variable einmal ausgeben."
+
+prompt {
+    if output =~ run("echo $HOME") {
+        expect("echo $HOME")
+        break
+    }
+}
+
+"Klar, darin steht der Pfad zu Ihrem Homeverzeichnis."
+
+"Sie können die Variable auch neu setzen - wenn Sie möchten, ändern Sie die Variable einmal auf einen anderen Ordner (zum Beispiel auf `~/.nutsh/schrank`) und beobachten Sie, wie sich der Prompt und die Ausführung von `cd` verhalten. Keine Sorge, in der nächsten Lektion ist dann alles wieder wie vorher."
+
+"Danach lassen Sie sich die Variable *OLDPWD* ausgeben."
+
+prompt {
+    if command =~ `echo.*OLDPWD` && output =~ run("echo $OLDPWD") {
+        expect("echo $OLDPWD")
+        break
+    }
+}
+
+"Ahnen Sie, was diese Variable enthält? Ansonsten laufen Sie ein wenig in verschiedenen Verzeichnissen herum und lassen Sie sich die Variable jeweils ausgeben."
+
+"Pro Tip: `cd -` wechselt in das Verzeichnis, das in *OLDPWD* steht."
+
+"Um fortzufahren, tippen Sie `echo fertig`"
+
+prompt {
+    if ready {
+        expect("echo fertig")
+        break
+    }
+}
+
+"Nun kommt einer der wenigen Momente, an denen Sie die *Nut Shell* kurz verlassen müssen. Denn das Programm benutzt nicht sichtbare Marker im Prompt, um zu erkennen, wann ein Befehl fertig ausgeführt wurde - wenn wir daran herumspielen, geht diese Erkennung kaputt."
+
+"Öffnen Sie bitte daher ein zweites Terminal und probieren sie die im Folgenden beschriebenen Dinge dort aus!"
+
+"Mit `env` können Sie sich sämtliche Variablen auflisten lassen, die dort standardmäßig bereits definiert sind. Besonders interessant ist hierbei noch *PS1*, die beschreibt, was in Ihrem Prompt stehen soll. Sie können *PS1* einmal auf einen kurzen Text ändern, und beobachten, was passiert. Innerhalb der Nut Shell ist die Variable auf \"\\w $ \" gesetzt - das *\\w* wird hierbei durch den aktuellen Pfad ersetzt. Das können Sie auch mal ausprobieren."
+
+"Interessiert Sie, welche weiteren speziellen Kürzel man in der *PS1*-Variable benutzen kann? (`echo ja/nein`)"
+
+prompt {
+    if command =~ "ja" {
+        expect("echo ja")
+        "Sämtliche Kürzel sind in der Manpage der `bash` aufgeführt. Achtung, diese Manpage ist unglaublich lang (vielleicht möchten Sie Ihre 15 Euro Druckguthaben aufbrauchen? ;-) - Sie können innerhalb der Manpage zum richtigen Abschnitt springen, indem sie einen Schrägstrich tippen, um eine Suche zu starten, und dann \"PROMPTING\" eingeben. Anschließend tippen Sie einige Male \"n\", um zum nächsten Treffer zu springen."
+        break
+    }
+    if command =~ "nein" {
+        expect("echo nein")
+        break
+    }
+}
+
+"In jedem Fall: Wenn Sie einen Prompt gefunden haben, der Ihnen gefällt, können Sie die `PS=...`-Zeile in die Konfigurationsdatei `.bashrc` in Ihrem Homeverzeichnis schreiben, damit diese Einstellung dauerhaft beibehalten wird. Dort können Sie übrigens auch Alias-Definitionen hineinschreiben, die Sie dauerhaft verfügbar haben möchten. Innerhalb der Nut Shell bitten wir Sie aus genannten Gründen, die *PS1*-Variable so zu lassen, wie sie ist."
+
+"Das war's! Sie können das zweite Terminal wieder schließen. Mit `echo fertig` schließen Sie die Lektion ab."
+
+prompt {
+    if ready {
+        expect("echo fertig")
+        break
+    }
+}
