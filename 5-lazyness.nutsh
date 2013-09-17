@@ -68,7 +68,7 @@ prompt {
 }
 
 prompt {
-    if command =~ "^cd\s+/" && run("pwd") == run(`echo "$ROOT"`) {
+    if command =~ "^cd" && run("pwd") =~ run(`echo "$ROOT"`) {
         expect("cd /; cd $ROOT") // cheat!
         break
     }
