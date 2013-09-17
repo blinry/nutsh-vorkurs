@@ -1,9 +1,87 @@
 lesson_name("Wildcards")
 make_home
 
+"Wann haben Sie eigentlich das letzte Mal in Ihren Schrank geschaut?"
 
+run(`touch "$ROOT"/schrank/ratte{1..33}`)
 
-"Mit `echo fertig` schließen Sie die Lektion ab."
+prompt {
+    if output =~ "ratte" {
+        expect("ls schrank")
+        break
+    }
+}
+
+"Ohje, die alle einzeln zu löschen wäre aber viel Arbeit!"
+
+"Für solche Situationen gibt es die sogenannten *Wildcards* (\"Platzhalter\"). Das Zeichen `*` ist eine Abkürzung für eine beliebige Anzahl von Zeichen. Lassen Sie sich (mit `ls`) erstmal alle Ratten anzeigen, deren Nummer mit einer 1 beginnt."
+
+prompt {
+    if output =~ "ratte1" && output =~ "ratte19" && ! output =~ "ratte2" {
+        expect(`ls schrank/ratte1*`)
+        break
+    }
+}
+
+"Und nun lassen Sie sich alle Ratten anzeigen, deren Nummer mit einer 2 endet!"
+
+prompt {
+    if output =~ "ratte2" && output =~ "ratte12" && ! output =~ "ratte20" {
+        expect(`ls schrank/ratte*2`)
+        break
+    }
+}
+
+"Das ganze funktioniert so: Wenn Sie in einem Befehl eine *Wildcard* benutzen, prüft die Shell, ob dieses Muster auf eine oder mehrere Dateien passt. Wenn ja, wird das Wort mit der Wildcard durch die entsprechenden Dateien ersetzt und der eingegebene Befehl wird dann mit diesen Argumenten aufgerufen."
+
+"Nun dürfen Sie endlich alle Ratten löschen! ;-)"
+
+prompt {
+    if ! runs(`ls "$ROOT/schrank"|grep ratte`) {
+        expect(`rm schrank/ratte*`)
+        break
+    }
+}
+
+"Zweite Wildcard ist das *?*, es steht für genau ein beliebiges Zeichen."
+
+"Wechseln Sie in das Verzeichnis `/bin`. Und lassen Sie sich alle Dateien auflisten, deren Namen genau aus drei beliebigen Zeichen besteht."
+
+prompt {
+    if in("/bin") {
+        expect("cd /bin")
+        break
+    }
+}
+
+prompt {
+    if command =~ `\?\?\?` {
+        expect("echo ???")
+        break
+    }
+}
+
+"Und alle Dateien, deren zweiter Buchstabe ein *b* ist?"
+
+prompt {
+    if command =~ `\?b\*` {
+        expect(`ls ?b*`)
+        break
+    }
+}
+
+"Alle Dateien, die mindestens zwei *a* enthalten?"
+
+prompt {
+    if command =~ `\*a\*a\*` {
+        expect(`ls *a*a*`)
+        break
+    }
+}
+
+"Hervorragend! Wenn Sie mögen, probieren Sie noch weitere Beispiele aus."
+
+"Mit `echo fertig` schließen Sie dann die Lektion ab."
 
 prompt {
     if ready {

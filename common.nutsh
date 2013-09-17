@@ -63,3 +63,7 @@ def help {
 def ready {
     return(command =~ `echo\s+(fertig|ready)`)
 }
+
+def in(d) {
+    return(run("pwd") == d)
+}
