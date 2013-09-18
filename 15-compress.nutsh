@@ -40,13 +40,17 @@ stop_elephant {
             expect("ls -s")
             "Okay, rund zehntausend Kilobyte. `ls` kann Ihnen das mit der Option `-h` auch noch in eine besser lesbare Größenordnung umrechnen."
         }
+        if output =~ "10485760" {
+            expect("ls -l")
+            "Okay, rund zehn millionen Byte. `ls` kann Ihnen das mit der Option `-h` auch noch in eine besser lesbare Größenordnung umrechnen."
+        }
     }
 
     "Wir müssen den Elefanten kleiner machen. Es gibt mehrere Verfahren, um Dateien zu komprimieren - eines der verbreitetsten ist unter Linux `gzip`. Komprimieren Sie den Elefanten damit und lassen Sie sich erneut die Größe in Megabyte anzeigen."
 
     prompt {
         if file(`"$ROOT/küche/elefant.gz"`) {
-            if output =~ `\d\.\dM` {
+            if output =~ `\d[.,]\dM` {
                 expect("gzip -f elefant; ls -sh")
                 break
             }
@@ -61,7 +65,7 @@ stop_elephant {
 
     prompt {
         if file(`"$ROOT/küche/elefant.bz2"`) {
-            if output =~ `\d\.\dM` {
+            if output =~ `\d[.,]\dM` {
                 expect("cp ../elefant .; bzip2 -f elefant; ls -sh")
                 break
             }
