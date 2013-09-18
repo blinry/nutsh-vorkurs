@@ -41,7 +41,7 @@ prompt {
     }
 }
 
-"Für die nächste Funktion brauchen wir ein wenig \"Material\" - geben Sie bitte hinereinander `echo eins`, `echo zwei` und `echo drei` ein."
+"Für die nächste Funktion brauchen wir ein wenig \"Material\" - geben Sie bitte hinereinander die drei Befehle `echo eins`, `echo zwei` und `echo drei` ein."
 
 // TODO: mehr checks?
 prompt {

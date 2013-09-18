@@ -1,0 +1,90 @@
+lesson_name("Dateien komprimieren - tar, gzip, bzip2")
+make_home
+run(`mkdir "$ROOT/küche/kühlschrank"`)
+run(`seq 1 2000000 | tr -d '\n' | head -c $((1024*1024*10)) > "$ROOT/küche/elefant"`)
+
+"Kennen Sie den alten Witz \"Wie bekommt man einen Elefanten in den Kühlschrank?\""
+
+"\"Kühlschranktür auf, Elefant rein, Kühlschranktür zu\". Probieren Sie das mal aus, wir haben Ihnen einen frischen Elefanten in die Küche geliefert!"
+
+def elephant_in_fridge {
+    return(file(`"$ROOT/küche/kühlschrank/elefant"`))
+}
+
+def stop_elephant {
+    if elephant_in_fridge {
+        "[Der Elefant passt nicht in den Kühlschrank]"
+        run(`mv "$ROOT/küche/kühlschrank/elefant" "$ROOT/küche/elefant"`)
+    }
+}
+
+prompt {
+    if elephant_in_fridge {
+        stop_elephant
+        expect("cd küche; mv elefant kühlschrank")
+        break
+    }
+}
+
+stop_elephant {
+
+    "Hm, so einfach ist das wohl doch nicht. Können Sie herausfinden, wie groß die Datei ist? Die Manpage von `ls` hilft Ihnen dabei!"
+
+    prompt {
+        if output =~ "10M" {
+            expect("ls -sh")
+            "10 Megabyte? So groß ist der Kühlschrank allerdings wirklich nicht."
+            break
+        }
+        if output =~ "10240" {
+            expect("ls -s")
+            "Okay, rund zehntausend Kilobyte. `ls` kann Ihnen das mit der Option `-h` auch noch in eine besser lesbare Größenordnung umrechnen."
+        }
+    }
+
+    "Wir müssen den Elefanten kleiner machen. Es gibt mehrere Verfahren, um Dateien zu komprimieren - eines der verbreitetsten ist unter Linux `gzip`. Komprimieren Sie den Elefanten damit und lassen Sie sich erneut die Größe in Megabyte anzeigen."
+
+    prompt {
+        if file(`"$ROOT/küche/elefant.gz"`) {
+            if output =~ `\d\.\dM` {
+                expect("gzip -f elefant; ls -sh")
+                break
+            }
+        }
+    }
+
+    say("Das klingt doch schon viel besser.")
+
+    "Weil das so gut funktioniert hat, haben wir Ihnen einen zweiten Elefangen in den Flur geliefert - diesen können Sie in die Küche holen und ihn diesmal mit `bzip2` komprimieren. Wie groß ist die komprimierte Datei diesmal?"
+
+    run(`seq 1 2000000 | tr -d '\n' | head -c $((1024*1024*10)) > "$ROOT/elefant"`)
+
+    prompt {
+        if file(`"$ROOT/küche/elefant.bz2"`) {
+            if output =~ `\d\.\dM` {
+                expect("cp ../elefant .; bzip2 -f elefant; ls -sh")
+                break
+            }
+        }
+    }
+
+    "Die beiden komprimierten Elefanten passen nun prima in den Kühlschrank!"
+
+    "(Tipp: Mithilfe von Wildcards können Sie die beiden Dateien sehr bequem auf einmal verschieben!)"
+}
+
+prompt {
+    if file(`"$ROOT/küche/kühlschrank/elefant.gz"`) && file(`"$ROOT/küche/kühlschrank/elefant.bz2"`) {
+        expect(`mv elefant* kühlschrank`)
+        break
+    }
+}
+
+"Mit `echo fertig` schließen Sie die Lektion ab."
+
+prompt {
+    if ready {
+        expect("echo fertig")
+        break
+    }
+}
