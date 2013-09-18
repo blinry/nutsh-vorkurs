@@ -70,7 +70,7 @@ prompt {
 
 "Öffnen Sie bitte daher ein zweites Terminal und probieren sie die im Folgenden beschriebenen Dinge dort aus!"
 
-"Mit `env` können Sie sich sämtliche Variablen auflisten lassen, die dort standardmäßig bereits definiert sind. Besonders interessant ist hierbei noch *PS1*, die beschreibt, was in Ihrem Prompt stehen soll. Sie können *PS1* einmal auf einen kurzen Text ändern, und beobachten, was passiert. Innerhalb der Nut Shell ist die Variable auf \"\\w $ \" gesetzt - das *\\w* wird hierbei durch den aktuellen Pfad ersetzt. Das können Sie auch mal ausprobieren."
+"Mit `env` können Sie sich sämtliche Variablen auflisten lassen, die dort standardmäßig bereits definiert sind. Besonders interessant ist außerdem die Variable *PS1*, die beschreibt, was in Ihrem Prompt stehen soll. Sie können *PS1* einmal auf einen kurzen Text setzen, und beobachten, was passiert. Innerhalb der Nut Shell ist die Variable auf \"\\w $ \" gesetzt - das *\\w* wird hierbei durch den aktuellen Pfad ersetzt. Das können Sie auch mal ausprobieren."
 
 "Interessiert Sie, welche weiteren speziellen Kürzel man in der *PS1*-Variable benutzen kann? (`echo ja/nein`)"
 
