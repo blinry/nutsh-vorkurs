@@ -21,7 +21,7 @@ prompt {
     }
 }
 
-"Und nun - statt die Zeile nochmal ganz einzutippen -  können *Pfeil nach oben* drücken, um sie sich wieder anzeigen zu lassen. Dann können Sie den Fehler beheben."
+"Und nun - statt die Zeile nochmal ganz einzutippen -  können Sie *Pfeil nach oben* drücken, um sie sich wieder anzeigen zu lassen. Dann können Sie den Fehler beheben."
 
 prompt {
     if success && command =~ "wohnzimmer" {

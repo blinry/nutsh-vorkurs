@@ -9,7 +9,7 @@ make_home
 
 prompt {
     if command =~ "ps$" {
-        if run("alias|grep ps") =~ "ps\s+-eH" {
+        if run("alias|grep ps") =~ `ps\s+-eH` {
             expect("alias ps=\"ps -eH\"; ps")
             break
         }
