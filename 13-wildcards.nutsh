@@ -43,9 +43,9 @@ prompt {
     }
 }
 
-"Zweite Wildcard ist das *?*, es steht für genau ein beliebiges Zeichen."
+"Die zweite Wildcard ist das* ?*, es steht für genau ein beliebiges Zeichen."
 
-"Wechseln Sie in das Verzeichnis `/bin`. Und lassen Sie sich alle Dateien auflisten, deren Namen genau aus drei beliebigen Zeichen besteht."
+"Wechseln Sie in das Verzeichnis `/bin` und lassen Sie sich alle Dateien auflisten, deren Namen genau aus drei beliebigen Zeichen besteht."
 
 prompt {
     if in("/bin") {
@@ -56,25 +56,25 @@ prompt {
 
 stayin("/bin") {
     prompt {
-        if command =~ `\?\?\?` {
+        if command =~ ` \?\?\?$` {
             expect("echo ???")
             break
         }
     }
 
-    "Und alle Dateien, deren zweiter Buchstabe ein *b* ist?"
+    "Und alle Dateien, deren zweiter Buchstabe ein* b* ist?"
 
     prompt {
-        if command =~ `\?b\*` {
+        if command =~ ` \?b\*$` {
             expect(`ls ?b*`)
             break
         }
     }
 
-    "Alle Dateien, die mindestens zwei *a* enthalten?"
+    "Alle Dateien, die mindestens zwei* a* enthalten?"
 
     prompt {
-        if command =~ `\*a\*a\*` {
+        if command =~ ` \*a\*a\*$` {
             expect(`ls *a*a*`)
             break
         }

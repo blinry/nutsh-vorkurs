@@ -3,7 +3,7 @@ make_home
 
 "Es gibt einen Befehl, um Kürzel für oft benutzte Kommandos zu definieren, dieser heißt `alias`. Man benutzt ihn wie folgt:"
 
-"`alias kürzel=\"langeform -mit --optionen\"`"
+"`alias kürzel=\"langform -mit --optionen\"`"
 
 "Zum Beispiel können Sie sich ein Kürzel namens `ps` erstellen, das für die Langform `ps -eH` steht. Definieren Sie sich einen solchen Alias und probieren Sie ihn aus."
 
@@ -35,7 +35,7 @@ prompt {
     }
 }
 
-"Probieren Sie die Aliase jeweils einmal aus - mit `echo fertig` schließen Sie dann die Lektion ab."
+"Probieren Sie die Aliase jeweils einmal aus - mit `echo fertig` können Sie dann zur nächsten Lektion."
 
 prompt {
     if ready {

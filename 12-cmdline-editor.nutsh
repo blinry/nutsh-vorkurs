@@ -19,23 +19,23 @@ prompt {
         expect("echo fertig")
         break
     }
-    if command =~ "echo\s+a" {
-        expect("echo a")
+    if command =~ `echo\s+a` {
+        expect(`echo a`)
         "Strg-a springt an den Anfang der Zeile."
     }
-    if command =~ "echo\s+e" {
+    if command =~ `echo\s+e` {
         expect("echo e")
         "Strg-e springt ans Ende der Zeile."
     }
-    if command =~ "echo\s+w" {
+    if command =~ `echo\s+w` {
         expect("echo w")
         "Strg-w löscht das Wort vor dem Cursor."
     }
-    if command =~ "echo\s+y" {
+    if command =~ `echo\s+y` {
         expect("echo y")
         "Strg-y fügt den zuletzt gelöschten Text wieder ein."
     }
-    if command =~ "echo\s+u" {
+    if command =~ `echo\s+u` {
         expect("echo u")
         "Strg-u löscht die den gesamten Text vor dem Cursor."
     }
@@ -53,7 +53,7 @@ prompt {
     expect("echo eins")
 }
 
-"Wenn Sie `![Zeichenkette]` schreiben, wird der letzte Befehl ausgeführt, der mit der Zeichenkette beginnt - führen Sie erst `history` und dann `!e` aus, um das auszuprobieren."
+"Wenn Sie `![Zeichenkette]` schreiben, wird der letzte Befehl ausgeführt, der mit der Zeichenkette beginnt - führen Sie zum besseren Verständnis erst `history` und dann `!e` aus, um das auszuprobieren."
 
 prompt {
     if command =~ "history" {
@@ -91,9 +91,9 @@ prompt {
     }
 }
 
-"Versuchen Sie - unter Zuhilfenahme von `history` und *Strg-r* noch weitere ältere Befehle herauszusuchen und auszuführen. Wenn Sie die Pfeiltasten *Links* oder *Rechts* betätigen, bevor Sie *Enter* drücken, können Sie den gefundenen Befehl auch noch verändern."
+"Versuchen Sie unter Zuhilfenahme von `history` und *Strg-r* noch weitere ältere Befehle herauszusuchen und auszuführen. Wenn Sie die Pfeiltasten *Links* oder *Rechts* betätigen, bevor Sie *Enter* drücken, können Sie den gefundenen Befehl auch noch verändern."
 
-"Sie kennen das: Mit `echo fertig` schließen Sie die Lektion schließlich ab."
+"Sie kennen das: Mit `echo fertig` schließen Sie die Lektion ab."
 
 prompt {
     if ready {

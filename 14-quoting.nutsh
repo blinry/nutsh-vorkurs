@@ -3,14 +3,7 @@ make_home
 
 "Manchmal möchte man nun nicht, dass die Shell Wildcard-Ersetzungen durchführt. In diesem Fall kann man doppelte Anführungszeichen um den Text setzen."
 
-say("Gehen Sie noch mal in den Ordner '/bin' und geben Sie mit `echo` den *Text* \"*a*\" aus.")
-
-prompt {
-    if in("/bin") {
-        expect("cd /bin")
-        break
-    }
-}
+say("Versuchen Sie, mit `echo` den Text `\\*a\\*` auszugeben.")
 
 prompt {
     if output =~ `\*a\*` {
@@ -45,7 +38,34 @@ prompt {
     }
 }
 
-"Genau. Und das war's auch schon. `fertig`?"
+"Genau. Neben dem Quoting mit doppelten Anführungszeichen kann man auch mit einfachen Anführungszeichen quoten - dies ist noch strenger, und verändert wirklich nichts mehr am Text, während beim doppelten Quoting zum Beispiel noch Variablen ersetzt werden. Sie sehen den Unterschied, wenn Sie versuchen, die Variable `HOME` einmal doppelt und dann einfach gequoted auszugeben."
+
+prompt {
+    if command =~ "HOME" {
+        if command =~ "^echo" && output =~ "\\$HOME" {
+            expect("echo '$HOME'")
+            break
+        }
+        if ! command =~ "echo" {
+            expect("'$HOME'")
+            "Zur Ausgabe einer Variable können Sie `echo` benutzen."
+        }
+        if ! command =~ "\\$HOME" {
+            expect("echo HOME")
+            "Denken Sie dran, zur Ausgabe einer Variable kommt ein Dollarzeichen davor."
+        }
+    }
+}
+
+"Genau. Das war's zum Thema Quoting."
+
+"Wenn Sie Lust haben, laden wir Sie jetzt noch ein, zur Vorbereitung auf eine morgige Lektion ein kleines Browserspiel zu spielen: Es wird Ihnen beibringen, mit sogenannten *Regulären Ausdrücken* umzugehen - das ist eine sehr mächtige Art und Weise, in Texten zu suchen."
+
+"Die Seite heißt *Regex Crossword*: http://regexcrossword.com/challenges/tutorial/puzzles/1"
+
+"Oben rechts unter \"Help\" finden Sie alle notwendigen Informationen. Bei Fragen sind wir gerne für Sie da!"
+
+"Diese Lektion ist damit dann auch `fertig`."
 
 prompt {
     if ready {
