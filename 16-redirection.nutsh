@@ -1,0 +1,81 @@
+lesson_name("Umleitungen und Pipes")
+make_home
+
+"Wenn Sie die Ausgabe eines Befehls speichern möchten, können Sie hinter den Befehl `> datei` schreiben, um die Ausgabe in eine Datei umzuleiten. Die Datei wird dabei angelegt, wenn Sie noch nicht existiert, andernfalls wird sie überschrieben."
+
+"Zur Übung lassen Sie sich noch mal die Liste aller momentan laufenden Prozesse ausgeben und speichern Sie die Ausgabe in einer neuen Datei `prozesse` im Wohnzimmer."
+
+prompt {
+    if runs(`grep nutsh "$ROOT/wohnzimmer/prozesse"`) && runs(`grep bash "$ROOT/wohnzimmer/prozesse"`) && runs(`grep login "$ROOT/wohnzimmer/prozesse"`) {
+        expect("ps -e > wohnzimmer/prozesse")
+        break
+    }
+}
+
+"Und wie würden Sie den Text \"$HOME, sweet $HOME\" in eine Datei `schild` in Ihrem Flur schreiben?"
+
+prompt {
+    if runs(`grep '\$HOME, sweet \$HOME' "$ROOT/schild"`) {
+        expect("echo '$HOME, sweet $HOME' > schild")
+        break
+    }
+}
+
+"Sie können den Text auch an eine Datei *anhängen*, indem Sie statt einer spitzen Klammer zwei benutzen. Hängen Sie den gleichen Text wie eben nochmals an das Schild an."
+
+prompt {
+    if run(`grep '\$HOME, sweet \$HOME' "$ROOT/schild"|wc -l`) == "2" {
+        expect("echo '$HOME, sweet $HOME' >> schild")
+        break
+    }
+}
+
+"Mit `cat` oder mit einem Texteditor können Sie überprüfen, ob alles geklappt hat. Wenn Sie möchten, können Sie noch weitere solche Umleitungen ausprobieren."
+
+"Noch ein Hinweis: Viele Befehle unterscheiden zwischen normaler Ausgabe und der Ausgabe von Fehlermeldungen. Letztere werden nicht von `>` umgeleitet, sondern weiterhin ausgegeben. Wenn Sie beide Ausgabetypen umleiten möchten, benutzen sie `&>`. Wenn Sie *nur* die Fehler umleiten möchten, können Sie `2>` benutzen."
+
+"Sagen Sie Bescheid, wenn Sie `fertig` sind."
+
+prompt {
+    if ready {
+        expect("echo fertig")
+        break
+    }
+}
+
+"Und nun kommt das wichtigste Konzept, dass Sie hier lernen werden."
+
+"Bisher haben wir immer einzelne Befehle ausgeführt. Es gibt aber eine Möglichkeit, Befehle zu kombinieren, also mehrere Befehle hintereinanderzuhängen. Das geht mit einem senkrechten Strich: `befehl1 | befehl2` (das Symbol erzeugen Sie mit AltGr und der Taste links neben dem Y)."
+
+"Den Strich nennt man auch `Pipe`, weil er die Ausgabe des ersten Befehls wie eine Rohrleitung in den zweiten Befehl hineinleitet."
+
+"Bitte gehen Sie zum Üben ins Badezimmer."
+
+prompt {
+    if run("pwd") == run(`echo "$ROOT/badezimmer"`) {
+        expect("cd badezimmer")
+        break
+    }
+}
+
+"Sagen Sie mit `echo` einige Wörter und leiten Sie die Ausgabe mit einer Pipe in den Befehl `wc` um. Versuchen Sie, herauszufinden, was `wc` tut. Mithilfe der Manpage können Sie das dann kontrollieren."
+
+prompt {
+    if command =~ "man wc" {
+        expect("man wc", "q")
+        break
+    }
+}
+
+"Vielleicht wundert sie, dass die Anzahl der Zeichen stets um 1 höher zu sein scheint? Das liegt daran, dass `echo` einen Zeilenumbruch hinter dem Text mit ausgibt, der ebenfalls mitgezählt wird. `echo` hat die Option `-n`, die das verhindert."
+
+//TODO: mehr
+
+"Mit `echo fertig` schließen Sie die Lektion ab."
+
+prompt {
+    if ready {
+        expect("echo fertig")
+        break
+    }
+}

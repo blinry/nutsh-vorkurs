@@ -1,0 +1,92 @@
+lesson_name("Kleine nützliche Befehle")
+make_home
+
+"Wie könnte ein Behl heißen, der das aktuelle *Datum* (und die Uhrzeit) ausgibt?"
+
+prompt {
+    if command =~ "date" && success {
+        expect("date")
+        break
+    }
+}
+
+"Finden Sie heraus, wie Sie `date` dazu bringen, die Nanosekunden der aktuellen Uhrzeit auszugeben."
+
+prompt {
+    if command =~ "%N" && success {
+        expect("date +%N")
+        break
+    }
+}
+
+"Wie könnte ein Befehl heißen, der ausgibt, wie voll die Festplatte ist (wie viel auf der *d*isk noch *f*ree ist?)"
+
+prompt {
+    if command =~ "df$" && success {
+        expect("df")
+        break
+    }
+}
+
+"Wie `ls` hat auch `df` hat eine Option, die die die Größenangaben in praktischere Formate umrechnet."
+
+prompt {
+    if command =~ `df.*h` && success {
+        expect("df -h")
+        break
+    }
+}
+
+"Ein anderer Befehl hingegen listet rekursiv auf, welche Dateien am meisten *d*isk *u*sage verursachen."
+
+prompt {
+    if command =~ "du$" && success {
+        expect("du")
+        break
+    }
+}
+
+"Pro Tip: Auch hier die gewisse Option benutzen und in `sort -h` pipen!"
+
+prompt {
+    if command =~ `du\s+-h\s*\|\s*sort\s+-h` && success {
+        expect("du -h|sort -h")
+        break
+    }
+}
+
+"Auf den Unirechnern zeigt der Befehl `fs listquota` Ihnen an, wie viel des Ihnen zugewiesenen Speicherplatzes Sie bereits belegt haben. Die \"gewisse Option\" heißt hier etwas anders. Finden Sie das heraus?"
+
+prompt {
+    if command =~ `fs\s+listquota\s+-human` && success {
+        expect("fs listquota -human")
+        break
+    }
+}
+
+"Für den letzten Befehl gehen Sie bitte in Ihr Schlafzimmer."
+
+prompt {
+    if run("pwd") == run(`echo "$ROOT/schlafzimmer"`) {
+        expect("cd schlafzimmer")
+        break
+    }
+}
+
+"Wie könne ein Befehl heißen, der für 5 Sekunden nichts macht? Gute Nacht ;-)"
+
+prompt {
+    if command =~ `sleep\s+5$` && success {
+        expect("sleep 5")
+        break
+    }
+}
+
+"Prima! Mit `echo fertig` schließen Sie die Lektion ab."
+
+prompt {
+    if ready {
+        expect("echo fertig")
+        break
+    }
+}

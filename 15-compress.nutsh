@@ -7,26 +7,30 @@ run(`seq 1 2000000 | tr -d '\n' | head -c $((1024*1024*10)) > "$ROOT/küche/elef
 
 "\"Kühlschranktür auf, Elefant rein, Kühlschranktür zu\". Probieren Sie das mal aus, wir haben Ihnen einen frischen Elefanten in die Küche geliefert!"
 
-def elephant_in_fridge {
-    return(file(`"$ROOT/küche/kühlschrank/elefant"`))
+def elephant_in_fridge(n) {
+    return(file(`"$ROOT/küche/kühlschrank/elefant"`+n))
 }
 
-def stop_elephant {
-    if elephant_in_fridge {
+def stop_elephants {
+    if elephant_in_fridge("") {
         "[Der Elefant passt nicht in den Kühlschrank]"
         run(`mv "$ROOT/küche/kühlschrank/elefant" "$ROOT/küche/elefant"`)
+    }
+    if elephant_in_fridge("2") {
+        "[Der Elefant passt nicht in den Kühlschrank]"
+        run(`mv "$ROOT/küche/kühlschrank/elefant2" "$ROOT/küche/elefant2"`)
     }
 }
 
 prompt {
-    if elephant_in_fridge {
-        stop_elephant
+    if elephant_in_fridge("") {
+        stop_elephants
         expect("cd küche; mv elefant kühlschrank")
         break
     }
 }
 
-stop_elephant {
+stop_elephants {
 
     "Hm, so einfach ist das wohl doch nicht. Können Sie herausfinden, wie groß die Datei ist? Die Manpage von `ls` hilft Ihnen dabei!"
 
@@ -61,30 +65,75 @@ stop_elephant {
 
     "Weil das so gut funktioniert hat, haben wir Ihnen einen zweiten Elefangen in den Flur geliefert - diesen können Sie in die Küche holen und ihn diesmal mit `bzip2` komprimieren. Wie groß ist die komprimierte Datei diesmal?"
 
-    run(`seq 1 2000000 | tr -d '\n' | head -c $((1024*1024*10)) > "$ROOT/elefant"`)
+    run(`seq 1 2000000 | tr -d '\n' | head -c $((1024*1024*10)) > "$ROOT/elefant2"`)
 
     prompt {
-        if file(`"$ROOT/küche/elefant.bz2"`) {
+        if file(`"$ROOT/küche/elefant2.bz2"`) {
             if output =~ `\d[.,]\dM` {
-                expect("cp ../elefant .; bzip2 -f elefant; ls -sh")
+                expect("cp ../elefant2 .; bzip2 -f elefant2; ls -sh")
                 break
             }
         }
     }
 
+    "Das bzip2-Komprimierungsverfahren dauert etwas länger, erzeugt aber kleinere Dateien."
+
     "Die beiden komprimierten Elefanten passen nun prima in den Kühlschrank!"
 
     "(Tipp: Mithilfe von Wildcards können Sie die beiden Dateien sehr bequem auf einmal verschieben!)"
-}
 
-prompt {
-    if file(`"$ROOT/küche/kühlschrank/elefant.gz"`) && file(`"$ROOT/küche/kühlschrank/elefant.bz2"`) {
-        expect(`mv elefant* kühlschrank`)
-        break
+    prompt {
+        if file(`"$ROOT/küche/kühlschrank/elefant.gz"`) && file(`"$ROOT/küche/kühlschrank/elefant2.bz2"`) {
+            expect(`mv elefant* kühlschrank`)
+            break
+        }
     }
+
+    "Mit diesen Befehlen können Sie nur einzelne Dateien komprimieren. Um Ordner zu komprimieren, müssen Sie zunächst den Ordner und seine Inhalte zu einer Datei zusammenfassen, das geht mit `tar -c -f name_der_archivdatei.tar ordner`. `-c` steht dabei für \"create\", `-f` für die Angabe des Namens der resultierenden Datei (\"file\"). `tar` steht für \"tape archive\" und kommt noch aus alten Zeiten, in denen man Daten auf Magnetbändern gespeichert hat."
+
+    "Bitte fassen Sie den Kühlschrank zu `kühlschrank.tar` zusammen."
+
+    prompt {
+        if file(`"$ROOT/küche/kühlschrank.tar"`) {
+            expect("tar -c -f kühlschrank.tar kühlschrank")
+            break
+        }
+    }
+
+    "Die Komprimierungsbefehle ersetzen die Originaldatei, `tar` hingegen lässt den Originalordner bestehen. Bitte löschen Sie den Originalkühlschrank."
+
+    prompt {
+        if ! dir(`"$ROOT/küche/kühlschrank"`) {
+            expect("rm -rf kühlschrank")
+            break
+        }
+    }
+
+    "Prima, und nun komprimieren Sie noch den sogenannten \"Tarball\" mit einem Komprimierungsverfahren Ihrer Wahl."
+
+    prompt {
+        if file(`"$ROOT/küche/kühlschrank.tar.gz"`) || file(`"$ROOT/küche/kühlschrank.tar.bz2"`) {
+            expect("gzip kühlschrank.tar")
+            break
+        }
+    }
+
+    "Den komprimierten Kühlschrank mit den komprimierten Elefanten können wir nun in die Hosentasche stecken und mitnehmen :-)"
+
+    "Und irgendwann möchten wir dann wieder an die Elefanten heran. Machen Sie die Schritte rückgängig und sorgen Sie dafür, dass die beiden Elefanten wieder in der Küche stehen."
+
+    "Benutzen Sie die Befehle `gunzip` und `bunzip2`, sowie `tar` mit der Option `-x` (bei Optionen hilft die Manpage weiter.) "
+
+    prompt {
+        if file(`"$ROOT/küche/elefant"`) && file(`"$ROOT/küche/elefant2"`) {
+            expect("gunzip kühlschrank/elefant.gz; bunzip2 kühlschrank/elefant2.bz2")
+            break
+        }
+    }
+
 }
 
-"Mit `echo fertig` schließen Sie die Lektion ab."
+"Guten Appetit! Mit `echo fertig` schließen Sie die Lektion ab."
 
 prompt {
     if ready {
