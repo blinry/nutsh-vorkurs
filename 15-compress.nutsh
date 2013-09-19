@@ -63,7 +63,7 @@ stop_elephants {
 
     say("Das klingt doch schon viel besser.")
 
-    "Weil das so gut funktioniert hat, haben wir Ihnen einen zweiten Elefangen in den Flur geliefert - diesen können Sie in die Küche holen und ihn diesmal mit `bzip2` komprimieren. Wie groß ist die komprimierte Datei diesmal?"
+    "Weil das so gut funktioniert hat, haben wir Ihnen einen zweiten Elefanten in den Flur geliefert - diesen können Sie in die Küche holen und ihn diesmal mit `bzip2` komprimieren. Wie groß ist die komprimierte Datei diesmal?"
 
     run(`seq 1 2000000 | tr -d '\n' | head -c $((1024*1024*10)) > "$ROOT/elefant2"`)
 
