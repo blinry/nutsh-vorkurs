@@ -122,7 +122,7 @@ stop_elephants {
 
     "Und irgendwann möchten wir dann wieder an die Elefanten heran. Machen Sie die Schritte rückgängig und sorgen Sie dafür, dass die beiden Elefanten wieder in der Küche stehen."
 
-    "Benutzen Sie die Befehle `gunzip` und `bunzip2`, sowie `tar` mit der Option `-x` (bei Optionen hilft die Manpage weiter.) "
+    "Benutzen Sie die Befehle `gunzip` und `bunzip2`, sowie `tar` mit der Option `-xf` (bei Problemen hilft die Manpage weiter.) "
 
     prompt {
         if file(`"$ROOT/küche/elefant"`) && file(`"$ROOT/küche/elefant2"`) {
