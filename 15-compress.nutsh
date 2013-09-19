@@ -89,7 +89,9 @@ stop_elephants {
         }
     }
 
-    "Mit diesen Befehlen können Sie nur einzelne Dateien komprimieren. Um Ordner zu komprimieren, müssen Sie zunächst den Ordner und seine Inhalte zu einer Datei zusammenfassen, das geht mit `tar -c -f name_der_archivdatei.tar ordner`. `-c` steht dabei für \"create\", `-f` für die Angabe des Namens der resultierenden Datei (\"file\"). `tar` steht für \"tape archive\" und kommt noch aus alten Zeiten, in denen man Daten auf Magnetbändern gespeichert hat."
+    "Mit diesen Befehlen können Sie nur einzelne Dateien komprimieren. Um Ordner zu komprimieren, müssen Sie zunächst den Ordner und seine Inhalte zu einer Datei zusammenfassen, das geht mit `tar -c -f name_der_archivdatei.tar ordner`."
+
+    "`-c` steht dabei für \"create\", `-f` für die Angabe des Namens der resultierenden Datei (\"file\"). `tar` steht für \"tape archive\" und kommt noch aus alten Zeiten, in denen man Daten auf Magnetbändern gespeichert hat."
 
     "Bitte fassen Sie den Kühlschrank zu `kühlschrank.tar` zusammen."
 
@@ -122,7 +124,7 @@ stop_elephants {
 
     "Und irgendwann möchten wir dann wieder an die Elefanten heran. Machen Sie die Schritte rückgängig und sorgen Sie dafür, dass die beiden Elefanten wieder in der Küche stehen."
 
-    "Benutzen Sie die Befehle `gunzip` und `bunzip2`, sowie `tar` mit der Option `-xf` (bei Problemen hilft die Manpage weiter.) "
+    "Benutzen Sie die Befehle `gunzip` und `bunzip2`, sowie `tar` mit den Argumenten `-x -f name_der_archivdatei.tar` (`-x` steht für \"extract\")."
 
     prompt {
         if file(`"$ROOT/küche/elefant"`) && file(`"$ROOT/küche/elefant2"`) {
