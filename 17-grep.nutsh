@@ -3,7 +3,7 @@ make_home
 
 "Sehr nützlich im Zusammenhang mit Pipes ist der Befehl `grep`. Er nimmt als Argument einen Regulären Ausdruck (die aus den Kreuzworträtseln) und wirft alle Zeilen seiner Eingabe weg, die nicht diesen Ausdruck enthalten."
 
-`Den Ausdruck setzen Sie am besten imme in einfache Anführungszeichen, da ja manche Zeichen (wie $, ? und *) eine eigene Bedeutung besitzen.`
+`Den Ausdruck setzen Sie am besten immer in einfache Anführungszeichen, da ja manche Zeichen (wie $, ? und *) eine eigene Bedeutung besitzen.`
 
 "Wenn Sie den `ps -e`-Befehl und `grep` kombinieren, können Sie sich so zum Beispiel alle Prozesse ausgeben lassen, die ein \"e\" enthalten."
 
