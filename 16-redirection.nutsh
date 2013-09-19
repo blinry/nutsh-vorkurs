@@ -6,7 +6,7 @@ make_home
 "Zur Übung lassen Sie sich noch mal die Liste aller momentan laufenden Prozesse ausgeben und speichern Sie die Ausgabe in einer neuen Datei `prozesse` im Wohnzimmer."
 
 prompt {
-    if runs(`grep nutsh "$ROOT/wohnzimmer/prozesse"`) && runs(`grep bash "$ROOT/wohnzimmer/prozesse"`) && runs(`grep login "$ROOT/wohnzimmer/prozesse"`) {
+    if runs(`grep nutsh "$ROOT/wohnzimmer/prozesse"`) && runs(`grep bash "$ROOT/wohnzimmer/prozesse"`) && runs(`grep watchdog "$ROOT/wohnzimmer/prozesse"`) {
         expect("ps -e > wohnzimmer/prozesse")
         break
     }
