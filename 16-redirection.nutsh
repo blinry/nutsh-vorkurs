@@ -15,7 +15,7 @@ prompt {
 "Und wie würden Sie den Text \"$HOME, sweet $HOME\" in eine Datei `schild` in Ihrem Flur schreiben?"
 
 prompt {
-    if runs(`grep '\$HOME, sweet \$HOME' "$ROOT/schild"`) {
+    if run(`grep '\$HOME, sweet \$HOME' "$ROOT/schild"|wc -l`) == "1" {
         expect("echo '$HOME, sweet $HOME' > schild")
         break
     }
@@ -69,7 +69,7 @@ prompt {
 
 "Vielleicht wundert sie, dass die Anzahl der Zeichen stets um 1 höher zu sein scheint? Das liegt daran, dass `echo` einen Zeilenumbruch hinter dem Text mit ausgibt, der ebenfalls mitgezählt wird. `echo` hat die Option `-n`, die das verhindert."
 
-//TODO: mehr
+"Ein anderer Befehl, den man gut mit Pipes kombinieren kann, ist `sort` - Sie dürfen dreimal raten, was der tut. So können Sie sich zum Beispiel eine Prozessliste oder die Zeilen einer Datei sortiert ausgeben lassen (wie wäre es mit der Java-Datei im Wohnzimmer?)"
 
 "Mit `echo fertig` schließen Sie die Lektion ab."
 

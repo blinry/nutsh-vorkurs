@@ -19,7 +19,7 @@ prompt {
     }
 }
 
-"Wie könnte ein Befehl heißen, der ausgibt, wie voll die Festplatte ist (wie viel auf der *d*isk noch *f*ree ist?)"
+"Wie könnte ein Befehl heißen, der ausgibt, wie voll die Festplatte ist (wie viel auf der* d*isk noch* f*ree ist?)"
 
 prompt {
     if command =~ "df$" && success {
@@ -37,7 +37,7 @@ prompt {
     }
 }
 
-"Ein anderer Befehl hingegen listet rekursiv auf, welche Dateien am meisten *d*isk *u*sage verursachen."
+"Ein anderer Befehl hingegen listet rekursiv auf, welche Dateien am meisten* d*isk* u*sage verursachen."
 
 prompt {
     if command =~ "du$" && success {
@@ -81,6 +81,8 @@ prompt {
         break
     }
 }
+
+"Der wirkt so natürlich etwas sinnlos, ist aber tatsächlich nützlich, um einen Befehl nach einer definierten Zeit auszuführen: Sie können das ausprobieren, indem Sie hinter ein `sleep`-Kommando ein Semikolon schreiben, und dahinter einen Befehl. Das führt zunächst den ersten, dann den zweiten Befehl aus."
 
 "Prima! Mit `echo fertig` schließen Sie die Lektion ab."
 

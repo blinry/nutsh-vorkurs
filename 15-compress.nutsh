@@ -139,6 +139,7 @@ prompt {
     if ready {
         expect("echo fertig")
         run(`rm "$ROOT/küche/elefant*" `)
+        run(`rm "$ROOT/küche/kühlschrank.tar" `)
         break
     }
 }

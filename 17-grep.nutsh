@@ -23,7 +23,7 @@ prompt {
     }
 }
 
-"Wie viele Dateien haben an vorletzter Stelle ein \"o\"? Schlagen Sie in `grep`'s Manpage nach, wie Sie festlegen, dass Text auf einen bestimmten Ausdruck *end*en soll."
+"Wie viele Dateien in `/dev` haben an vorletzter Stelle ein \"o\"? Schlagen Sie in `grep`'s Manpage nach, wie Sie festlegen, dass Text auf einen bestimmten Ausdruck *end*en soll."
 
 prompt {
     if command =~ `^echo` && output == run(`ls /dev/|grep 'o.$'|wc -l`) {
@@ -31,6 +31,8 @@ prompt {
         break
     }
 }
+
+"Ja! Wenn Sie möchten, können Sie noch ein wenig damit herumexperimentieren, sich mit `cat` die Datei `/usr/share/dict/words` ausgeben zu lassen und mit grep darin nach bestimmten Mustern zu suchen. Sehr hilfreich für Kreuzworträtsel!"
 
 "Mit `echo fertig` schließen Sie die Lektion ab."
 

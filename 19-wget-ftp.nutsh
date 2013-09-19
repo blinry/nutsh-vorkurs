@@ -22,7 +22,9 @@ prompt {
     }
 }
 
-"Mit `wget` brauchen Sie die Ausgabe nicht manuell in eine Datei umzuleiten, das tut der Befehl selbst. Die wichtigste Option ist `-O`, um den Ausgabedateinamen festzulegen, aber `wget` hat noch viele andere nützliche Optionen (zum Beispiel `-r` zum Herunterladen ganzer Seiten). Stöbern Sie mal ein wenig in der Manpage herum, die ist ziemlich gut geschrieben."
+"Mit `wget` brauchen Sie die Ausgabe nicht manuell in eine Datei umzuleiten, das tut der Befehl selbst. Die wichtigste Option ist `-O`, um den Ausgabedateinamen festzulegen, aber `wget` hat noch viele andere nützliche Optionen, zum Beispiel `-r` zum Herunterladen ganzer Seiten inklusive Unterseiten. Sie können beispielsweise ausprobieren, die offizielle Vorkurs-Seite inklusive verlinkter Aufgabenblätter auf einmal herunterzuladen."
+
+"Stöbern Sie mal ein wenig in der Manpage herum, die ist ziemlich gut geschrieben."
 
 "Mit `echo fertig` schließen Sie die Lektion ab."
 
