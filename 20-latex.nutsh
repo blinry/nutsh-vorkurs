@@ -1,0 +1,25 @@
+lesson_name("Schriftsatz mit LaTeX")
+make_home
+
+"In dieser Lektion widmen wir uns einmal einem völlig anderen Thema."
+
+// :-(
+run(`echo -e '\documentclass[12pt,a4paper]{scrartcl}\n\usepackage[latin1]{inputenc} % oder \usepackage[utf8]{inputenc}\n\usepackage[T1]{fontenc}\n\usepackage{amsmath,amssymb}\n\usepackage{ngerman}\n\begin{document}\n\noindent\nDas unbestimmte Integral der Cosinus-Funktion ist die\nSinus-Funktion plus eine additive Konstante:\n\begin{equation*}\n\int \cos(x)\;dx = \sin(x)+c, \quad c \in \mathbb{R}.\n\end{equation*}\n$c$ heißt \emph{Integrationskonstante}.\n\end{document}\n' > "$ROOT/wohnzimmer/konstante.tex"`)
+
+"Im Wohnzimmer liegt eine neue Datei mit der Dateiendung `.tex`. Es handelt sich um eine LaTeX-Datei, die einen kurzen mathematischen Text beschreibt. Sehen Sie sich in aller Ruhe an, dann führen Sie den Befehl `pdflatex` darauf aus."
+
+prompt {
+    if file("$ROOT/wohnzimmer/konstante.tex") {
+        expect("cd wohnzimmer; pdflatex konstante.tex")
+        break
+    }
+}
+
+"Mit `echo fertig` schließen Sie die Lektion ab."
+
+prompt {
+    if ready {
+        expect("echo fertig")
+        break
+    }
+}

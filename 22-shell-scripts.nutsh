@@ -1,0 +1,13 @@
+lesson_name("Shell-Skripte")
+make_home
+
+
+
+"Mit `echo fertig` schließen Sie die Lektion ab."
+
+prompt {
+    if ready {
+        expect("echo fertig")
+        break
+    }
+}
