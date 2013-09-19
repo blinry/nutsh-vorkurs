@@ -1,13 +1,113 @@
 lesson_name("Java Teil 2")
 make_home
 
-"In dieser Lektion soll der Umgang mit dem Java-Compiler wiederholt und vertieft werden."
+"In dieser Lektion soll der Umgang mit dem Java-Compiler wiederholt und vertieft werden.
+Wechseln Sie erstmal in ihr Wohnzimmer, wo ein neues Java-Programm liegt."
 
-""
+if file(`$ROOT/wohnzimmer/Heron.class`) {
+    run(`rm $ROOT/wohnzimmer/Heron.class`)
+}
 
-run(`echo -e 'public class Fehler {\n    public static void main(String[] a) {\n        int low = 1;\n        int high = 100\n            int sum = 0;\n        int i = low;\n        while (i < high {\n            sum = sum + i;\n            i = i + 1;\n            System.out.println("Die Summe der Zahlen von 1 bis 100 ist "+sum+".");\n        }\n' > wohnzimmer/Fehler.java`)
+run(`echo -e 'public class Heron {\n    public static void main (String[] args) {\n        double a = 5.0,\n               x = 1.0;\n        for (int i = 1; i <= 7; i++) {\n            x = (x + a / x) / 2.0;\n            System.out.println(x);\n        }\n    }\n}\n' > "$ROOT"/wohnzimmer/Heron.java`)
 
-run(`echo -e 'public class Heron {\n    public static void main (String[] args) {\n        double a = 5.0,\n               x = 1.0;\n        for (int i = 1; i <= 7; i++) {\n            x = (x + a / x) / 2.0;\n            System.out.println(x);\n        }\n    }\n}\n' > wohnzimmer/Heron.java`)
+prompt {
+    if in(`$ROOT/wohnzimmer`) {
+        expect("cd wohnzimmer")
+        break
+    }
+}
+
+"Das Programm in der Datei Heron.java berechnet die Quadratwurzel von 5 mit dem Heron-Verfahren. Kompillieren und führen sie es aus."
+"Zur Erinnerung:"
+"\t`javac Quelldatei` kompilliert die angegebene Datei und erzeugt eine dazugehörige class-Datei."
+"\t`java Klassenname` führt das angegebene Programm aus. Klassenname ist dabei der Name hinter class im Programm."
+
+prompt {
+    if file(`$ROOT/wohnzimmer/Heron.class`) {
+        expect("javac Heron.java")
+        break
+    }
+    if command =~ `^java\s+Heron$` && ! file(`$ROOT/wohnzimmer/Heron.class`) {
+        expect("java Heron")
+        "Das Programm muss vor der Ausführung erst kompilliert werden!"
+    }
+}
+
+prompt {
+    if output =~ `.*2.23.*` {
+        expect("java Heron")
+        break
+    }
+}
+
+"Das Programm macht also, was es soll."
+"Verändern sie das Programm nun so, dass die Quadratwurzel von 42 berechnet wird und führen sie es aus"
+
+prompt {
+    if output =~ `.*6.48.*` {
+        expect("sed -i -e 's/a = 5.0/a = 42.0/' Heron.java;javac Heron.java;java Heron")
+        break
+    }
+}
+
+"Genau, es muss einfach der Wert von a verändert werden."
+"Gehen sie nun in den Schrank, wo ein weiteres Programm liegt."
+
+if file(`$ROOT/schrank/Fehler.class`) {
+    run(`rm $ROOT/schrank/Fehler.class`)
+}
+
+run(`echo -e 'public class Fehler {\n    public static void main(String[] a) {\n        int low = 1;\n        int high = 100\n            int sum = 0;\n        int i = low;\n        while (i < high {\n            sum = sum - i;\n            i = i + 1;\n            System.out.println("Die Summe der Zahlen von 1 bis 100 ist "+sum+".");\n        }\n' > "$ROOT"/schrank/Fehler.java`)
+
+prompt {
+    if in(`$ROOT/schrank`) {
+        expect("cd ../schrank")
+        break
+    }
+}
+
+"Die Datei Fehler.java enthält ein Programm, welches alle Zahlen von 1 bis 100
+aufsummieren und am Ende das Ergebnis ausgeben soll."
+
+"Versuchen sie, das Programm zu kompillieren (Zur Erinnerung: `javac Quelldatei`)"
+
+prompt {
+    if command =~ `javac\s+Fehler.java` {
+        expect("javac Fehler.java")
+        break
+    }
+}
+
+"Leider enthält das Programm ein paar Fehler. Versuchen sie das Programm zu kompillieren
+und das Programm anhand der Compiler-Fehlermeldungen und der Programmausgabe zu korrigieren."
+
+"Zum Fortfahren führen sie die korrigierte Version des Programms einmal aus"
+/*"Falls sie Hilfe rufen sie danach mit `echo hilfe`"*/
+
+
+prompt {
+    if output =~ `Die Summe der Zahlen von 1 bis 100 ist 4950.`  && file(`$ROOT/schrank/Fehler.class`) {
+        expect(`echo -e 'public class Fehler {\n    public static void main(String[] a) {\n        int low = 1;\n        int high = 100;\n            int sum = 0;\n        int i = low;\n        while (i < high) {\n            sum = sum + i;\n            i = i + 1;\n        }\n        System.out.println("Die Summe der Zahlen von 1 bis 100 ist "+sum+".");\n    }\n}\n' > Fehler.java ; javac Fehler.java ; java Fehler`)
+        break
+    }
+    /*if help {
+        expect(`echo hilfe`)
+        run(`javac $ROOT/schrank/Fehler.java 2>&1`)
+        if output =~ "end of file while parsing" {
+            "Überprüfen sie, ob alle Begrenzer wie z. B. Klammern, Anführungszeichen etc. einen schließenden Partner haben"
+        } else {
+            if output =~ "'\)' expected" {
+                "In einer Zeile fehlt eine schließende Klammer"
+            } else {
+                if output =~ "';' expected" {
+                    "In einer Zeile fehlt ein Semikolon nach einer Anweisung"
+                } 
+            }
+        }
+    }*/
+}
+
+"Sehr gut. Das Programm funktioniert nun wie gewünscht."
 
 "Mit `echo fertig` schließen Sie die Lektion ab."
 
