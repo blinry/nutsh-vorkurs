@@ -1,19 +1,42 @@
 lesson_name("Schriftsatz mit LaTeX")
 make_home
+run(`rm "$ROOT/wohnzimmer/konstante.pdf"`)
 
 "In dieser Lektion widmen wir uns einmal einem völlig anderen Thema."
 
-// :-(
-run(`echo -e '\documentclass[12pt,a4paper]{scrartcl}\n\usepackage[latin1]{inputenc} % oder \usepackage[utf8]{inputenc}\n\usepackage[T1]{fontenc}\n\usepackage{amsmath,amssymb}\n\usepackage{ngerman}\n\begin{document}\n\noindent\nDas unbestimmte Integral der Cosinus-Funktion ist die\nSinus-Funktion plus eine additive Konstante:\n\begin{equation*}\n\int \cos(x)\;dx = \sin(x)+c, \quad c \in \mathbb{R}.\n\end{equation*}\n$c$ heißt \emph{Integrationskonstante}.\n\end{document}\n' > "$ROOT/wohnzimmer/konstante.tex"`)
+run(`echo -e '\\documentclass[12pt,a4paper]{scrartcl}\n\\usepackage[utf8]{inputenc}\n\\usepackage[T1]{fontenc}\n\\usepackage{amsmath,amssymb}\n\\usepackage{ngerman}\n\\begin{document}\n\\noindent\nDas unbestimmte Integral der Cosinus-Funktion ist die\nSinus-Funktion plus eine additive Konstante:\n\\begin{equation*}\n\\int \\cos(x)\\;dx = \\sin(x)+c, \\quad c \\in \\mathbb{R}.\n\\end{equation*}\n$c$ heißt \\emph{Integrationskonstante}.\n\\end{document}\n' > "$ROOT/wohnzimmer/konstante.tex"`)
 
-"Im Wohnzimmer liegt eine neue Datei mit der Dateiendung `.tex`. Es handelt sich um eine LaTeX-Datei, die einen kurzen mathematischen Text beschreibt. Sehen Sie sich in aller Ruhe an, dann führen Sie den Befehl `pdflatex` darauf aus."
+"Im Wohnzimmer liegt eine neue Datei mit der Dateiendung `tex`. Es handelt sich um eine LaTeX-Datei, die einen kurzen mathematischen Text beschreibt. Sehen Sie sich die Datei in aller Ruhe an, dann führen Sie den Befehl `pdflatex` darauf aus."
 
 prompt {
-    if file("$ROOT/wohnzimmer/konstante.tex") {
+    if file("$ROOT/wohnzimmer/konstante.pdf") {
         expect("cd wohnzimmer; pdflatex konstante.tex")
         break
     }
 }
+
+"Dass `pdflatex` so rumbrabbelt, ist normal. Es hat eine PDF-Datei erzeugt, die Sie sich beispielsweise mit `acroread` anschauen können."
+
+"Versuchen Sie einmal, auf eigene Faust etwas am Text zu ändern, das PDF-Dokument neu zu generieren, und überprüfen Sie, ob die Änderungen übernommen wurden."
+
+"Wenn `pdflatex` einen Fehler meldet und mit einem Fragezeichen auf Eingaben wartet, können Sie* x* eintippen, um abzubrechen, oder* h*, um sich weitere Optionen anzeigen zu lassen."
+
+"Geben Sie `fertig` ein, wenn Sie weitermachen möchten."
+
+prompt {
+    if ready {
+        expect("echo fertig")
+        break
+    }
+}
+
+"LaTeX eignet sich hervorragend zum Erzeugen wissenschaftlicher Texte. Während es sich bei herkömmlichen Office-Produkten um WYSIWYG-Systeme handelt (\"What you see is what you get\", man sieht beim Schreiben bereits das fertige Resultat), ist LaTeX ein WYSIWYM-System (\"What you see is what you mean\", man schreibt auf, was man *meint*) - in unserer Datei zum Beispiel \"Jetzt kommt eine Gleichung\" über den `\\equation`-Befehl."
+
+"Viele Leute mögen es, dass LaTeX automatisch typographische Regeln befolgt und deshalb wirklich schöne Dokumente erzeugt, und dass die Beschreibung eine normale Textdatei ist, wodurch man gut in Gruppen und ohne irgendeinen Softwarezwang daran arbeiten kann."
+
+"Nehmen Sie sich ruhig etwas Zeit, einmal Struckmanns \"Typographische Hinweise\" zu lesen: https://www.tu-braunschweig.de/ips/staff/struckmann/unitext"
+
+"Ansonsten empfehlen wir Ihnen zum Einstieg in LaTeX das hervorragende Wikibook zum Thema: https://de.wikibooks.org/wiki/LaTeX-Kompendium"
 
 "Mit `echo fertig` schließen Sie die Lektion ab."
 
