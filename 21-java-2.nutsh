@@ -1,7 +1,13 @@
 lesson_name("Java Teil 2")
 make_home
 
+"In dieser Lektion soll der Umgang mit dem Java-Compiler wiederholt und vertieft werden."
 
+""
+
+run(`echo -e 'public class Fehler {\n    public static void main(String[] a) {\n        int low = 1;\n        int high = 100\n            int sum = 0;\n        int i = low;\n        while (i < high {\n            sum = sum + i;\n            i = i + 1;\n            System.out.println("Die Summe der Zahlen von 1 bis 100 ist "+sum+".");\n        }\n' > wohnzimmer/Fehler.java`)
+
+run(`echo -e 'public class Heron {\n    public static void main (String[] args) {\n        double a = 5.0,\n               x = 1.0;\n        for (int i = 1; i <= 7; i++) {\n            x = (x + a / x) / 2.0;\n            System.out.println(x);\n        }\n    }\n}\n' > wohnzimmer/Heron.java`)
 
 "Mit `echo fertig` schließen Sie die Lektion ab."
 
