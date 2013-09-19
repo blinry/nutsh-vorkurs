@@ -69,5 +69,5 @@ def ready {
 }
 
 def in(d) {
-    return(run("pwd") == d)
+    return(run("pwd") == run(`echo "` + d + `"`))
 }
