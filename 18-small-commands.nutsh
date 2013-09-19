@@ -1,7 +1,7 @@
 lesson_name("Kleine nützliche Befehle")
 make_home
 
-"Wie könnte ein Behl heißen, der das aktuelle *Datum* (und die Uhrzeit) ausgibt?"
+"Wie könnte ein Befehl heißen, der das aktuelle *Datum* (und die Uhrzeit) ausgibt?"
 
 prompt {
     if command =~ "date" && success {
