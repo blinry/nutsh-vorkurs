@@ -1,0 +1,34 @@
+lesson_name("wget und curl")
+make_home
+run("cd schrank")
+
+"Sie können mit der Kommandozeile im Internet surfen! Um eine Website anzuzeigen, können Sie `curl` benutzen, und als Argument zum Beispiel die sehr einfach aufgebaute Seite `nutsh.morr.cc` angeben. Probieren Sie aber auch mal andere aus!"
+
+prompt {
+    if command =~ "^curl" && success {
+        expect("curl nutsh.morr.cc")
+        break
+    }
+}
+
+"Natürlich bekommen Sie den HTML-Quelltext der Seite angezeigt. Den können Sie aber zum Beispiel in eine `.html`-Datei umleiten und sich diese mit Firefox anzeigen lassen. (Wenn Firefox bereits läuft, können Sie über `firefox [datei.html]` darin eine neue Seite öffnen.)"
+
+"Sagen Sie, wenn Sie fertig sind."
+
+prompt {
+    if ready {
+        expect("echo fertig")
+        break
+    }
+}
+
+"Mit `wget` brauchen Sie die Ausgabe nicht manuell in eine Datei umzuleiten, das tut der Befehl selbst. Die wichtigste Option ist `-O`, um den Ausgabedateinamen festzulegen, aber `wget` hat noch viele andere nützliche Optionen (zum Beispiel `-r` zum Herunterladen ganzer Seiten). Stöbern Sie mal ein wenig in der Manpage herum, die ist ziemlich gut geschrieben."
+
+"Mit `echo fertig` schließen Sie die Lektion ab."
+
+prompt {
+    if ready {
+        expect("echo fertig")
+        break
+    }
+}

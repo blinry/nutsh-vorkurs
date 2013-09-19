@@ -58,7 +58,7 @@ prompt {
 "Auf den Unirechnern zeigt der Befehl `fs listquota` Ihnen an, wie viel des Ihnen zugewiesenen Speicherplatzes Sie bereits belegt haben. Die \"gewisse Option\" heißt hier etwas anders. Finden Sie das heraus?"
 
 prompt {
-    if command =~ `fs\s+listquota\s+-human` && success {
+    if command =~ `fs\s+listquota\s+-human` {
         expect("fs listquota -human")
         break
     }

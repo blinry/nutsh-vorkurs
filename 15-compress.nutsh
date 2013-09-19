@@ -126,7 +126,7 @@ stop_elephants {
 
     prompt {
         if file(`"$ROOT/küche/elefant"`) && file(`"$ROOT/küche/elefant2"`) {
-            expect("gunzip kühlschrank/elefant.gz; bunzip2 kühlschrank/elefant2.bz2")
+            expect("tar xzf kühlschrank.tar.gz; gunzip kühlschrank/elefant.gz; bunzip2 kühlschrank/elefant2.bz2")
             break
         }
     }
@@ -138,6 +138,7 @@ stop_elephants {
 prompt {
     if ready {
         expect("echo fertig")
+        run(`rm "$ROOT/küche/elefant*" `)
         break
     }
 }

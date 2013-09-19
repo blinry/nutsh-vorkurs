@@ -1,0 +1,42 @@
+lesson_name("Nach Mustern durchsuchen - grep")
+make_home
+
+"Sehr nützlich im Zusammenhang mit Pipes ist der Befehl `grep`. Er nimmt als Argument einen Regulären Ausdruck (die aus den Kreuzworträtseln) und wirft alle Zeilen seiner Eingabe weg, die nicht diesen Ausdruck enthalten."
+
+`Den Ausdruck setzen Sie am besten imme in einfache Anführungszeichen, da ja manche Zeichen (wie $, ? und *) eine eigene Bedeutung besitzen.`
+
+"Wenn Sie den `ps -e`-Befehl und `grep` kombinieren, können Sie sich so zum Beispiel alle Prozesse ausgeben lassen, die ein \"e\" enthalten."
+
+prompt {
+    if success && command =~ `ps -e\s*\|\s*grep\s+e$` {
+        expect("ps -e | grep e")
+        break
+    }
+}
+
+"Für die folgende Aufgabe brauchen Sie zwei Pipes und einen Befehl aus der letzten Lektion: Finden Sie die Anzahl der Dateien in `/dev`, heraus, die eine Ziffer enthalten. Geben Sie diese dann mit `echo` aus."
+
+prompt {
+    if command =~ `^echo` && output == run(`ls /dev/|grep '[0-9]'|wc -l`) {
+        expect(`echo $(ls /dev|grep '[0-9]'|wc -l)`)
+        break
+    }
+}
+
+"Wie viele Dateien haben an vorletzter Stelle ein \"o\"? Schlagen Sie in `grep`'s Manpage nach, wie Sie festlegen, dass Text auf einen bestimmten Ausdruck *end*en soll."
+
+prompt {
+    if command =~ `^echo` && output == run(`ls /dev/|grep 'o.$'|wc -l`) {
+        expect(`echo $(ls /dev|grep 'o.$'|wc -l)`)
+        break
+    }
+}
+
+"Mit `echo fertig` schließen Sie die Lektion ab."
+
+prompt {
+    if ready {
+        expect("echo fertig")
+        break
+    }
+}
