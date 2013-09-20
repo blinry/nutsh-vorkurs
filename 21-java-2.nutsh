@@ -1,11 +1,12 @@
 lesson_name("Java Teil 2")
 make_home
 
-"In dieser Lektion soll der Umgang mit dem Java-Compiler wiederholt und vertieft werden.
-Wechseln Sie erstmal in ihr Wohnzimmer, wo ein neues Java-Programm liegt."
+"In dieser Lektion soll der Umgang mit dem Java-Compiler wiederholt und vertieft werden."
+
+"Wechseln Sie erstmal in Ihr Wohnzimmer, wo ein neues Java-Programm liegt."
 
 if file(`$ROOT/wohnzimmer/Heron.class`) {
-    run(`rm $ROOT/wohnzimmer/Heron.class`)
+    run(`rm "$ROOT"/wohnzimmer/Heron.class`)
 }
 
 run(`echo -e 'public class Heron {\n    public static void main (String[] args) {\n        double a = 5.0,\n               x = 1.0;\n        for (int i = 1; i <= 7; i++) {\n            x = (x + a / x) / 2.0;\n            System.out.println(x);\n        }\n    }\n}\n' > "$ROOT"/wohnzimmer/Heron.java`)
@@ -17,10 +18,7 @@ prompt {
     }
 }
 
-"Das Programm in der Datei Heron.java berechnet die Quadratwurzel von 5 mit dem Heron-Verfahren. Kompillieren und führen sie es aus."
-"Zur Erinnerung:"
-"\t`javac Quelldatei` kompilliert die angegebene Datei und erzeugt eine dazugehörige class-Datei."
-"\t`java Klassenname` führt das angegebene Programm aus. Klassenname ist dabei der Name hinter class im Programm."
+"Das Programm in der Datei `Heron.java` berechnet die Quadratwurzel von 5 mit dem Heron-Verfahren. Kompilieren Sie es und führen Sie es aus. Bei Problemen gibt `echo hilfe` Tipps."
 
 prompt {
     if file(`$ROOT/wohnzimmer/Heron.class`) {
@@ -29,32 +27,43 @@ prompt {
     }
     if command =~ `^java\s+Heron$` && ! file(`$ROOT/wohnzimmer/Heron.class`) {
         expect("java Heron")
-        "Das Programm muss vor der Ausführung erst kompilliert werden!"
+        "Das Programm muss vor der Ausführung erst kompiliert werden!"
+    }
+    if help {
+        "\t`javac Quelldatei` kompiliert die angegebene Datei und erzeugt eine dazugehörige class-Datei."
+        "\t`java Klassenname` führt das angegebene Programm aus. Klassenname ist dabei der Name hinter class im Programm."
     }
 }
 
+"Hier"
+
 prompt {
-    if output =~ `.*2.23.*` {
+    if output =~ `2\.23` {
         expect("java Heron")
         break
     }
 }
 
 "Das Programm macht also, was es soll."
-"Verändern sie das Programm nun so, dass die Quadratwurzel von 42 berechnet wird und führen sie es aus"
+
+"Verändern Sie das Programm nun so, dass die Quadratwurzel von 42 berechnet wird und führen Sie es aus"
 
 prompt {
-    if output =~ `.*6.48.*` {
+    if output =~ `6\.48` {
         expect("sed -i -e 's/a = 5.0/a = 42.0/' Heron.java;javac Heron.java;java Heron")
         break
+    }
+    if output =~ `2\.23` {
+        "Denken Sie daran, das Programm vor dem Ausführen neu zu kompilieren."
     }
 }
 
 "Genau, es muss einfach der Wert von a verändert werden."
-"Gehen sie nun in den Schrank, wo ein weiteres Programm liegt."
+
+"Gehen Sie nun in den Schrank, wo ein weiteres Programm liegt."
 
 if file(`$ROOT/schrank/Fehler.class`) {
-    run(`rm $ROOT/schrank/Fehler.class`)
+    run(`rm "$ROOT"/schrank/Fehler.class`)
 }
 
 run(`echo -e 'public class Fehler {\n    public static void main(String[] a) {\n        int low = 1;\n        int high = 100\n            int sum = 0;\n        int i = low;\n        while (i < high {\n            sum = sum - i;\n            i = i + 1;\n            System.out.println("Die Summe der Zahlen von 1 bis 100 ist "+sum+".");\n        }\n' > "$ROOT"/schrank/Fehler.java`)
@@ -66,10 +75,10 @@ prompt {
     }
 }
 
-"Die Datei Fehler.java enthält ein Programm, welches alle Zahlen von 1 bis 100
+"Die Datei `Fehler.java` enthält ein Programm, welches alle Zahlen von 1 bis 100
 aufsummieren und am Ende das Ergebnis ausgeben soll."
 
-"Versuchen sie, das Programm zu kompillieren (Zur Erinnerung: `javac Quelldatei`)"
+"Versuchen Sie, das Programm zu kompilieren."
 
 prompt {
     if command =~ `javac\s+Fehler.java` {
@@ -78,33 +87,36 @@ prompt {
     }
 }
 
-"Leider enthält das Programm ein paar Fehler. Versuchen sie das Programm zu kompillieren
-und das Programm anhand der Compiler-Fehlermeldungen und der Programmausgabe zu korrigieren."
+"Leider enthält das Programm ein paar Fehler. Versuchen Sie, das Programm
+anhand der Compiler-Fehlermeldungen und der Programmausgabe zu korrigieren."
 
-"Zum Fortfahren führen sie die korrigierte Version des Programms einmal aus"
-/*"Falls sie Hilfe rufen sie danach mit `echo hilfe`"*/
+"Zum Fortfahren führen Sie die korrigierte Version des Programms einmal aus."
 
+"Falls Sie Tipps brauchen, rufen Sie `hilfe`!"
 
 prompt {
-    if output =~ `Die Summe der Zahlen von 1 bis 100 ist 4950.`  && file(`$ROOT/schrank/Fehler.class`) {
+    if output =~ `Die Summe der Zahlen von 1 bis 100 ist 4950.` && file(`$ROOT/schrank/Fehler.class`) {
         expect(`echo -e 'public class Fehler {\n    public static void main(String[] a) {\n        int low = 1;\n        int high = 100;\n            int sum = 0;\n        int i = low;\n        while (i < high) {\n            sum = sum + i;\n            i = i + 1;\n        }\n        System.out.println("Die Summe der Zahlen von 1 bis 100 ist "+sum+".");\n    }\n}\n' > Fehler.java ; javac Fehler.java ; java Fehler`)
         break
     }
-    /*if help {
+    if help {
         expect(`echo hilfe`)
-        run(`javac $ROOT/schrank/Fehler.java 2>&1`)
-        if output =~ "end of file while parsing" {
-            "Überprüfen sie, ob alle Begrenzer wie z. B. Klammern, Anführungszeichen etc. einen schließenden Partner haben"
+        run(`javac "$ROOT"/schrank/Fehler.java &> /tmp/nutsh-java`)
+        if run("cat /tmp/nutsh-java") =~ "end of file while parsing" {
+            "Überprüfen Sie, ob alle Begrenzer wie z. B. Klammern, Anführungszeichen etc. einen schließenden Partner haben."
         } else {
-            if output =~ "'\)' expected" {
-                "In einer Zeile fehlt eine schließende Klammer"
+            if run("cat /tmp/nutsh-java") =~ "'\\)' expected" {
+                "In einer Zeile fehlt eine schließende Klammer."
             } else {
-                if output =~ "';' expected" {
-                    "In einer Zeile fehlt ein Semikolon nach einer Anweisung"
-                } 
+                if run("cat /tmp/nutsh-java") =~ "';' expected" {
+                    "In einer Zeile fehlt ein Semikolon nach einer Anweisung."
+                }
             }
         }
-    }*/
+        if run("cat /tmp/nutsh-java") =~ "-4950" {
+            "Haben Sie mal nachgerechnet? ;-)"
+        }
+    }
 }
 
 "Sehr gut. Das Programm funktioniert nun wie gewünscht."
