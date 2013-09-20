@@ -10,9 +10,10 @@ make_home
 "Wenn Sie den `ps -e`-Befehl und `grep` kombinieren, können Sie sich so zum Beispiel alle Prozesse ausgeben lassen, die ein \"e\" enthalten."
 
 prompt {
-    if success && command =~ `ps -e\s*\|\s*grep\s+'?e'?$` {
+    if success && command =~ `ps -e\s*\|\s*grep\s+['"]?e['"]?$` {
         expect("ps -e | grep e")
         expect("ps -e | grep 'e'")
+        expect("ps -e | grep \"e\"")
         break
     }
 }
