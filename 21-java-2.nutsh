@@ -35,8 +35,6 @@ prompt {
     }
 }
 
-"Hier"
-
 prompt {
     if output =~ `2\.23` {
         expect("java Heron")
