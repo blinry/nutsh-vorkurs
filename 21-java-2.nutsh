@@ -111,8 +111,10 @@ prompt {
                 }
             }
         }
-        if run("cat /tmp/nutsh-java") =~ "-4950" {
-            "Haben Sie mal nachgerechnet? ;-)"
+        if file(`$ROOT/schrank/Fehler.class`) {
+            if run("java Fehler") =~ "-4950" {
+                "Haben Sie mal nachgerechnet? ;-)"
+            }
         }
     }
 }

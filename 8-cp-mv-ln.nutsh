@@ -3,7 +3,7 @@ make_home
 
 "Mit `cp` können Sie Dateien kopieren, wobei das Original erhalten bleibt: Das erste Argument ist, *was* Sie kopieren möchten, das zweite *wohin*."
 
-"Kopieren Sie zum Beispiel mal den Hamburger, der in der Küche liegt, in eine zweite Date namens `hamburger2`."
+"Kopieren Sie zum Beispiel mal den Hamburger, der in der Küche liegt, in eine zweite Datei namens `hamburger2`."
 
 run(`touch "$ROOT/küche/hamburger1"`)
 
