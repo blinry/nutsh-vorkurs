@@ -13,8 +13,9 @@ prompt {
 "Finden Sie heraus, wie Sie `date` dazu bringen, die Nanosekunden der aktuellen Uhrzeit auszugeben."
 
 prompt {
-    if command =~ "%N" && success {
+    if (command =~ "%N" || command =~ "--rfc-3339=ns" ) && success {
         expect("date +%N")
+        expect("date --rfc-3339=ns")
         break
     }
 }
@@ -76,8 +77,9 @@ prompt {
 "Wie könne ein Befehl heißen, der für 5 Sekunden nichts macht? Gute Nacht ;-)"
 
 prompt {
-    if command =~ `sleep\s+5$` && success {
+    if command =~ `sleep\s+5s?$` && success {
         expect("sleep 5")
+        expect("sleep 5s")
         break
     }
 }
