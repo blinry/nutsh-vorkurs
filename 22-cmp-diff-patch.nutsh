@@ -88,7 +88,7 @@ prompt {
 "Leiten Sie die Ausgabe dieses Befehls nun in eine Datei namens `löwe.patch` um (\"patch\" von \"Flicken\")."
 
 prompt {
-    if run(`file "$ROOT/wohnzimmer/löwe.patch"`) =~ "unified diff output" {
+    if file(`"$ROOT/wohnzimmer/löwe.patch"`) {
         expect("diff -u löwe_bak löwe > löwe.patch")
         break
     }
