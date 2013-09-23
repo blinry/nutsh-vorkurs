@@ -1,0 +1,47 @@
+lesson_name("Aus der Ferne arbeiten mit ssh")
+make_home
+
+run(`echo -e  '-----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEAxF9sYgEhwIA3R/2mU22rktdsUU4X0rH3HvQW6dKb0s8NtmNi\nXWPjIa+RARhow5mx19LkwO+YAhb5ZxY3Pr5+IEnfSvrP4HRwhKVgMZ8/NxRGXm3Z\n4Td5kxhFPy2a4dDGFSoD+GmKgECMYxoCudidVVukuy8m4n9peYuPuNSdjMGm+5uD\nema08kPxUFIZbgdEzxGxQ2J/75yothORcdn4ypJAK6GRvTD+fLQnaOvoXzwcgqqp\nx64kFi1RpAJ1mgf/E3fEX5n9Qp9Td8dYohWDsCFY1rZyrs27L+z3TtAq4Vj/kpPe\nK2ARQI6AGPQCGGpFiX+ZLS0bQ5tcM2nHXJpYYwIDAQABAoIBAQCCNP+JkFSP7rQ5\nEO/7O6nbSOnyk0RqmURRiumyisp1ooLmH8n2QKg3CtGsF0JICB4LDDRP1c5F/HPM\nrcdd3DOHN1ROxDWYD70XxwwcewoQfGoYbOBeXElJhntL4/JhruvY1q4hReHnHmW3\nxGRwVDgmhAibcS1oW7FVPXvDw37f99IgtF7adwcUeQbu5bJ1gGbb11aNqWcMjA8w\nx1e6JzQuCG0SVpm7aIf5Yb3Cp2Q7Fj/4wRQQlFC+s5e2erL2aGkphLwsq9b/OapV\nGeZmUaIofnDzs/SUpwZeGEDrcNbz2rDwCyY08QkMfE+kHruM9E8yOj7GfdJY0Lq0\nC0q9he85AoGBAOo5WBHryDBjQNuzY/nJae9rADyST6E3g7jP36gol57XBf0zbBO/\nXXxumOzEv+WfmAfCqJ7vVIqVTt4i2PeGeitUPkV8q+zmnhfpAXcQD3FybYFOv/9S\nwAJGa2EvCBbevgfC9Hyh42DuZwMxw77vc3oQWDS8qQlg/yWhHMaYtbqdAoGBANah\nMwoRdl9OUhga/D4a4VnFwQ0SfXRUxBypQXO5rjFdpl1bgBdlpPi4mRS2NC60nyTY\nOejCzETb9js4VU7qxfRlaiKCwz+8U78pWXsiPquuZAyuI03e3/WwwMlfge+QPJNH\ns5AHjOa4/nSNgt65PryWy6lEc9QzekPqkWUHHm7/AoGAS0cI1iGoYlzT8Ih0PkiM\ngoUqO01uyEq2TASLRlldeZBz/U+0kZg0bJSDE72cSymCzCO02/fhfPTFt0EN6GfR\nBfH6XYzXGLl54AdkECcaP4TeSuvLazzmNxT41/AssmT+QDJZL2E8Wd/lPbKVzdzZ\niUaNgs2LqlcBSc/BFtbnuUUCgYEAvGTm3jGRy/p9iPc27nS91gUFfan7QP+e3OGc\nuC4GPwLLIytL9j2cX0354PpGN7EH+FlsC2nhz5ecPUMnbowZknrqfLx3Eh0HDccH\n6lOW2y/KVm8MQjAeOhUaRCh3b4cWBNltPkHCZkt/32LPuxyzeuqKflu9qEg/TBo7\n4YgsKJUCgYB0jbj0HRQn0McyRzxD6JGvR6bg0urxF6GAdYQWu1CVI4H5PCVykKLi\n9AY7JEbKLju++dYTm0ND9xYMaMFES6E3tmUQaSktKZdCAk/Sbj8lR/QcwQZpAvnG\nMiknRj2S56VUqRHHyYQCbuMsy3euDnTr9IgLTlALXkBoGlNtI7MNOw==\n-----END RSA PRIVATE KEY-----\n' > $ROOT/vorkurs_rsa`)
+run(`chmod 0600 $ROOT/vorkurs_rsa`)
+
+
+"In dieser Lektion sollen sie lernen, wie sie sich aus der Ferne
+auf Systemen anmelden können und mit diesen über SSH Dateien
+austauschen können."
+
+"Um sich auf entfernten Rechnern anzumelden kann der Befehl
+´ssh username@rechneradresse:port´ benutzt werden. Probieren
+sie mal, sich auf den SSH-Server des Rechenzentrums zu verbinden.
+Die Adresse ist `rzloginlx.rz.tu-bs.de`, ihre `y-Nummer` der Benutzername.  ohne Portangabe anzumelden
+(:port weglassen).
+Beenden sie danach die Verbindung mit `exit`."
+
+"Mit `echo fertig` gehts weiter"
+
+prompt {
+    if ready {
+        expect("echo fertig")
+        break
+    }
+}
+
+
+"Damit sie sich auf einen entfernten Rechner mit ssh verbinden können muss 
+auf diesem ein SSH Server laufen und sie über passende Daten zur Authentifizierung verfügen."
+
+"Probieren sie nun sich auf den Rechner `vorkurs.ddns.me` als
+User `vorkurs` mit Passwort `vorkurs` anzumelden. Legen sie 
+eine Datei auf dem Server an, die genauso heißt, wie ihr lokaler
+Nutzer (z.b. ihre y-Nummer)."
+
+"Mit `echo fertig` geht es weiter"
+
+prompt {
+    if ready {
+        expect(`yes|ssh  -i $ROOT/vorkurs_rsa vorkurs@vorkurs.ddns.me "touch $USER;exit";echo fertig`)
+        run(`yes|scp -i $ROOT/vorkurs_rsa vorkurs@vorkurs.ddns.me:/home/vorkurs/`+user+` .`)
+        if file(user) {
+            break
+        }
+    }
+}
