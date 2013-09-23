@@ -123,7 +123,7 @@ prompt {
 "Mit `vimdiff` können Sie dann die Unterschiede zur Originaldatei betrachten."
 
 prompt {
-    if command =~ `patch\s+<\s+\S+` && success {
+    if command =~ `patch.*löwe2.patch` && success {
         expect("patch < löwe2.patch")
         break
     }
