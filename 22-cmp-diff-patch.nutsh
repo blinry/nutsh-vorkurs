@@ -33,6 +33,8 @@ prompt {
 
 "Um Unterschiede zwischen Dateien anzusehen, ist `vimdiff` extrem praktisch. Es bekommt ebenfalls zwei Argumente, öffnet dann beide Dateien nebeneinander und färbt die Unterschiede ein. In diesem Modus kann die Dateien sogar weitereditieren: Bauen Sie weitere Unterschiede ein."
 
+"Zur Erinnerung: *:x*, gefolgt von Enter, speichert und schließt die aktuelle Datei."
+
 "*Strg+w* (wie \"window\"), gefolgt von einer Richtungstaste, bewegt den Cursor zwischen den beiden Fenstern hin- und her."
 
 prompt {
