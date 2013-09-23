@@ -53,13 +53,18 @@ run("export PATH")
 "So, und nun machen wir was Sinnvolles mit dem Skript: Ändern Sie es so, dass es die Befehlshistory nach einem Muster durchsucht (das man dem Skript als Argument übergeben kann) und die Treffer alphabetisch sortiert ausgibt. Sie können `$1` benutzen, um sich auf das erste Argument des Skripts zu beziehen."
 
 prompt {
-    if command =~ "how\s+\S+" && run("echo -e \"history -c\\necho bla\\necho fu\\necho aha\\necho wa\\nsource how a\"|bash -i") =~ "    3  echo aha\r\n    1  echo bla\r\n    4  echo wa" {
+    if command =~ "how\s+\S+" && run(`cat "$ROOT"/schlafzimmer/how`) =~ `history\s*\|\s*grep\s+.*\$1.*\|\s*sort\s+.*-k\s*2` {
         expect(`cd ../schlafzimmer; echo -e '#!/bin/bash -i\nhistory|grep "$1"|sort -k2' > how; how ls`)
+        expect(`cd ../schlafzimmer; echo -e '#!/bin/bash -i\n history | grep $1 | sort -k2' > how; how ls`)
+        "Das sieht gut aus! Super!"
+        break
+    } else {
+        expect(" ")
+    }
+    if ready {
         break
     }
 }
-
-"Das sieht gut aus! Super!"
 
 "Viele Leute legen sich einen Ordner namens `bin` im eigenen Homeverzeichnis an, fügen diesen in der `.bashrc` der PATH-Variable hinzu und sammeln dort ihre Skripts."
 
