@@ -50,7 +50,7 @@ prompt {
 
 run("export PATH")
 
-"So, und nun machen wir was Sinnvolles mit dem Skript: Ändern Sie es so, dass es die Befehlshistory nach einem Muster durchsucht und die Treffer alphabetisch sortiert ausgibt. Sie können `$1` benutzen, um sich auf das erste Argument zu beziehen, das dem Skript übergeben wird."
+"So, und nun machen wir was Sinnvolles mit dem Skript: Ändern Sie es so, dass es die Befehlshistory nach einem Muster durchsucht (das man dem Skript als Argument übergeben kann) und die Treffer alphabetisch sortiert ausgibt. Sie können `$1` benutzen, um sich auf das erste Argument des Skripts zu beziehen."
 
 prompt {
     if command =~ "how\s+\S+" && run("echo -e \"history -c\\necho bla\\necho fu\\necho aha\\necho wa\\nsource how a\"|bash -i") =~ "    3  echo aha\r\n    1  echo bla\r\n    4  echo wa" {
