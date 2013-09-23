@@ -1,7 +1,36 @@
 lesson_name("Sortieren")
 make_home
 
+"Dass der Befehl `sort` seine Eingabe sortiert, haben wir schon in einer früheren Lektion gesehen. Wir haben dazu nun noch eine etwas größere Aufgabe für Sie, zu deren Lösung Sie in der Manpage des `sort`-Befehls ein paar Optionen nachschlagen müssen:"
 
+"Lassen Sie sich alle (auch die versteckten) Dateien und Verzeichnisse Ihres Homeverzeichnisses inklusive Details mit menschenlesbaren Größenangaben ausgeben und sortieren Sie diese absteigend nach ihrer Größe."
+
+"(`echo help` gibt wechselnde Tipps)"
+
+prompt {
+    if output == run("ls -alh ~ | sort -rh -k5") || output == run("ls -Alh ~ | sort -rh -k5"){
+        expect("ls -alh ~ | sort -rh -k5")
+        expect("ls -Alh ~ | sort -rh -k5")
+        break
+    }
+    if help {
+        if run("echo $((RANDOM%2))") == "0" {
+            if run("echo $((RANDOM%2))") == "0" {
+                "Statt der standardmäßigen alphabetischen Sortierung brauchen wir eine andere."
+            } else {
+                "*Schlüssel* zu dieser Aufgabe ist eine Option, die nach einer bestimmten Spalte sortieren."
+            }
+        } else {
+            if run("echo $((RANDOM%2))") == "0" {
+                "Diesmal leider kein Tipp. Versuchen Sie's noch mal!"
+            } else {
+                "Die zwei notwendigen Befehle bekommen eine gleiche Option."
+            }
+        }
+    }
+}
+
+"Super! Prkatisch in diesem Zusammenhang ist auch der Befehl `cut`, der einzelne Spalten \"herausschneiden\" kann."
 
 "Mit `echo fertig` schließen Sie die Lektion ab."
 

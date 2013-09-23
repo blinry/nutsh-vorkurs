@@ -1,9 +1,133 @@
 lesson_name("Dateien vergleichen - cmp, diff, patch")
 make_home
+run(`rm "$ROOT"/wohnzimmer/löwe*`)
 
+//run(`echo 'Wie fängt man einen Löwen in der Wüste?\n' > "$ROOT"/wohnzimmer/löwe`)
+run(`echo -e "Wie fängt man einen Löwen in der Wüste?\n=======================================\n\nUm dieses Problem bewältigen zu können, geben wir hier einige Lösungsvorschläge:\n\nDie geometrische Methode\n------------------------\n\nMan stelle einen zylindrischen Käfig in die Wüste:\n\nFall 1:\n    Der Löwe ist innerhalb des Käfigs.\n    Der Fall ist trivial.\nFall2:\n    Der Löwe ist außerhalb des Käfigs.  Dann stelle man sich in den Käfig und\n    führe eine Inversion an den Käfigwänden durch. So gelangt der Löwe in den\n    Käfig und man selbst nach draußen. Man achte darauf, daß man sich nicht in\n    die Mitte des Käfigs stellt, da man sonst in der Unendlichkeit\n    verschwindet.\n\nDie Projektionsmethode\n----------------------\n\nOhne Beschränkung der Allgemeinheit nehmen wir an, daß die Wüste eine Ebene\nist. Wir projizieren nun diese Ebene auf eine Gerade, die durch den Käfig\nverläuft, und diese Gerade auf einen Punkt im Käfig. Damit gelangt der Löwe in\nden Käfig.\n\nDie topologische Methode\n------------------------\n\nDer Löwe kann topologisch als Torus aufgefaßt werden. Man transportiere die\nWüste in den vierdimensionalen Raum. Nun ist es möglich, die Wüste so zu\nfalten, daß der Löwe beim Rücktransport in den dreidimensionalen Raum verknotet\nist. Dann ist er hilflos und kann ohne Mühe gefangen werden.\n\nDie stochastische Methode\n-------------------------\n\nMan benötigt dazu ein Laplacerad, einige Würfel und eine Gauß'sche Glocke. Mit\ndem Laplacerad fährt man in die Wüste und wirft mit den Würfeln nach dem Löwen.\nKommt er dann wutschnaubend angerannt, stülpe man die Gauß'sche Glocke über\nihn. Damit ist er mit der Wahrscheinlichkeit 1 gefangen.\n\nDie Newtonsche Methode\n----------------------\n\nKäfig und Löwe ziehen sich durch die Gravitation an. Bei Vernachlässigung der\nReibung wird der Löwe früher oder später im Käfig landen.\n\nDie Heisenberg-Methode\n----------------------\n\nOrt und Geschwindigkeit eines bewegten Löwen lassen sich nicht gleichzeitig\nbestimmen. Da bewegte Löwen in der Wüste keinen physikalisch sinnvollen Ort\neinnehmen, eignen sie sich nicht zur Jagd. Die Löwenjagd kann sich demnach nur\nauf ruhende Löwen beschränken. Das Fangen eines ruhenden, bewegungslosen Löwen\nwird dem Leser als Übungsaufgabe überlassen.\n\nDie Schrödinger-Methode\n-----------------------\n\nDie Wahrscheinlichkeit, zu einem beliebigen Zeitpunkt einen Löwen im Käfig zu\nfinden, ist größer als Null. Man setze sich hin und warte.\n\nDie Methode nach Einstein\n-------------------------\n\nMan überfliege die Wüste mit annähernd Lichtgeschwindigkeit. Durch die\nrelativistische Längenkontraktion wird der Löwe flach wie Papier. Man greife\nihn, rolle ihn zusammen und mache ein Gummiband herum.\n\nDie experimentalphysikalische Methode\n-------------------------------------\n\nMan nehme eine semipermiable Membran, die alles außer Löwen durchläßt und siebe\ndamit die Wüste durch.\n\nDie funktionalanalytische Methode\n---------------------------------\n\nDie Wüste ist ein separabler Raum. Er enthält daher eine abzählbare dichte\nMenge, aus der eine Folge ausgewählt werden kann, die gegen den Löwen\nkonvergiert. Mit einem Käfig auf dem Rücken springen wir von Punkt zu Punkt\ndieser Folge und nähern uns so dem Löwen beliebig genau.\n\nDie Peano-Methode\n-----------------\n\nMan konstruiere eine Peano-Kurve durch die Wüste, also eine stetige Kurve, die\ndurch jeden Punkt der Wüste geht. Es ist gezeigt worden, daß man eine solche\nKurve in beliebig kurzer Zeit durchlaufen kann. Mit dem Käfig unter dem Arm\ndurchlaufe man die Kurve in kürzerer Zeit, als der Löwe benötigt, um sich um\nseine Länge fortzubewegen.\n\nDie mengentheoretische Methode\n------------------------------\n\nDie Punkte der Wüste lassen sich wohlordnen. Ausgehend vom kleinsten Element\nerwischt man den Löwen durch transfinite Induktion.\n\nDie Bolzano-Weierstraß-Methode\n------------------------------\n\nWir halbieren die Wüste in Nord-Süd-Richtung durch einen Zaun. Dann ist der\nLöwe entweder in der westlichen oder in der östlichen Hälfte. Wir wollen\nannehmen, daß er in der westlichen Hälfte ist. Daraufhin halbieren wir diesen\nwestlichen Teil durch einen Zaun in Ost-West-Richtung. Der Löwe ist entweder im\nnördlichen oder im südlichen Teil. Wir nehmen an, er ist im nördlichen. Auf\ndiese Weise fahren wir fort. Die Fläche der Teile, die bei diesem Verfahren\nentstehen, strebt gegen Null. Auf diese Weise wird der Löwe schließlich von\neinem Zaun beliebig kleiner Länge eingegrenzt.\n" > "$ROOT"/wohnzimmer/löwe`)
 
+"Stellen Sie sich vor, Sie haben in einem großen Programm einige Fehler korrigiert, und möchten diese Änderungen nun mit einem Kommilitonen teilen."
 
-"Mit `echo fertig` schließen Sie die Lektion ab."
+"Sie könnten ihm jetzt das ganze, korrigierte Programm geben, aber es gibt Möglichkeiten, tatsächlich nur die *Änderungen* auszutauschen, und diese in die fehlerhafte Version zu übernehmen."
+
+"Im Wohnzimmer finden Sie die Datei `löwe`. Machen Sie zunächst eine Kopie davon, und überprüfen Sie mit dem Befehl `cmp` (\"compare\"), ob die beiden Dateien gleich sind."
+
+prompt {
+    if command =~ `cmp\s+.*` && success {
+        expect("cd wohnzimmer; cp löwe löwe_bak; cmp löwe löwe_bak")
+        break
+    }
+}
+
+"Wenn `cmp` nichts ausgibt, sind die Dateien genau gleich. Das ist überhaupt ein typisches Prinzip: Bei fehlender Ausgabe ist \"alles in Ordnung\"."
+
+"Nun nehmen Sie einige Änderungen an der Originaldatei vor. Führen Sie dann erneut `cmp` aus."
+
+prompt {
+    if command =~ `cmp\s+` && exit_code == "1" {
+        expect("sed -i 's/Löwe/Möwe/g' löwe; cmp löwe löwe_bak")
+        break
+    }
+}
+
+"Nun wird die erste unterschiedliche Stelle ausgegeben."
+
+"Um Unterschiede zwischen Dateien anzusehen, ist `vimdiff` extrem praktisch. Es bekommt ebenfalls zwei Argumente, öffnet dann beide Dateien nebeneinander und färbt die Unterschiede ein. In diesem Modus kann die Dateien sogar weitereditieren: Bauen Sie weitere Unterschiede ein."
+
+"*Strg+w* (wie \"window\"), gefolgt von einer Richtungstaste, bewegt den Cursor zwischen den beiden Fenstern hin- und her."
+
+prompt {
+    if command =~ `vimdiff\s+` && success {
+        expect("echo vimdiff löwe löwe_bak")
+        break
+    }
+}
+
+"OK. `fertig` für den nächsten Schritt?"
+
+prompt {
+    if ready {
+        expect("echo fertig")
+        break
+    }
+}
+
+"Der Befehl `diff` (\"difference\") gibt die Unterschiede zwischen zwei Dateien kompakt aus. Probieren Sie das mal! Führen Sie die unveränderte Datei als erste an, da es uns hier um die Änderungen hin zur veränderten Version geht."
+
+prompt {
+    if command =~ `diff\s+\S+\s+löwe` && exit_code == "1" {
+        expect("diff löwe_bak löwe")
+        break
+    }
+}
+
+"Die Ausgabe besteht aus einem oder mehreren Blöcken folgender Art:"
+
+"Erst kommt eine Zeile nach dem Schema [Zeilen][Aktion][Zeilen], die beschreibt, was mit den Zeilen der ersten Datei hinsichtlich einiger Zeilen der zweiten Datei getan wurde.* c*hange beschreibt eine Ersetzung,* d*elete eine Löschung und* a*ppend ein Anhängen."
+
+"Anschließend folgen Zeilen, die (bei einem* >*) in die zweite Datei eingefügt oder (bei einem* <*) herausgenommen wurden."
+
+"Wesentlich verbreiteter ist das sogenannte *unified*-Diff-Format, dass Sie mit der Option *-u* ausgeben lassen."
+
+prompt {
+    if ( command =~ `diff\s+-u\s+\S+\s+löwe` || command =~ `diff\s+\S+\s+löwe\s+-u` ) && exit_code == "1" {
+        expect("diff -u löwe_bak löwe")
+        expect("diff löwe_bak löwe -u")
+        break
+    }
+}
+
+"Bei diesem Format werden hinzugekommene Zeilen mit einem* +* gekennzeichnet, weggefallene mit einem* -*."
+
+"Leiten Sie die Ausgabe dieses Befehls nun in eine Datei namens `löwe.patch` um (\"patch\" von \"Flicken\")."
+
+prompt {
+    if run(`file "$ROOT/wohnzimmer/löwe.patch"`) =~ "unified diff output" {
+        expect("diff -u löwe_bak löwe > löwe.patch")
+        break
+    }
+}
+
+"Wenn Sie möchten, können Sie nun Ihre Patch-Datei mit einem anderen Kursteilnehmer austauschen. Das geht am einfachsten per Mail, zum Beispiel mit Ihrer neuen TU-Mailaddresse: https://groupware.tu-braunschweig.de/"
+
+"Speichern Sie die fremde Patch-Datei als `löwe2.patch` in diesem Ordner. Das Verzeichnis `.nutsh`, in dem sich Ihr Wohnzimmer befindet, ist ein verstecktes Verzeichnis, da es mit einem Punkt beginnt. Es kann daher sein, dass Sie in Ihrem \"Datei speichern\"-Dialog per Rechtsklick oder *Strg-H* die Anzeige versteckter Dateien aktivieren müssen."
+
+"Alternativ können Sie auch einfach mit Ihrer eigenen Patch-Datei weitermachen, indem Sie diese nach `löwe2.patch` verschieben."
+
+"`fertig`?"
+
+prompt {
+    if ready {
+        if file("$ROOT/wohnzimmer/löwe2.patch") {
+            expect("cp löwe.patch löwe2.patch; echo fertig")
+            break
+        } else {
+            expect("echo fertig")
+            "Hier ist noch keine Datei namens `löwe2.patch`."
+        }
+    }
+}
+
+"Kopieren Sie außerdem Ihre Kopie der ursprünglichen, unveränderten Datei über die veränderte `löwe`-Datei."
+
+prompt {
+    if run(`wc -c < "$ROOT"/wohnzimmer/löwe`) == "4532" {
+        expect("cp löwe_bak löwe")
+        break
+    }
+}
+
+"Nun haben wir wieder - wie zu Beginn - zwei unveränderte Dateien. Und einen Patch, den wir nun mit `patch < [Patchdatei]` anwenden. (Die nach links gerichtete spitze Klammer gibt dem Befehl eine Datei als Eingabe.)"
+
+"Mit `vimdiff` können Sie dann die Unterschiede zur Originaldatei betrachten."
+
+prompt {
+    if command =~ `patch\s+<\s+\S+` && success {
+        expect("patch < löwe2.patch")
+        break
+    }
+}
+
+"Mit `echo fertig` schließen Sie auch diese Lektion ab."
 
 prompt {
     if ready {

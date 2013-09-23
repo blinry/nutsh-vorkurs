@@ -64,7 +64,7 @@ if file(`$ROOT/schrank/Fehler.class`) {
     run(`rm "$ROOT"/schrank/Fehler.class`)
 }
 
-run(`echo -e 'public class Fehler {\n    public static void main(String[] a) {\n        int low = 1;\n        int high = 100\n            int sum = 0;\n        int i = low;\n        while (i < high {\n            sum = sum - i;\n            i = i + 1;\n            System.out.println("Die Summe der Zahlen von 1 bis 100 ist "+sum+".");\n        }\n' > "$ROOT"/schrank/Fehler.java`)
+run(`echo -e 'public class Fehler {\n    public static void main(String[] a) {\n        int low = 1;\n        int high = 100\n            int sum = 0;\n        int i = low;\n        while (i <= high {\n            sum = sum - i;\n            i = i + 1;\n            System.out.println("Die Summe der Zahlen von 1 bis 100 ist "+sum+".");\n        }\n' > "$ROOT"/schrank/Fehler.java`)
 
 prompt {
     if in(`$ROOT/schrank`) {
@@ -93,8 +93,8 @@ anhand der Compiler-Fehlermeldungen und der Programmausgabe zu korrigieren."
 "Falls Sie Tipps brauchen, rufen Sie `hilfe`!"
 
 prompt {
-    if output =~ `Die Summe der Zahlen von 1 bis 100 ist 4950.` && file(`$ROOT/schrank/Fehler.class`) {
-        expect(`echo -e 'public class Fehler {\n    public static void main(String[] a) {\n        int low = 1;\n        int high = 100;\n            int sum = 0;\n        int i = low;\n        while (i < high) {\n            sum = sum + i;\n            i = i + 1;\n        }\n        System.out.println("Die Summe der Zahlen von 1 bis 100 ist "+sum+".");\n    }\n}\n' > Fehler.java ; javac Fehler.java ; java Fehler`)
+    if output =~ `Die Summe der Zahlen von 1 bis 100 ist 5050.` && file(`$ROOT/schrank/Fehler.class`) {
+        expect(`echo -e 'public class Fehler {\n    public static void main(String[] a) {\n        int low = 1;\n        int high = 100;\n            int sum = 0;\n        int i = low;\n        while (i <= high) {\n            sum = sum + i;\n            i = i + 1;\n        }\n        System.out.println("Die Summe der Zahlen von 1 bis 100 ist "+sum+".");\n    }\n}\n' > Fehler.java ; javac Fehler.java ; java Fehler`)
         break
     }
     if help {
@@ -112,7 +112,7 @@ prompt {
             }
         }
         if file(`$ROOT/schrank/Fehler.class`) {
-            if run("java Fehler") =~ "-4950" {
+            if run("java Fehler") =~ "-5050" {
                 "Haben Sie mal nachgerechnet? ;-)"
             }
         }

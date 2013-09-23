@@ -1,7 +1,44 @@
 lesson_name("Suchen und finden - find, locate")
 make_home
 
+"Sie werden nun zwei Befehle kennen lernen, mit denen Sie nach Dateien suchen können. Der eine ist schnell, der andere ist genau."
 
+"Als erstes der schnelle: Er heißt `locate` und nimmt ein Muster als Argument, nach dem dann im gesamten Dateisystem gesucht wird. Am besten gewöhnen Sie sich auch hier an, das Muster immer in (einfache) Anführungszeichen zu setzen, um zu vermeide, dass dort irgendwelche Ersetzugen durch die Shell vorgenommen werden."
+
+"Wie viele Treffer gibt `locate` bei einer Suche nach dem Ausdruck \"javac\" aus? Antworten Sie mit `echo`."
+
+prompt {
+    if command =~ `^echo\s+` && output =~ run("locate -c javac") {
+        expect("echo $(locate -c javac)")
+        break
+    }
+}
+
+"Das Muster kann Wildcards enthalten (\\* für beliebig viele Zeichen, ? für genau eins). Wenn es keine davon enthält, wird automatisch ein \"\\*\" davor und dahinter gesetzt. Mit diesem Wissen finden Sie heraus, wie viele Dateien auf \"javac\" *enden*."
+
+prompt {
+    if command =~ `^echo\s+` && output =~ run("locate -c '*javac'") {
+        expect("echo $(locate -c '*javac')")
+        break
+    }
+}
+
+"Ja. An dieser Stelle etwas ganz wichtiges: `locate` sucht nicht in Echtzeit, sondern benutzt eine Datenbank, die veraltet sein kann. Es gibt den Befehl `updatedb`, der regelmäßig vom Administrator des Rechners ausgeführt wird, und der dann das gesamte Dateisystem durchpflügt und sich die vorhandenen Dateien merkt. Die Datenbank, die dabei entsteht, ist deshalb immer nur auf dem Stand der letzten Ausführung. Danach geänderte oder gelöschte Dateien werden dann nicht bzw. fälschlicherweise gefunden."
+
+"Deshalb kommt nun die langsame, aber genaue Art und Weise, zu suchen: `find`."
+
+"Ohne Argumente gibt `find` rekursiv alle Verzeichnisse und Ordner unterhalb des aktuellen Verzeichnisses aus - es ist oft bequem, diese Ausgabe dann mit `grep` weiter zu filtern. Man kann mit dem Argument `-name '[Muster]'` aber auch direkt ein Suchmuster angeben (das ebenfalls Wildcards unterstützt)."
+
+"Finden Sie die Anzahl der Dateien in Ihrem Homeverzeichnis heraus, die auf \"rc\" enden."
+
+prompt {
+    if command =~ `^echo\s+` && output =~ run(`find "$HOME" -name '*rc' 2>/dev/null | wc -l`) {
+        expect(`echo $(find ~ -name '*rc' | wc -l)`)
+        break
+    }
+}
+
+"Gut! Insbesondere `find` hat noch unzählige Optionen - schauen Sie bei Gelegenheit mal in die Manpage!"
 
 "Mit `echo fertig` schließen Sie die Lektion ab."
 

@@ -1,7 +1,65 @@
 lesson_name("Shell-Skripte")
 make_home
+run(`rm "$ROOT/schlafzimmer/how"`)
 
+"Sie kennen bereits Aliase, die Ihnen Tipparbeit bei oft benutzten Befehlen abnehmen können."
 
+"Was ist aber, wenn wir einige Zeilen immer wieder zusammen ausführen oder mit Pipes kombinieren, und diese zu einem Befehl zusammenfassen möchten? Wir schreiben uns ein Shell-Skript!"
+
+"Legen Sie im Schlafzimmer eine neue Datei namens `how` an und schreiben Sie dort eine Zeile hinein, die \"hallo\" ausgibt. Sie können das Skript dann per `bash [Skriptname]` starten."
+
+prompt {
+    if command =~ `b?a?sh\s+.*how` {
+        if file("$ROOT/schlafzimmer/how") {
+            if run(`sh "$ROOT"/schlafzimmer/how`) == "hallo" {
+                expect(`echo "echo hallo" > schlafzimmer/how; bash how`)
+                break
+            } else {
+                "Das Skript gibt noch nicht das Richtige aus."
+            }
+        } else {
+            expect("bash how")
+            "Das Skript `how` im Schlafzimmer existiert noch nicht."
+        }
+    }
+}
+
+"So, nun wäre es schön, wenn man nicht mehr davorschreiben müsste, dass wir das Skript mit der `bash`-Shell starten wollen. Sie können dazu in die erste Zeile der Datei folgendes schreiben: \"#!/bin/bash -i\" - Raute und Ausrufezeichen sind der sogenannte *Shebang*, dann folgt der absolute Pfad zu dem Programm, mit dem das Skript ausgeführt werden soll. Die Option `-i` startet die Bash im *interaktiven Modus*, das ist notwendig, damit wir nachher im Skript auf die Befehls-History zugreifen können."
+
+"Zweitens müssen Sie das Skript mit `chmod u+x [Datei]` *ausführbar* machen. (Lesen Sie die Manpage und lassen Sie sich die Rechte mit `ls -l` anzeigen, wenn's sie interessiert!)"
+
+"Dann können Sie das Skript starten, indem Sie `./[Datei]` schreiben. Der Punkt steht dabei ja für den aktuellen Ordner - ansonsten weiß die Shell nicht, wo sie den Befehl suchen soll."
+
+prompt {
+    if command =~ `\./how` && output == "hallo" {
+        expect(`cd schlafzimmer; echo -e '#!/bin/bash -i\necho hallo' > how; chmod u+x how; ./how`)
+        break
+    }
+}
+
+"Naja, wir können der Shell auch beibringen, wo sie nach Skripts suchen soll! Es gibt die Variable `PATH`, die eine Liste von Verzeichnissen enthält, in denen nach Skripts gesucht wird. Die Verzeichnisse sind mit Doppelpunkten getrennt. Am einfachsten fügen Sie den aktuellen Ordner so hinzu: `PATH=$PATH:$(pwd)` - die Variable wird dabei um einen Doppelpunkt und die Ausgabe von `pwd` ergänzt. Lassen Sie sich vorher und hinterher die Variable ruhig nochmal ausgeben."
+
+"Danach gehen Sie in ein anderes Zimmer und versuchen Sie, Ihr Skript einfach per `how` zu starten!"
+
+prompt {
+    if command =~ "how$" && output == "hallo" {
+        expect("PATH=$PATH:$(pwd); cd ../wohnzimmer; how")
+        break
+    }
+}
+
+run("export PATH")
+
+"So, und nun machen wir was sinnvolles mit dem Skript: Ändern Sie es so, dass es die Befehlshistory nach einem Muster durchsucht und die Treffer alphabetisch sortiert ausgibt. Sie können `$1` benutzen, um sich auf das erste Argument zu beziehen, das dem Skript übergeben wird."
+
+prompt {
+    if command =~ "how\s+\S+" && (run("bash -c \"how ls\"|head -1") == run("history|grep \"ls\"|sort -k2|head -1")) {
+        expect(`cd ../schlafzimmer; echo -e '#!/bin/bash -i\nhistory|grep "$1"|sort -k2' > how; how ls`)
+        break
+    }
+}
+
+"Das sieht gut aus! Super!"
 
 "Mit `echo fertig` schließen Sie die Lektion ab."
 
