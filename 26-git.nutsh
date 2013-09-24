@@ -69,6 +69,8 @@ prompt {
 
         `    git clone git@github.com:[Teamname]/rezepte`
 
+        "Die Frage, ob Sie dem Server vertrauen, können Sie beim ersten Mal mit *yes* beantworten."
+
         prompt {
             if dir(`"$ROOT"/küche/rezepte/.git/`) {
                 expect("cd ..; rm -rf rezepte; yes yes | git clone git@github.com:safdsafd/rezepte; cd rezepte")
@@ -139,6 +141,8 @@ prompt {
             "Und nun schieben Sie den ersten Commit auf den Server:"
 
             "    `git push -u origin master`"
+
+            "Die Frage, ob Sie dem Server vertrauen, können Sie beim ersten Mal mit *yes* beantworten."
 
             prompt {
                 if run("git rev-parse master") == run("git rev-parse origin/master") {
