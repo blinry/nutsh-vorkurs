@@ -16,7 +16,7 @@ prompt {
     }
 }
 
-"Sie brauchen weiterhinn einen SSH-Schlüssel, mit dem Sie sich gegenüber GitHub authentifizieren können. Erstellen Sie einen mit `ssh-keygen` (die drei Fragen jeweils mit Enter bestätigen)."
+"Sie brauchen weiterhinn einen SSH-Schlüssel, mit dem Sie sich gegenüber GitHub authentifizieren können. Erstellen Sie einen mit dem Befehl `ssh-keygen` (die drei Fragen jeweils mit Enter bestätigen)."
 
 prompt {
     if file("$HOME/.ssh/id_rsa.pub") {
@@ -71,7 +71,7 @@ prompt {
 
         prompt {
             if dir(`"$ROOT"/küche/rezepte/.git/`) {
-                expect("cd ..; rm -rf rezepte; git clone git@github.com:safdsafd/rezepte")
+                expect("cd ..; rm -rf rezepte; git clone git@github.com:safdsafd/rezepte; cd rezepte")
                 break
             }
         }
@@ -86,6 +86,13 @@ prompt {
             "Anschließend klicken Sie oben rechts auf \"New repository\" (ein *Repository* ist ein Verzeichnis mit Dateien unter Versionskontrolle), geben Sie diesem den Namen \"rezepte\", und klicken Sie schließlich auf den grünen \"Create repository\"-Knopf."
 
             "`fertig`?"
+
+            prompt {
+                if ready {
+                    expect("echo fertig")
+                    break
+                }
+            }
 
             "Als letztes wollen wir jetzt noch ein bisschen Inhalt in dieses neue Repository tun. In Ihrer Küche finden Sie einen Ordner `rezepte`, der bereits einige Rezepte enthält."
 
@@ -176,7 +183,7 @@ run("NUTSH_LAST_MASTER=$(git rev-parse master)")
 
 prompt {
     if ! run("echo $NUTSH_LAST_MASTER") == run("git rev-parse master") {
-        expect("echo blubb > blubb; git add blubb; git commit -m blubb")
+        expect("echo blubb >> blubb; git add blubb; git commit -m blubb")
         break
     }
 }
@@ -190,10 +197,10 @@ prompt {
 prompt {
     if command =~ "git pull" {
         expect("git pull")
-        if output =~ "\+" {
+        if output =~ `\+` {
             "Sieht ganz so aus. Ihr Repo sollte nun auf dem aktuellen Stand sein."
         } else {
-            "Noch ist auf dem Server nichts passiert."
+            "Momentan sind Sie vorne ;-)"
         }
         break
     }
@@ -212,7 +219,7 @@ prompt {
 
 "Das ist schon fast alles, was Sie wissen müssen. Noch eine wichtige Sache:"
 
-"Wenn mehrere Teammitglieder an der gleichen Datei änderungen vornehmen, ist Git oft schlau genug, um das zu verstehen. Manchmal gibt es allerdings *Konflikte*, in denen Git nicht entscheiden kann, ob die eine oder die andere Änderung bestehen bleiben soll. Nach einem Pull zeigt `git status` dann an, in welchen Dateien Konflikte sind - die betreffenden Stellen sind dann mit den Markern *>>>>>>>*, *-------* und *<<<<<<<* markiert. Sie können Sich dann für die eine oder andere Variante entscheiden, oder beide zusammenführen. Anschließend *add*en Sie die Dateien und Committen - ist wird dann automatisch eine Commit-Message eingetragen, die Sie einfach speichern können. Versuchen Sie unbedingt mal, absichtlich einen Konflikt herbeizuführen, indem Sie die gleiche Zeile ändern wie ein Teammitglied."
+"Wenn mehrere Teammitglieder an der gleichen Datei Änderungen vornehmen, ist Git oft schlau genug, um das zu verstehen. Manchmal gibt es allerdings *Konflikte*, in denen Git nicht entscheiden kann, ob die eine oder die andere Änderung bestehen bleiben soll. Nach einem Pull zeigt `git status` dann an, in welchen Dateien Konflikte sind - die betreffenden Stellen sind dann mit den Markern *>>>>>>>*, *-------* und *<<<<<<<* markiert. Sie können Sich dann für die eine oder andere Variante entscheiden, oder beide zusammenführen. Anschließend *add*en Sie die Dateien und Committen - ist wird dann automatisch eine Commit-Message eingetragen, die Sie einfach speichern können. Versuchen Sie unbedingt mal, absichtlich einen Konflikt herbeizuführen, indem Sie die gleiche Zeile ändern wie ein Teammitglied."
 
 "Und nun haben Sie viel Zeit, das ganze nach Herzenslust auszuprobieren. Der Umgang mit einer Versionkontrolle ist vielleich das Wichtigste, das Sie in diesem Vorkurs lernen werden - es zur Softwareentwicklung unglaublich praktisch, natürlich vor allem in Gruppen, aber auch, wenn Sie allein ein Programm schreiben und die Gewissheit haben wollen, bei Fehlern zu alten Versionen zurückzukommen."
 
