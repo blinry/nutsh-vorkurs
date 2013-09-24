@@ -63,3 +63,55 @@ prompt {
             break
         }
 }
+
+"Man kann sich nicht nur mit einem Passwort als Benutzer authentifizieren, sondern auch über Schlüssel.
+Dies ermöglicht z.B. das Authentifizieren ohne Passwort oder das Abschalten der Passwordauthentifizierung,
+um Brute-Force-Angriffe auf Benutzerpasswörter zu verhindern."
+
+"Erstellen sie sich mit dem Befehl `ssh-keygen -t rsa` einen Schlüssel"
+
+prompt {
+        expect(`if [ ! -e ~/.ssh/id_rsa ]; then ssh-keygen -t rsa; fi`)
+        if file("$HOME/.ssh/id_rsa") {
+            break
+        }
+}
+
+"In ihrem lokalen Heimatverzeichnis gibt es nun ein Verzeichnis `.ssh` in welchem ihr Schlüssel liegt. Wechseln sie dort doch mal hin."
+prompt {
+        expect(`cd ~/.ssh`)
+        if in("$HOME/.ssh") {
+            break
+        }
+}
+
+"`ssh-keygen` hat zwei Dateien erzeugt:"
+"`id_rsa` ist ihr privater Schlüssel, der sie authentifiziert. Diesen sollten sie geheim halten!"
+"`id_rsa.pub` ist ihr öffentlicher Schlüssel. Dieser Schlüssel muss der Gegenstelle, mit der sie kommunizieren wollen, bekannt gemacht werden."
+
+"Noch lässt sich der Schlüssel nicht nutzen, erst muss dem Server klar gemacht werden, dass dies ein zulässiger Schlüssel für den entfernten Benutzer ist.
+Kopieren sie zuerst mit `scp` ihren öffentlichen Schlüssel nach `/home/vorkurs/.ssh/id_user` (ersetzen sie `user` durch ihren `lokalen Bneutzernamen`) 
+auf dem Server `vorkurs.ddns.me` als User `vorkurs` (PW: vorkurs)"
+
+prompt {
+    expect(`scp -i $ROOT/vorkurs_rsa $HOME/.ssh/id_rsa.pub vorkurs@vorkurs.ddns.me:/home/vorkurs/.ssh/id_$USER`)
+    run(`yes|scp -i $ROOT/vorkurs_rsa vorkurs@vorkurs.ddns.me:/home/vorkurs/.ssh/id_$USER $HOME/.ssh/`)
+    if file(`$HOME/.ssh/id_$USER`) && runs(`cmp $HOME/.ssh/id_rsa.pub $HOME/.ssh/id_$USER`) {
+        break
+    }
+}
+
+"Nun müssen sie ihren Schlüsel noch als authorisiert markieren. Loggen sie sich dazu mit ssh auf dem Server `vorkurs.ddns.me` als User `vorkurs` (PW: vorkurs) ein."
+"Wechseln sie dann in den Ordner `~/.ssh` und hängen sie ihren öffentlichen Schlüssel an die Datei `authorized_keys` (z.B. mit `cat ihreSchlüsseldatei >> authorizedKeys`, 
+darauf achten `>>` zu verwenden und nicht `>`)"
+"Mit `echo fertig` geht es weiter."
+
+prompt {
+    if ready {
+        expect(`yes|ssh  -i $ROOT/vorkurs_rsa vorkurs@vorkurs.ddns.me "cd .ssh;cat id_$USER >> authorized_keys;exit";echo fertig`)
+        run(`yes|scp -i $ROOT/vorkurs_rsa vorkurs@vorkurs.ddns.me:/home/vorkurs/.ssh/authorized_keys $ROOT`)
+        if file(`$ROOT/authorized_keys`) && run(`cat $ROOT/authorized_keys`) =~ `.*`+run(`cat $HOME/.ssh/id_rsa.pub`)+`.*` {
+            break
+        }
+    }
+}
