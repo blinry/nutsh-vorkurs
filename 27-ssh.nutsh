@@ -68,7 +68,7 @@ prompt {
 Dies ermöglicht z.B. das Authentifizieren ohne Passwort oder das Abschalten der Passwordauthentifizierung,
 um Brute-Force-Angriffe auf Benutzerpasswörter zu verhindern."
 
-"Erstellen sie sich mit dem Befehl `ssh-keygen -t rsa` einen Schlüssel"
+"Erstellen sie sich mit dem Befehl `ssh-keygen -t rsa` einen Schlüssel falls sie noch keinen haben."
 
 prompt {
         expect(`if [ ! -e ~/.ssh/id_rsa ]; then ssh-keygen -t rsa; fi`)
@@ -110,8 +110,19 @@ prompt {
     if ready {
         expect(`yes|ssh  -i $ROOT/vorkurs_rsa vorkurs@vorkurs.ddns.me "cd .ssh;cat id_$USER >> authorized_keys;exit";echo fertig`)
         run(`yes|scp -i $ROOT/vorkurs_rsa vorkurs@vorkurs.ddns.me:/home/vorkurs/.ssh/authorized_keys $ROOT`)
-        if file(`$ROOT/authorized_keys`) && run(`cat $ROOT/authorized_keys`) =~ `.*`+run(`cat $HOME/.ssh/id_rsa.pub`)+`.*` {
+        if file(`$ROOT/authorized_keys`) && runs(`grep -v -f ~/.ssh/id_rsa.pub $ROOT/authorized_keys`) {
             break
         }
+    }
+}
+
+"Zum Abschluss der Lektion können sie nochmal ausprobieren, sich nochmal mit `ssh` auf dem Server anzumelden.
+Sie solleten nun nicht mehr nach dem Userpasswort sondern nach dem Schlüsselpasswort gefragt werden, wenn sie eines gesetzt haben."
+"Mit `echo fertig` beenden sie die Lektion."
+
+prompt {
+    if ready {
+        expect(`ssh vorkurs@vorkurs.ddns.me "exit";echo fertig`)
+        break
     }
 }
