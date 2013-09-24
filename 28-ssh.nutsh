@@ -32,7 +32,7 @@ auf diesem ein SSH Server laufen und sie über passende Daten zur Authentifizier
 "Probieren sie nun sich auf den Rechner `vorkurs.ddns.me` als
 User `vorkurs` mit Passwort `vorkurs` anzumelden. Legen sie 
 eine Datei auf dem Server an, die genauso heißt, wie ihr lokaler
-Nutzer (z.b. ihre y-Nummer)."
+Nutzer (z.B. ihre y-Nummer)."
 
 "Mit `echo fertig` geht es weiter"
 
@@ -44,4 +44,22 @@ prompt {
             break
         }
     }
+}
+
+"Um Dateien mit dem entfernten Rechner auszutauschen gibt es das Programm `scp`.
+Mit diesem können Dateien vom lokalen auf den entfernten Rechner und umgekehrt kopiert werden.
+`scp pfad1 pfad2` kopiert eine Datei."
+
+"Pfadangaben für den entfernten Rechner sind dabei folgendermaßen aufgebaut: `user@server:port:pfad`"
+"Um z. B. die lokale Datei `foobar` im aktuellen Ordner als User `vorkurs` in dessen `Home-Ordner` auf dem Server `vorkurs.ddns.me`
+zu kopieren lautet der scp-Befehl `scp foobar vorkurs@vorkurs.ddns.me:/home/vorkurs`."
+
+"Probieren sie mal, die Datei `secret`, die im Ordner `/home/vorkurs/data` auf dem Server `vorkurs.ddns.me` als User `vorkurs` (PW: vorkurs)
+in ihren aktuellen lokalen Ordner zu kopieren."
+
+prompt {
+        expect(`yes|scp -i $ROOT/vorkurs_rsa vorkurs@vorkurs.ddns.me:/home/vorkurs/data/secret .`)
+        if file("secret") && run(`cat secret`) =~ `.*Abelian grape.*`  {
+            break
+        }
 }
