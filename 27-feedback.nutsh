@@ -1,0 +1,17 @@
+lesson_name("In eigener Sache")
+make_home
+
+"Wir hoffen, dass das Tutorial Ihnen Spaß macht, und möchten Sie (im Namen der Wissenschaft!) bitten, folgende Umfrage auszufüllen, falls Sie das noch nicht getan haben: http://tinyurl.com/umfrage-nutsh - damit tragen Sie sehr zur Verbesserung der Nut Shell bei!"
+
+"Danke!"
+
+"Übrigens können Sie die Nut Shell auch zu Hause installieren und benutzen, wie das geht, steht auf der Homepage: http://nutsh.morr.cc/"
+
+"Mit `echo fertig` schließen Sie die Lektion ab."
+
+prompt {
+    if ready {
+        expect("echo fertig")
+        break
+    }
+}
