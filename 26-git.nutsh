@@ -1,0 +1,258 @@
+lesson_name("Versionskontrolle mit Git")
+make_home
+
+"Vor einigen Lektionen haben wir uns angesehen, wie man mit `diff` und `patch` Änderungen austauschen kann. Das war sehr mühsam und fehleranfällig, und nur noch wenige Leute machen das heutzutage so."
+
+"Alle anderen benutzen *Versionskontrolle*. Die derzeit populärste Software dafür heißt *Git*, und die wollen wir uns heute mal etwas ansehen."
+
+"Als Beispiel wollen wir gemeinsam eine Rezeptesammlung erstellen. Wir werden den Internetdienst *GitHub* verwenden, der Git-Projekte köstenloses öffentlich hostet. Das ist ein wirlich prima Dienst, der bei Programmierern sehr beliebt ist. Legen Sie sich dort als erstes einen Account an: https://github.com/users"
+
+"Mit `echo fertig` geht's dann weiter."
+
+prompt {
+    if ready {
+        expect("echo fertig")
+        break
+    }
+}
+
+"Sie brauchen weiterhinn einen SSH-Schlüssel, mit dem Sie sich gegenüber GitHub authentifizieren können. Erstellen Sie einen mit `ssh-keygen` (die drei Fragen jeweils mit Enter bestätigen)."
+
+prompt {
+    if file("$HOME/.ssh/id_rsa.pub") {
+        expect("yes \"\" | ssh-keygen")
+        break
+    }
+}
+
+"Auf der GitHub-Webseite gehen Sie nun oben rechts in die Einstellungen (Symbol: Schraubenzieher und Schraubenschlüssel), dann auf \"SSH Keys\", \"Add SSH key\". Sie geben dem Schlüssel zum Beispiel den Namen \"GITZ-Rechner\" und kopieren den gesamten Inhalt der Datei `~/.ssh/id_rsa.pub` in das große Feld."
+
+"Mit `echo fertig` geht's dann weiter. Das war der komplizierteste Schritt, nun wird's einfacher."
+
+prompt {
+    if ready {
+        expect("echo fertig")
+        break
+    }
+}
+
+"Damit Ihre Teammitglieder später zuordnen können, welche Änderungen von Ihnen kommen, teilen Sie Git Ihren Namen und Ihre Emailadresse mit:"
+
+"    `git config --global user.name \"Vorname Nachname\"`"
+"    `git config --global user.email \"mail@server.tld\"`"
+
+"Setzen Sie außerdem folgende Option, damit die Ausgabe von Git hübscher ist:"
+
+"    `git config --global color.ui true`"
+
+"Und definieren Sie folgenden unglaublich praktischen Git-internen Alias:"
+
+"    `git config --global alias.graph \"log --graph --pretty=oneline --abbrev-commit --all --decorate\"`"
+
+prompt {
+    if !(run(`git config --get user.name`) == "") && !(run(`git config --get user.email`) == "") && !(run(`git config --get color.ui`) == "") && !(run(`git config --get alias.graph`) == "") {
+        expect("git config --global user.name \"Fu Bar\"; git config --global user.email \"fu@bar.org\";git config --global color.ui true;git config --global alias.graph \"log --graph --pretty=oneline --abbrev-commit --all --decorate\"")
+        break
+    }
+}
+
+"Bilden Sie eine kleine Gruppe und bestimmen Sie eine Person, die nun einige Schritte zum Einrichten des Kochbuches vornehmen soll."
+
+"Sind Sie der \"Auserwählte\"?"
+
+prompt {
+    if command =~ `echo\s+(nein|no|nope|nö)` {
+        expect("echo nein")
+        "Okay, feuern Sie Ihren Auserwählten beim Einrichten an! ;-)"
+
+        "Wenn dann alles fertig eingerichtet ist, gehen Sie in die Küche und führen Sie folgenden Befehl aus:"
+
+        `    git clone git@github.com:[Teamname]/rezepte`
+
+        prompt {
+            if dir(`"$ROOT"/küche/rezepte/.git/`) {
+                expect("cd ..; rm -rf rezepte; git clone git@github.com:safdsafd/rezepte")
+                break
+            }
+        }
+
+        break
+    } else {
+        if command =~ `echo\s+(ja|yes|jau|jo)` {
+            expect("echo ja")
+
+            "OK. Klicken Sie auf GitHub's Startseite oben links auf Ihren Benutzernamen und wählen Sie \"Create Organization\". Geben Sie Ihrem Team einen Namen, geben Sie Ihre Mailadresse an (keine Angst, kostet nur etwas für Firmenkunden), und fügen Sie im nächsten Bildschirm die Accounts Ihrer Teamitglieder hinzu."
+
+            "Anschließend klicken Sie oben rechts auf \"New repository\" (ein *Repository* ist ein Verzeichnis mit Dateien unter Versionskontrolle), geben Sie diesem den Namen \"rezepte\", und klicken Sie schließlich auf den grünen \"Create repository\"-Knopf."
+
+            "`fertig`?"
+
+            "Als letztes wollen wir jetzt noch ein bisschen Inhalt in dieses neue Repository tun. In Ihrer Küche finden Sie einen Ordner `rezepte`, der bereits einige Rezepte enthält."
+
+            run(`mkdir -p "$ROOT"/küche/rezepte/`)
+            run(`echo -e "1 can prepared coconut frosting\n3/4 cups vegetable oil\n4 large eggs\n1 cup semi-sweet chocolate chips\n3/4 cup butter or margarine, softened\n2/3 cups granulated sugar\n3 large eggs\n1 teaspoon vanilla extract\n2 cups all purpose flour\n2/3 cups cocoa\n1/4 teaspoon baking soda\n1 teaspoon salt\n1/4 teaspoon baking powder\n1/3 cups water\n1 to 2 (6 oz each) vanilla frosting\n\nDon't forget garnishes, such as:\n\nfish shaped crackers\nfish shaped candies\nfish shaped dirt\nfish shaped solid waste\nfish shaped ethyl benzene\npull and peel licorice\nfish shaped volatile organic compounds\nsediment shaped sediment\na 20-foot thick impermeable clay layer\n" > "$ROOT"/küche/rezepte/cake`)
+            run(`echo "Ingredients\n-----------\n\n- 3 eggs\n- 1 c. honey\n- 3 kumquats, whole (can substitute orange zest and a bit of juice if desired)\n- 2 tsp. orange flower or rose water (optional)\n- 3 oz. chopped almonds or macadamia nuts (fruits of the Mallorn tree)\n- ¼ c. melted butter\n- 2 ¼ c. flour (barley flour of you want to be really accurate)\n- ½ tsp. salt\n\nDirections\n----------\n\nPut the eggs, butter, honey, kumquats, rose or orange flower water, and nuts in\na food processor or blender. Blend on high for 2-4 minutes. Add 1 cup of the\nflour. Blend for a minute or two. Put mixture into a bowl and add the remaining\nflour and the salt. Whisk or stir until well blended. Bake a small amount of\ndough (about two tablespoons) at a time on a pizzelle or iron about 15 seconds\nor until lightly brown, for a flat bread like texture. They can also be baked\nat 350 degrees for about 10-15 minutes. Wrap in a leaf and tie with a string!\n" >  "$ROOT"/küche/rezepte/lembas_bread`)
+
+            "Gehen Sie dort mal hinein und führen Sie `git init` aus."
+
+            prompt {
+                if file(`"$ROOT"/küche/rezepte/.git/config`) {
+                    expect("cd küche/rezepte; git init")
+                    break
+                }
+            }
+
+            "Der Befehl legt im aktuellen Ordner ein neues Git-Repository an. Die ganze Magie, die nun folgt, passiert im Unterordner `.git`."
+
+            "Um die beiden Rezepte, die im Ordner liegen, in die Versionskontrolle zu übernehmen, führen Sie folgende Befehle aus:"
+
+            "    `git add .`"
+            "    `git commit -m \"Erster Commit\"`"
+
+            prompt {
+                if runs("git rev-parse master") {
+                    expect("git add .; git commit -m \"Erster Commit\"")
+                    break
+                }
+            }
+
+            "Was das heißt, erklären wir Ihnen gleich."
+
+            "Nun wollen wir noch einstellen, dass dieses neue Git-Repo den GitHub-Dienst nutzt:"
+
+            "    `git remote add origin git@github.com:[Teamname]/rezepte`"
+
+            prompt {
+                if !(run(`git config --get remote.origin.url`) == "") {
+                    expect("git remote add origin git@github.com:safdsafd/rezepte")
+                    break
+                }
+            }
+
+            "Und nun schieben Sie den ersten Commit auf den Server:"
+
+            "    `git push -u origin master`"
+
+            prompt {
+                if run("git rev-parse master") == run("git rev-parse origin/master") {
+                    expect("git push -u origin master -f")
+                    break
+                }
+            }
+
+            "Super! Das Repo ist nun eingerichtet! Damit ist Ihre Sonderrolle beendet und Ihre anderen Teammitglieder können aktiv werden!"
+
+            break
+        }
+    }
+}
+
+"Damit sind Sie wieder alle auf dem gleichen Stand. Das Git-Repo ist einsatzbereit! Der generelle Workflow sieht wie folgt aus:"
+
+"    1. Dateien bearbeiten"
+"    2. Änderungen vormerken"
+"    3. Committen (vorgemerkte Änderungen in einem \"Paket\" zusammenfassen)"
+"    4. Pullen (Commits der anderen vom Server ziehen), Konflikte auflösen"
+"    5. Pushen (Commit auf den Server schieben)"
+
+"Das spielen wir mal durch. Tipp: Wer jetzt am schnellsten ist, hat am wenigsten Arbeit! :-P"
+
+"Legen Sie mal ein neues Rezept im Rezepteordner an. Sehen Sie sich dann die Ausgabe von `git status` an."
+
+prompt {
+    if command =~ `git\s+status` {
+        expect("git status")
+        break
+    }
+}
+
+"Die neue Datei wird rot dargestellt, denn Git kennt sie noch nicht. Merken Sie die Datei für den nächsten Commit vor: `git add [Datei]`. Das machen Sie später genauso, wenn Sie in einer Datei eine Veränderung vorgenommen haben."
+
+"Bei einem erneuten Aufruf von `git status` werden Sie den Unterschied sehen."
+
+"Die vorgemerkten Änderungen können Sie nun mit `git commit` abspeichern. Ohne Argumente öffnet diese Befehl ein vim, in den Sie eine kurze Beschreibung der Änderung tippen sollten (\"Rezept für ... hinzugefügt\"). Alternativ können Sie die Beschreibung auch direkt mit der Option *-m \"...\"* angeben."
+
+run("NUTSH_LAST_MASTER=$(git rev-parse master)")
+
+prompt {
+    if ! run("echo $NUTSH_LAST_MASTER") == run("git rev-parse master") {
+        expect("echo blubb > blubb; git add blubb; git commit -m blubb")
+        break
+    }
+}
+
+"Führen Sie noch einmal `git status` aus. Nun ist wieder alles \"normal\" und Sie könnten damit anfangen, den nächsten Commit vorzubereiten."
+
+"`git log` zeigt eine Liste der letzten Commits - dort müsste nun auch Ihr Commit aufgeführt sein."
+
+"OK. Mal sehen, ob Ihre Teammitglieder schon etwas auf dem Server verändert haben: `git pull`"
+
+prompt {
+    if command =~ "git pull" {
+        expect("git pull")
+        if output =~ "\+" {
+            "Sieht ganz so aus. Ihr Repo sollte nun auf dem aktuellen Stand sein."
+        } else {
+            "Noch ist auf dem Server nichts passiert."
+        }
+        break
+    }
+}
+
+"Dann können Sie Ihre Änderungen hochschieben: `git push`."
+
+prompt {
+    if run("git rev-parse master") == run("git rev-parse origin/master") {
+        expect("git push")
+        break
+    }
+}
+
+"Jau! Ihre Teammitglieder können nun Ihr neues Rezept \"pullen\"."
+
+"Das ist schon fast alles, was Sie wissen müssen. Noch eine wichtige Sache:"
+
+"Wenn mehrere Teammitglieder an der gleichen Datei änderungen vornehmen, ist Git oft schlau genug, um das zu verstehen. Manchmal gibt es allerdings *Konflikte*, in denen Git nicht entscheiden kann, ob die eine oder die andere Änderung bestehen bleiben soll. Nach einem Pull zeigt `git status` dann an, in welchen Dateien Konflikte sind - die betreffenden Stellen sind dann mit den Markern *>>>>>>>*, *-------* und *<<<<<<<* markiert. Sie können Sich dann für die eine oder andere Variante entscheiden, oder beide zusammenführen. Anschließend *add*en Sie die Dateien und Committen - ist wird dann automatisch eine Commit-Message eingetragen, die Sie einfach speichern können. Versuchen Sie unbedingt mal, absichtlich einen Konflikt herbeizuführen, indem Sie die gleiche Zeile ändern wie ein Teammitglied."
+
+"Und nun haben Sie viel Zeit, das ganze nach Herzenslust auszuprobieren. Der Umgang mit einer Versionkontrolle ist vielleich das Wichtigste, das Sie in diesem Vorkurs lernen werden - es zur Softwareentwicklung unglaublich praktisch, natürlich vor allem in Gruppen, aber auch, wenn Sie allein ein Programm schreiben und die Gewissheit haben wollen, bei Fehlern zu alten Versionen zurückzukommen."
+
+"`echo tipp` gibt Ihnen ab jetzt einen bunten Blumenstrauß von wechselnden Tipps aus. Viel Spaß!"
+
+prompt {
+    if ready {
+        expect("echo fertig")
+        break
+    }
+    if command =~ `echo\s+tipp` {
+        expect("echo tipp")
+        if run("echo $((RANDOM%2))") == "0" {
+            if run("echo $((RANDOM%2))") == "0" {
+                if run("echo $((RANDOM%2))") == "0" {
+                    "Der Alias `git graph`, den Sie eingerichtet haben, zeigt Ihnen die Verzweigungen der Commits bei parallelen Änderungen und die Zusammenführungen bei einem `git pull`. Das ist besonders interessant anzusehen, wenn Sie schon viele Commits vorgenommen haben."
+                } else {
+                    "Wenn Sie die Seite des Repos auf GitHub besuchen, können Sie sich die Commits und die enthaltenen Änderungen sehr übersichtlich anzeigen lassen."
+                }
+            } else {
+                if run("echo $((RANDOM%2))") == "0" {
+                    "Der Befehl `git diff` zeigt Ihnen, welche Änderungen Sie noch nicht für den nächsten Commit vorgemerkt haben. Wenn Sie diese in den Commit aufnehmen wollen, können Sie die Datei `git add`-en."
+                } else {
+                    "GitHub hat eingebaute Funktionen zum Bugtracking (zu finden unter \"Issues\"). Man kann außerdem Wikis zu jedem Repository anlegen, in dem man die Software dokumentieren kann!"
+                }
+            }
+        } else {
+            if run("echo $((RANDOM%2))") == "0" {
+                if run("echo $((RANDOM%2))") == "0" {
+                    "Wenn Sie alle geänderten Dateien adden und committen möchten, gibt es die Kurzschreibeweise `git commit -a`, die genau das macht."
+                } else {
+                    "`git checkout [Datei]` setzt die Änderungen an der Datei seit dem letzen Commit zurück."
+                }
+            } else {
+                if run("echo $((RANDOM%2))") == "0" {
+                    "Die langen Nummern im `git log` sind die Namen der Commits. Mit `git show [Anfang der Nummer]` können Sie sich anzeigen lassen, was ein bestimmter Commit geändert hat. Meist sind die ersten fünf bis sechs Ziffern bereits eindeutig."
+                } else {
+                    "`git checkout [Nummer eines Commits]` setzt das Repo temporär auf den Stand direkt nach dem jeweiligen Commit zurück. Sie können sich dann die damaligen Dateien ansehen und bei Bedarf kopien anlegen. `git checkout master` bringt Sie dann wieder zurück zur neusten Version."
+                }
+            }
+        }
+    }
+}
