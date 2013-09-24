@@ -58,7 +58,7 @@ prompt {
 
 "Bilden Sie eine kleine Gruppe und bestimmen Sie eine Person, die nun einige Schritte zum Einrichten des Kochbuches vornehmen soll."
 
-"Sind Sie der \"Auserwählte\"?"
+"Sind Sie der \"Auserwählte\"? Antworten Sie mit `echo`!"
 
 prompt {
     if command =~ `echo\s+(nein|no|nope|nö)` {
