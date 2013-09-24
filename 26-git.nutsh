@@ -5,7 +5,7 @@ make_home
 
 "Alle anderen benutzen *Versionskontrolle*. Die derzeit populärste Software dafür heißt *Git*, und die wollen wir uns heute mal etwas ansehen."
 
-"Als Beispiel wollen wir gemeinsam eine Rezeptesammlung erstellen. Wir werden den Internetdienst *GitHub* verwenden, der Git-Projekte köstenloses öffentlich hostet. Das ist ein wirlich prima Dienst, der bei Programmierern sehr beliebt ist. Legen Sie sich dort als erstes einen Account an: https://github.com/users"
+"Als Beispiel wollen wir gemeinsam eine Rezeptesammlung erstellen. Wir werden den Internetdienst *GitHub* verwenden, der Git-Projekte kostenlos öffentlich hostet. Das ist ein wirlich prima Dienst, der bei Programmierern sehr beliebt ist. Legen Sie sich dort als erstes einen Account an: https://github.com/users"
 
 "Mit `echo fertig` geht's dann weiter."
 
