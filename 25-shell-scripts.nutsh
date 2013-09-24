@@ -53,9 +53,10 @@ run("export PATH")
 "So, und nun machen wir was Sinnvolles mit dem Skript: Ändern Sie es so, dass es die Befehlshistory nach einem Muster durchsucht (das man dem Skript als Argument übergeben kann) und die Treffer alphabetisch sortiert ausgibt. Sie können `$1` benutzen, um sich auf das erste Argument des Skripts zu beziehen."
 
 prompt {
-    if command =~ "how\s+\S+" && run(`cat "$ROOT"/schlafzimmer/how`) =~ `history\s*\|\s*grep\s+.*\$1.*\|\s*sort\s+.*-k\s*2` {
+    if command =~ "how\s+\S+" && (run(`cat "$ROOT"/schlafzimmer/how`) =~ `history\s*\|\s*grep\s+.*\$1.*\|\s*sort\s+.*-k\s*2` || run(`cat "$ROOT"/schlafzimmer/how`) =~ `history\s*\|\s*sort\s+.*-k\s*2.*\|\s*grep\s+.*\$1\s*`) {
         expect(`cd ../schlafzimmer; echo -e '#!/bin/bash -i\nhistory|grep "$1"|sort -k2' > how; how ls`)
         expect(`cd ../schlafzimmer; echo -e '#!/bin/bash -i\n history | grep $1 | sort -k2' > how; how ls`)
+        expect(`cd ../schlafzimmer; echo -e '#!/bin/bash -i\n history | sort -k2 | grep $1' > how; how ls`)
         "Das sieht gut aus! Super!"
         break
     } else {
