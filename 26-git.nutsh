@@ -5,7 +5,7 @@ make_home
 
 "Alle anderen benutzen *Versionskontrolle*. Die derzeit populärste Software dafür heißt *Git*, und die wollen wir uns heute mal etwas ansehen."
 
-"Als Beispiel wollen wir gemeinsam eine Rezeptesammlung erstellen. Wir werden den Internetdienst *GitHub* verwenden, der Git-Projekte köstenloses öffentlich hostet. Das ist ein wirlich prima Dienst, der bei Programmierern sehr beliebt ist. Legen Sie sich dort als erstes einen Account an: https://github.com/users"
+"Als Beispiel wollen wir gemeinsam eine Rezeptesammlung erstellen. Wir werden den Internetdienst *GitHub* verwenden, der Git-Projekte kostenlos öffentlich hostet. Das ist ein wirlich prima Dienst, der bei Programmierern sehr beliebt ist. Legen Sie sich dort als erstes einen Account an: https://github.com/users"
 
 "Mit `echo fertig` geht's dann weiter."
 
@@ -69,9 +69,11 @@ prompt {
 
         `    git clone git@github.com:[Teamname]/rezepte`
 
+        "Die Frage, ob Sie dem Server vertrauen, können Sie beim ersten Mal mit *yes* beantworten."
+
         prompt {
             if dir(`"$ROOT"/küche/rezepte/.git/`) {
-                expect("cd ..; rm -rf rezepte; git clone git@github.com:safdsafd/rezepte; cd rezepte")
+                expect("cd ..; rm -rf rezepte; yes yes | git clone git@github.com:safdsafd/rezepte; cd rezepte")
                 break
             }
         }
@@ -140,9 +142,11 @@ prompt {
 
             "    `git push -u origin master`"
 
+            "Die Frage, ob Sie dem Server vertrauen, können Sie beim ersten Mal mit *yes* beantworten."
+
             prompt {
                 if run("git rev-parse master") == run("git rev-parse origin/master") {
-                    expect("git push -u origin master -f")
+                    expect("yes yes | git push -u origin master -f")
                     break
                 }
             }
