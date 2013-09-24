@@ -71,3 +71,7 @@ def ready {
 def in(d) {
     return(run("pwd") == run(`echo "` + d + `"`))
 }
+
+def user {
+    return(run("whoami"))
+}

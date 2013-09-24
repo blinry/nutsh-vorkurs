@@ -58,7 +58,7 @@ prompt {
     }
 }
 
-"Der Befehl `diff` (\"difference\") gibt die Unterschiede zwischen zwei Dateien kompakt aus. Probieren Sie das mal! Führen Sie die unveränderte Datei als erste an, da es uns hier um die Änderungen hin zur veränderten Version geht."
+"Der Befehl `diff` (\"difference\") gibt die Unterschiede zwischen zwei Dateien kompakt aus. Probieren Sie das mal! Führen Sie die `unveränderte Datei als erste` an, da es uns hier um die Änderungen hin zur veränderten Version geht. `Die Reihenfolge ist wichtig!`"
 
 prompt {
     if command =~ `diff\s+\S+\s+löwe` && exit_code == "1" {
@@ -76,7 +76,7 @@ prompt {
 "Wesentlich verbreiteter ist das sogenannte *unified*-Diff-Format, dass Sie mit der Option *-u* ausgeben lassen."
 
 prompt {
-    if ( command =~ `diff\s+-u\s+\S+\s+löwe` || command =~ `diff\s+\S+\s+löwe\s+-u` ) && exit_code == "1" {
+    if ( command =~ `diff\s+-u\s+\S+\s+löwe\s*$` || command =~ `diff\s+\S+\s+löwe\s+-u` ) && exit_code == "1" {
         expect("diff -u löwe_bak löwe")
         expect("diff löwe_bak löwe -u")
         break
