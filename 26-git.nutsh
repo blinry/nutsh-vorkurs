@@ -71,7 +71,7 @@ prompt {
 
         prompt {
             if dir(`"$ROOT"/küche/rezepte/.git/`) {
-                expect("cd ..; rm -rf rezepte; git clone git@github.com:safdsafd/rezepte; cd rezepte")
+                expect("cd ..; rm -rf rezepte; yes yes | git clone git@github.com:safdsafd/rezepte; cd rezepte")
                 break
             }
         }
@@ -142,7 +142,7 @@ prompt {
 
             prompt {
                 if run("git rev-parse master") == run("git rev-parse origin/master") {
-                    expect("git push -u origin master -f")
+                    expect("yes yes | git push -u origin master -f")
                     break
                 }
             }
