@@ -3,9 +3,9 @@ make_home
 
 "Wir möchten Ihnen noch einige Dinge mitgeben, von denen wir denken, dass Sie Ihnen helfen werden."
 
-"`clear` und *Strg+L* leeren das Terminal und setzen den Cursor in die erste Zeile - gut zum \"Aufräumen\"."
-
 "*Strg+C* bricht den momentan laufenden Befehl ab - zum Beispiel können Sie ein `sleep 1000` damit stoppen ;-)"
+
+"`clear` und *Strg+L* leeren das Terminal und setzen den Cursor in die erste Zeile - gut zum \"Aufräumen\"."
 
 "Probieren Sie beides mal aus. Mit `echo fertig` geht's dann weiter."
 
@@ -54,7 +54,7 @@ run(`wget nutsh.morr.cc/fertig -O "$ROOT"/fertig`)
 run(`chmod u+x "$ROOT"/fertig`)
 
 prompt {
-    if output =~ `\| ____\|_` {
+    if output =~ `____\|/` {
         expect("./fertig")
         break
     }
