@@ -38,8 +38,8 @@ Nutzer (z.B. Ihre y-Nummer)."
 
 prompt {
     if ready {
-        expect(`yes|ssh  -i $ROOT/vorkurs_rsa vorkurs@vorkurs.ddns.me "touch $USER;exit";echo fertig`)
-        run(`yes|scp -i $ROOT/vorkurs_rsa vorkurs@vorkurs.ddns.me:/home/vorkurs/`+user+` .`)
+        expect(`yes "yes" |ssh  -i $ROOT/vorkurs_rsa vorkurs@vorkurs.ddns.me "touch $USER;exit";echo fertig`)
+        run(`yes "yes" |scp -i $ROOT/vorkurs_rsa vorkurs@vorkurs.ddns.me:/home/vorkurs/`+user+` .`)
         if file(user) {
             break
         }
@@ -58,7 +58,7 @@ zu kopieren lautet der scp-Befehl `scp foobar vorkurs@vorkurs.ddns.me:/home/vork
 in Ihren aktuellen lokalen Ordner zu kopieren."
 
 prompt {
-        expect(`yes|scp -i $ROOT/vorkurs_rsa vorkurs@vorkurs.ddns.me:/home/vorkurs/data/secret .`)
+        expect(`yes "yes" |scp -i $ROOT/vorkurs_rsa vorkurs@vorkurs.ddns.me:/home/vorkurs/data/secret .`)
         if file("secret") && run(`cat secret`) =~ `.*Abelian grape.*`  {
             break
         }
@@ -68,9 +68,8 @@ prompt {
 Dies ermöglicht z.B. das Authentifizieren ohne Passwort oder das Abschalten der Passwordauthentifizierung,
 um Brute-Force-Angriffe auf Benutzerpasswörter zu verhindern."
 
-if ! file("$ROOT/.ssh/id_rsa") {
-    "Erstellen Sie sich mit dem Befehl `ssh-keygen -t rsa` einen Schlüssel. Bei den Fragen können Sie jeweils *Enter* drücken. Falls sie schon einen Schlüssel für die
-    GIT-Lektion erstellt hatten, müssen sie `ssh-keygen` nicht nochmal ausführen und können einfach Enter drücken um weiter zu machen."
+if ! file("$HOME/.ssh/id_rsa") {
+    "Erstellen Sie sich mit dem Befehl `ssh-keygen -t rsa` einen Schlüssel. Bei den Fragen können Sie jeweils *Enter* drücken."
 
     prompt {
             if file("$HOME/.ssh/id_rsa") {
@@ -98,7 +97,7 @@ auf dem Server `vorkurs.ddns.me` als User `vorkurs` (PW: vorkurs)"
 
 prompt {
     expect(`scp -i $ROOT/vorkurs_rsa $HOME/.ssh/id_rsa.pub vorkurs@vorkurs.ddns.me:/home/vorkurs/.ssh/id_$USER`)
-    run(`yes|scp -i $ROOT/vorkurs_rsa vorkurs@vorkurs.ddns.me:/home/vorkurs/.ssh/id_$USER $HOME/.ssh/`)
+    run(`yes "yes" |scp -i $ROOT/vorkurs_rsa vorkurs@vorkurs.ddns.me:/home/vorkurs/.ssh/id_$USER $HOME/.ssh/`)
     if file(`$HOME/.ssh/id_$USER`) && runs(`cmp $HOME/.ssh/id_rsa.pub $HOME/.ssh/id_$USER`) {
         break
     }
@@ -111,8 +110,8 @@ darauf achten `>>` zu verwenden und nicht `>`)"
 
 prompt {
     if ready {
-        expect(`yes|ssh  -i $ROOT/vorkurs_rsa vorkurs@vorkurs.ddns.me "cd .ssh;cat id_$USER >> authorized_keys;exit";echo fertig`)
-        run(`yes|scp -i $ROOT/vorkurs_rsa vorkurs@vorkurs.ddns.me:/home/vorkurs/.ssh/authorized_keys $ROOT`)
+        expect(`yes "yes" |ssh  -i $ROOT/vorkurs_rsa vorkurs@vorkurs.ddns.me "cd .ssh;cat id_$USER >> authorized_keys;exit";echo fertig`)
+        run(`yes "yes" |scp -i $ROOT/vorkurs_rsa vorkurs@vorkurs.ddns.me:/home/vorkurs/.ssh/authorized_keys $ROOT`)
         if file(`$ROOT/authorized_keys`) && runs(`grep -v -f ~/.ssh/id_rsa.pub $ROOT/authorized_keys`) {
             break
         }
