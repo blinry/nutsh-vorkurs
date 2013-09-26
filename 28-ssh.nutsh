@@ -69,7 +69,8 @@ Dies ermöglicht z.B. das Authentifizieren ohne Passwort oder das Abschalten der
 um Brute-Force-Angriffe auf Benutzerpasswörter zu verhindern."
 
 if ! file("$ROOT/.ssh/id_rsa") {
-    "Erstellen Sie sich mit dem Befehl `ssh-keygen -t rsa` einen Schlüssel. Bei den Fragen können Sie jeweils *Enter* drücken."
+    "Erstellen Sie sich mit dem Befehl `ssh-keygen -t rsa` einen Schlüssel. Bei den Fragen können Sie jeweils *Enter* drücken. Falls sie schon einen Schlüssel für die
+    GIT-Lektion erstellt hatten, müssen sie `ssh-keygen` nicht nochmal ausführen und können einfach Enter drücken um weiter zu machen."
 
     prompt {
             if file("$HOME/.ssh/id_rsa") {
@@ -104,7 +105,7 @@ prompt {
 }
 
 "Nun müssen Sie Ihren Schlüsel noch als authorisiert markieren. Loggen Sie sich dazu mit ssh auf dem Server `vorkurs.ddns.me` als User `vorkurs` (PW: vorkurs) ein."
-"Wechseln Sie dann in den Ordner `~/.ssh` und hängen Sie Ihren öffentlichen Schlüssel an die Datei `authorized_keys` (z.B. mit `cat IhreSchlüsseldatei >> authorizedKeys`, 
+"Wechseln Sie dann in den Ordner `~/.ssh` und hängen Sie Ihren öffentlichen Schlüssel an die Datei `authorized_keys` (z.B. mit `cat IhreSchlüsseldatei >> authorized_keys`, 
 darauf achten `>>` zu verwenden und nicht `>`)"
 "Mit `echo fertig` geht es weiter."
 
