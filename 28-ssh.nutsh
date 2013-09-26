@@ -68,19 +68,21 @@ prompt {
 Dies ermöglicht z.B. das Authentifizieren ohne Passwort oder das Abschalten der Passwordauthentifizierung,
 um Brute-Force-Angriffe auf Benutzerpasswörter zu verhindern."
 
-"Erstellen Sie sich mit dem Befehl `ssh-keygen -t rsa` einen Schlüssel falls Sie noch keinen haben. Ansonsten srücken sie einmal Enter!"
+if ! file("$ROOT/.ssh/id_rsa") {
+    "Erstellen Sie sich mit dem Befehl `ssh-keygen -t rsa` einen Schlüssel. Bei den Fragen können Sie jeweils *Enter* drücken."
 
-prompt {
-        expect(`if [ ! -e ~/.ssh/id_rsa ]; then yes "" | ssh-keygen -t rsa; fi`)
-        if file("$HOME/.ssh/id_rsa") {
-            break
-        }
+    prompt {
+            if file("$HOME/.ssh/id_rsa") {
+                expect(`yes "" | ssh-keygen -t rsa`)
+                break
+            }
+    }
 }
 
-"In Ihrem lokalen Heimatverzeichnis gibt es nun ein Verzeichnis `.ssh` in welchem Ihr Schlüssel liegt. Wechseln Sie dort doch mal hin."
+"In Ihrem lokalen Heimatverzeichnis gibt es ein Verzeichnis `.ssh` in welchem Ihr Schlüssel liegt. Wechseln Sie dort doch mal hin."
 prompt {
-        expect(`cd ~/.ssh`)
         if in("$HOME/.ssh") {
+            expect(`cd ~/.ssh`)
             break
         }
 }
@@ -118,6 +120,9 @@ prompt {
 
 "Zum Abschluss der Lektion können Sie nochmal ausprobieren, sich nochmal mit `ssh` auf dem Server anzumelden.
 Sie sollten nun nicht mehr nach dem Userpasswort sondern nach dem Schlüsselpasswort gefragt werden, wenn Sie eines gesetzt haben."
+
+"Übrigens können Sie auf dem Server mit dem Befehl `w` nachsehen, was die anderen Vorkursteilnehmer gerade so machen ;-)"
+
 "Mit `echo fertig` beenden Sie die Lektion."
 
 prompt {
