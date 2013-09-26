@@ -68,7 +68,7 @@ prompt {
 Dies ermöglicht z.B. das Authentifizieren ohne Passwort oder das Abschalten der Passwordauthentifizierung,
 um Brute-Force-Angriffe auf Benutzerpasswörter zu verhindern."
 
-"Erstellen Sie sich mit dem Befehl `ssh-keygen -t rsa` einen Schlüssel falls Sie noch keinen haben."
+"Erstellen Sie sich mit dem Befehl `ssh-keygen -t rsa` einen Schlüssel falls Sie noch keinen haben. Ansonsten srücken sie einmal Enter!"
 
 prompt {
         expect(`if [ ! -e ~/.ssh/id_rsa ]; then yes "" | ssh-keygen -t rsa; fi`)
