@@ -58,7 +58,7 @@ prompt {
 
 prompt {
     if command =~ `make$` && success && output =~ "669\\.0" {
-        expect("sed -i -e 's/a = 42.0/a = 1337.0/' Heron.java; touch Heron.java; make")
+        expect("sed -i -e 's/a = 42.0/a = 1337.0/' Heron.java; rm Heron.class; make")
         break
     }
 }
