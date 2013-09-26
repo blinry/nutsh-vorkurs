@@ -40,7 +40,7 @@ prompt {
     if ready {
         expect(`ssh -o StrictHostKeyChecking=no -i $ROOT/vorkurs_rsa vorkurs@vorkurs.ddns.me "touch $USER;exit";echo fertig`)
         run(`scp -i $ROOT/vorkurs_rsa vorkurs@vorkurs.ddns.me:/home/vorkurs/`+user+` .`)
-        if file(user) {
+        if file("$ROOT/"+user) {
             break
         }
     }
@@ -73,7 +73,8 @@ if ! file("$HOME/.ssh/id_rsa") {
 
     prompt {
             if file("$HOME/.ssh/id_rsa") {
-                expect(`yes "" | ssh-keygen -t rsa`)
+                // Since this is conditional, don't expect anything
+                // expect(`yes "" | ssh-keygen -t rsa`)
                 break
             }
     }
