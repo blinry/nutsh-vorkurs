@@ -38,9 +38,10 @@ Nutzer (z.B. Ihre y-Nummer)."
 
 prompt {
     if ready {
-        expect(`ssh -o StrictHostKeyChecking=no -i $ROOT/vorkurs_rsa vorkurs@vorkurs.ddns.me "touch $USER;exit";echo fertig`)
-        run(`scp -i $ROOT/vorkurs_rsa vorkurs@vorkurs.ddns.me:/home/vorkurs/`+user+` .`)
-        if file("$ROOT/"+user) {
+        run("rm /tmp/"+user)
+        run(`scp -i $ROOT/vorkurs_rsa vorkurs@vorkurs.ddns.me:/home/vorkurs/`+user+` /tmp`)
+        if file("/tmp/"+user) {
+            expect(`ssh -o StrictHostKeyChecking=no -i $ROOT/vorkurs_rsa vorkurs@vorkurs.ddns.me "touch $USER;exit";echo fertig`)
             break
         }
     }
