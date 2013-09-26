@@ -27,7 +27,7 @@ prompt {
     }
 }
 
-"`hostname` zeigt an, wie Ihr Rechner heißt. `uptime` zeigt an, wie lange er schon läuft. Und `ifconfig` zeigt Informationen über die Netzwerkinterfaces an, unter anderem die IP-Adresse. `fertig`?"
+"`hostname` zeigt an, wie Ihr Rechner heißt. `uptime` zeigt an, wie lange er schon läuft. Und `/sbin/ifconfig` zeigt Informationen über die Netzwerkinterfaces an, unter anderem die IP-Adresse. `fertig`?"
 
 prompt {
     if ready {
