@@ -9,12 +9,12 @@ run(`chmod 0600 $ROOT/vorkurs_rsa`)
 auf Systemen anmelden können und mit diesen über SSH Dateien
 austauschen können."
 
-"Um sich auf entfernten Rechnern anzumelden kann der Befehl
-´ssh username@rechneradresse:port´ benutzt werden. Probieren
-Sie mal, sich auf den SSH-Server des Rechenzentrums zu verbinden.
-Die Adresse ist `rzloginlx.rz.tu-bs.de`, Ihre `y-Nummer` der Benutzername.  ohne Portangabe anzumelden
-(:port weglassen).
-Führen Sie ein paar Befehle aus, beenden Sie danach die Verbindung mit `exit`."
+"Um sich auf entfernten Rechnern anzumelden kann der Befehl ´ssh
+username@rechneradresse:port´ benutzt werden. Probieren Sie mal, sich auf den
+SSH-Server des Rechenzentrums zu verbinden.  Die Adresse ist
+`rzloginlx.rz.tu-bs.de`, Ihre `y-Nummer` ist der Benutzername, die Portangabe
+können Sie weglassen.  Führen Sie ein paar Befehle aus, beenden Sie danach die
+Verbindung mit `exit`."
 
 "Mit `echo fertig` geht es weiter"
 
