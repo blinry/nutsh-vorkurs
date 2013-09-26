@@ -92,7 +92,7 @@ prompt {
 "`id_rsa.pub` ist Ihr öffentlicher Schlüssel. Dieser Schlüssel muss der Gegenstelle, mit der Sie kommunizieren wollen, bekannt gemacht werden."
 
 "Noch lässt sich der Schlüssel nicht nutzen, erst muss dem Server klar gemacht werden, dass dies ein zulässiger Schlüssel für den entfernten Benutzer ist.
-Kopieren Sie zuerst mit `scp` Ihren öffentlichen Schlüssel nach `/home/vorkurs/.ssh/id_user` (ersetzen Sie `user` durch Ihren `lokalen Bneutzernamen`) 
+Kopieren Sie zuerst mit `scp` Ihren öffentlichen Schlüssel nach `/home/vorkurs/.ssh/id_user` (ersetzen Sie nur `user` durch Ihren `lokalen Benutzernamen`) 
 auf dem Server `vorkurs.ddns.me` als User `vorkurs` (PW: vorkurs)"
 
 prompt {
