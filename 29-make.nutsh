@@ -1,9 +1,71 @@
 lesson_name("Automatisierung mit Makefiles")
 make_home
 
+run(`rm "$ROOT"/wohnzimmer/Heron*`)
+run(`echo -e 'public class Heron {\n    public static void main (String[] args) {\n        double a = 42.0,\n               x = 1.0;\n        for (int i = 1; i <= 7; i++) {\n            x = (x + a / x) / 2.0;\n            System.out.println(x);\n        }\n    }\n}\n' > "$ROOT"/wohnzimmer/Heron.java`)
 
+"Im Wohnzimmer liegt noch die Datei `Heron.java`. Es war ja etwas mühsam, ein Programm jedes Mal neu zu übersetzen und auszuführen, wenn Sie etwas am Quelltext geändert haben. Manchmal weiß man vielleicht auch gar nicht mehr, ob man etwas geändert hat, ob also das Kompilieren notwendig ist."
 
-"Mit `echo fertig` schließen Sie die Lektion ab."
+"Diese Probleme lösen *Makefiles*, eine der besseren Erfindungen seit geschnitten Brot. Ein kleines Beispiel-Makefile haben wir Ihnen bereits vorbereitet, es liegt ebenfalls im Wohnzimmer. Lassen Sie es sich mit `cat` einmal ausgeben."
+
+run(`echo -e 'Heron.class: Heron.java\n\tjavac Heron.java\n' > "$ROOT"/wohnzimmer/Makefile`)
+
+prompt {
+    if output =~ "Heron.class: Heron.java" {
+        expect("cd wohnzimmer; cat Makefile")
+        break
+    }
+}
+
+"Makefiles beschreiben, wie man eine Datei aus anderen Dateien erstellt. Das Format ist stets so: In der ersten Zeile steht \"*Zieldatei*: *Benötigte Dateien*\", und anschließend folgen eine oder mehrere mit *Tab* eingerückte Zeilen, die beschreiben, welche Befehle ausgeführt werden müssen."
+
+"Mit `make Heron.class` können Sie ausprobieren, ob das Ganze funktioniert."
+
+prompt {
+    if file("$ROOT/wohnzimmer/Heron.class") && command == "make Heron.class" {
+        expect("make Heron.class")
+        break
+    }
+}
+
+"Jau. Das ist der erste Schritt. Nun ergänzen Sie das Makefile um einen zweiten Block, der beschreibt, wie man das Programm startet, wenn man die `.class`-Datei hat. In diesem Fall wird keine Datei erstellt, daher können Sie als Ziel vor dem Doppelpunkt zum Beispiel *run* angeben. Mit `make run` starten Sie dann das Programm."
+
+prompt {
+    if command =~ `make\s+\S+` && success {
+        if run(`cat "$ROOT"/wohnzimmer/Makefile`) =~ `\S+:\s+Heron\.class\r\n\tjava Heron` {
+            expect(`echo -e "run: Heron.class\n\tjava Heron\n" >> Makefile; make run`)
+            break
+        } else {
+            "Da stimmt noch etwas mit dem Makefile nicht. Das Format ist *Ziel*: *Benötigte Dateien* (neue Zeile) *(Tab)Befehl*"
+        }
+    }
+}
+
+"Aus Bequemlichkeit sollten wir den neuen Block noch vor den ersten setzen, dann können wir uns das Argument ganz sparen und nur noch `make` ausführen - es baut standardmäßig immer das erste Ziel."
+
+prompt {
+    if command =~ `make$` && success && output =~ "21\\.5" {
+        if run(`cat "$ROOT"/wohnzimmer/Makefile`) =~ `\S+:\s+Heron\.class\r\n\tjava Heron` {
+            expect(`echo -e "run: Heron.class\n\tjava Heron\n\nHeron.class: Heron.java\n\tjavac Heron.java\n" > Makefile; make`)
+            break
+        } else {
+            "Da stimmt noch etwas mit dem Makefile nicht. Das Format ist *Ziel*: *Benötigte Dateien* (neue Zeile) *(Tab)Befehl*"
+        }
+    }
+}
+
+"Und nun kommt das Tolle: Ändern Sie das Programm so, dass die Wurzel von 1337 berechnet wird und führen Sie dann einfach `make` aus."
+
+prompt {
+    if command =~ `make$` && success && output =~ "669\\.0" {
+        expect("sed -i -e 's/a = 42.0/a = 1337.0/' Heron.java;make")
+        break
+    }
+}
+
+"Genau: `make` prüft beim Aufruf, welche Dateien sich verändert haben und baut davon ausgehend alle Abhängigkeiten neu. Das ist ein sehr mächtiges Werkzeug, das sehr einfach zu bedienen ist."
+
+"Wenn Sie Lust haben, schreiben Sie ein paar weitere Regeln, zum Beispiel zur Umwandlung von LaTeX-Dateien in PDFs. Mit `echo fertig` schließen Sie die Lektion ab."
 
 prompt {
     if ready {

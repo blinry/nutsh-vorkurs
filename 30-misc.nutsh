@@ -1,0 +1,61 @@
+lesson_name("awk")
+make_home
+
+"Wir möchten Ihnen noch einige Dinge mitgeben, von denen wir denken, dass Sie Ihnen helfen werden."
+
+"`clear` und *Strg+L* leeren das Terminal und setzen den Cursor in die erste Zeile - gut zum \"Aufräumen\"."
+
+"*Strg+C* bricht den momentan laufenden Befehl ab - zum Beispiel können Sie ein `sleep 1000` damit stoppen ;-)"
+
+"Probieren Sie beides mal aus. Mit `echo fertig` geht's dann weiter."
+
+prompt {
+    if ready {
+        expect("echo fertig")
+        break
+    }
+}
+
+"`head` und `tail` zeigen die ersten bzw. letzten Zeilen einer langen Datei an - lassen Sie sich mal die letzen Zeilen der `löwe`-Datei im Wohnzimmer anzeigen."
+
+makeloewe
+
+prompt {
+    if command =~ `^tail.*löwe$` && success {
+        expect("tail wohnzimmer/löwe")
+        break
+    }
+}
+
+"`hostname` zeigt an, wie Ihr Rechner heißt. `uptime` zeigt an, wie lange er schon läuft. Und `ifconfig` zeigt Informationen über die Netzwerkinterfaces an, unter anderem die IP-Adresse. `fertig`?"
+
+prompt {
+    if ready {
+        expect("echo fertig")
+        break
+    }
+}
+
+"Damit sind Sie am Ende des Vorkurses angekommen! Herzlichen Glückwunsch!"
+
+"Für Ihr kommendes Studium empfehlen wir Ihnen vor allem, sich weiter mit Git zu beschäftigen - das wird später in Teamprojekten unglaublich hilfreich, aber auch in den Programmieren-Übungen hilft es, um Fehler wieder rückgängig zu machen."
+
+"Wenn Sie mögen, installieren Sie sich mal ein Linux auf Ihrem Computer. Empfehlungen stehen auf der Homepage der Nut Shell: http://nutsh.morr.cc/ Jetzt, wo Sie sich auf der Kommandozeile zurechtfinden, ist der schwierigste Schritt bereits getan, und zur Softwareentwicklung und um zu verstehen, was \"hinter den Kulissen\" passiert ist es aus unserer Sicht einfach das beste Betriebssystem."
+
+"Spielen Sie *NetHack*! (Ist leider nicht auf den GITZ-Rechnern, können Sie sich aber zu Hause installieren:) https://en.wikipedia.org/wiki/Nethack"
+
+"Dort können Sie sich auch das Glückskeks-Programm `fortune` installieren und ausprobieren."
+
+"Falls Ihnen die Kreuzworträtsel Spaß gemacht haben, hier ist eins für Profis: http://www.coinheist.com/rubik/a_regular_crossword/grid.pdf"
+
+"Starten Sie das Skript `fertig` im Flur, um diese letzte Lektion zu beenden. Auf Wiedersehen! :-)"
+
+run(`wget nutsh.morr.cc/fertig -O "$ROOT"/fertig`)
+run(`chmod u+x "$ROOT"/fertig`)
+
+prompt {
+    if output =~ `\| ____\|_` {
+        expect("./fertig")
+        break
+    }
+}
