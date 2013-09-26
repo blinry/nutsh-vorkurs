@@ -181,7 +181,7 @@ prompt {
 
 "Bei einem erneuten Aufruf von `git status` werden Sie den Unterschied sehen."
 
-"Die vorgemerkten Änderungen können Sie nun mit `git commit` abspeichern. Ohne Argumente öffnet diese Befehl ein vim, in den Sie eine kurze Beschreibung der Änderung tippen sollten (\"Rezept für ... hinzugefügt\"). Alternativ können Sie die Beschreibung auch direkt mit der Option *-m \"...\"* angeben."
+"Die vorgemerkten Änderungen können Sie nun mit `git commit` abspeichern. Ohne Argumente öffnet dieser Befehl ein vim, in den Sie eine kurze Beschreibung der Änderung tippen sollten (\"Rezept für ... hinzugefügt\"). Alternativ können Sie die Beschreibung auch direkt mit der Option *-m \"...\"* angeben."
 
 run("NUTSH_LAST_MASTER=$(git rev-parse master)")
 
