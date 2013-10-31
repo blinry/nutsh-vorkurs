@@ -1,4 +1,4 @@
-lesson_name("Dateien löschen und verschieben - rmdir, cp, mv, rm")
+lesson_name("Dateien und Ordner löschen - rmdir, rm")
 make_home
 
 run("touch wohnzimmer/datei.txt")
