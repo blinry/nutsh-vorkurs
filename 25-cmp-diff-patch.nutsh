@@ -8,7 +8,7 @@ makeloewe
 
 "Sie könnten ihm jetzt das ganze, korrigierte Programm geben, aber es gibt Möglichkeiten, tatsächlich nur die *Änderungen* auszutauschen, und diese in die fehlerhafte Version zu übernehmen."
 
-"Im Wohnzimmer finden Sie die Datei `löwe`. Machen Sie zunächst eine Kopie davon, und überprüfen Sie mit dem Befehl `cmp` (\"compare\"), ob die beiden Dateien gleich sind."
+"Im Wohnzimmer finden Sie die Datei `löwe`. Machen Sie zunächst eine Kopie davon (welche Sie zum Beispiel `löwe_original` nennen können), und überprüfen Sie mit dem Befehl `cmp` (\"compare\"), ob die beiden Dateien gleich sind."
 
 prompt {
     if command =~ `cmp\s+.*` && success {
@@ -19,7 +19,7 @@ prompt {
 
 "Wenn `cmp` nichts ausgibt, sind die Dateien genau gleich. Das ist überhaupt ein typisches Prinzip: Bei fehlender Ausgabe ist \"alles in Ordnung\"."
 
-"Nun nehmen Sie einige Änderungen an der Originaldatei vor. Führen Sie dann erneut `cmp` aus."
+"Nun nehmen Sie einige Änderungen an der Datei `löwe` vor. Führen Sie dann erneut `cmp` aus."
 
 prompt {
     if command =~ `cmp\s+` && exit_code == "1" {
@@ -30,7 +30,7 @@ prompt {
 
 "Nun wird die erste unterschiedliche Stelle ausgegeben."
 
-"Um Unterschiede zwischen Dateien anzusehen, ist `vimdiff` extrem praktisch. Es bekommt ebenfalls zwei Argumente, öffnet dann beide Dateien nebeneinander und färbt die Unterschiede ein. In diesem Modus kann die Dateien sogar weitereditieren: Bauen Sie weitere Unterschiede ein."
+"Um Unterschiede zwischen Dateien anzusehen, ist `vimdiff` extrem praktisch. Es bekommt ebenfalls zwei Argumente, öffnet dann beide Dateien nebeneinander und färbt die Unterschiede ein. In diesem Modus kann die Dateien sogar weitereditieren: Bauen Sie weitere Unterschiede in `löwe` ein."
 
 "Zur Erinnerung: *:x*, gefolgt von Enter, speichert und schließt die aktuelle Datei."
 
@@ -52,7 +52,7 @@ prompt {
     }
 }
 
-"Der Befehl `diff` (\"difference\") gibt die Unterschiede zwischen zwei Dateien kompakt aus. Probieren Sie das mal! Führen Sie die `unveränderte Datei als erste` an, da es uns hier um die Änderungen hin zur veränderten Version geht. `Die Reihenfolge ist wichtig!`"
+"Der Befehl `diff` (\"difference\") gibt die Unterschiede zwischen zwei Dateien kompakt aus. Probieren Sie das mal! Führen Sie die *unveränderte Datei als erste* an, da es uns hier um die Änderungen hin zur veränderten Version geht. *Die Reihenfolge ist wichtig!*"
 
 prompt {
     if command =~ `diff\s+\S+\s+löwe` && exit_code == "1" {
@@ -120,7 +120,7 @@ prompt {
     }
 }
 
-"Nun haben wir wieder - wie zu Beginn - zwei unveränderte Dateien. Und einen Patch, den wir nun mit `patch < [Patchdatei]` anwenden. (Die nach links gerichtete spitze Klammer gibt dem Befehl eine Datei als Eingabe.)"
+"Nun haben wir wieder - wie zu Beginn - zwei unveränderte Dateien. Und einen Patch, den wir nun mit `patch < löwe2.patch` anwenden. (Die nach links gerichtete spitze Klammer gibt dem Befehl eine Datei als Eingabe.)"
 
 "Mit `vimdiff` können Sie dann die Unterschiede zur Originaldatei betrachten."
 
@@ -130,6 +130,8 @@ prompt {
         break
     }
 }
+
+"Gut. Ihre `löwe`-Datei enthält nun die Änderungen Ihres Kommilitonen. Der Sinn des Ganzen: Wenn man mit mehreren Leuten an einer großen Textdatei arbeitet, muss man so nicht die ganze geänderte Datei austauschen, sondern nur die Änderungen. In einer der nächsten Lektionen lernen Sie das Werkzeug *Git* kennen, das eine solche Zusammenarbeit wesentlich vereinfacht."
 
 "Mit `echo fertig` schließen Sie auch diese Lektion ab."
 
