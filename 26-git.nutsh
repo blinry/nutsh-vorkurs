@@ -5,7 +5,7 @@ make_home
 
 "Alle anderen benutzen *Versionskontrolle*. Die derzeit populärste Software dafür heißt *Git*, und die wollen wir uns heute mal etwas ansehen."
 
-"Als Beispiel wollen wir gemeinsam eine Rezeptesammlung erstellen. Wir werden den Internetdienst *GitHub* verwenden, der Git-Projekte kostenlos öffentlich hostet. Das ist ein wirlich prima Dienst, der bei Programmierern sehr beliebt ist. Legen Sie sich dort als erstes einen Account an: https://github.com/users"
+"Als Beispiel wollen wir gemeinsam eine Rezeptesammlung erstellen. Wir werden den Internetdienst *GitHub* verwenden, der Git-Projekte kostenlos öffentlich hostet. Das ist ein wirklich prima Dienst, der bei Programmierern sehr beliebt ist. Legen Sie sich dort als erstes einen Account an: https://github.com"
 
 "Mit `echo fertig` geht's dann weiter."
 
@@ -25,7 +25,7 @@ prompt {
     }
 }
 
-"Auf der GitHub-Webseite gehen Sie nun oben rechts in die Einstellungen (Symbol: Schraubenzieher und Schraubenschlüssel), dann auf \"SSH Keys\", \"Add SSH key\". Sie geben dem Schlüssel zum Beispiel den Namen \"GITZ-Rechner\" und kopieren den gesamten Inhalt der Datei `~/.ssh/id_rsa.pub` in das große Feld."
+"Auf der GitHub-Webseite gehen Sie nun oben rechts in die Einstellungen (Symbol: Schraubenzieher und Schraubenschlüssel), dann auf \"SSH Keys\", \"Add SSH key\". Sie geben dem Schlüssel zum Beispiel den Namen \"GITZ-Rechner\" und kopieren den gesamten Inhalt der Datei `~/.ssh/id_rsa.pub` in das große Feld. (Mit `cat ~/.ssh/id_rsa.pub` können Sie sich den Inhalt der Datei anzeigen lassen.)"
 
 "Mit `echo fertig` geht's dann weiter. Das war der komplizierteste Schritt, nun wird's einfacher."
 
@@ -56,18 +56,18 @@ prompt {
     }
 }
 
-"Bilden Sie eine kleine Gruppe und bestimmen Sie eine Person, die nun einige Schritte zum Einrichten des Kochbuches vornehmen soll."
+"Bilden Sie nun bitte eine kleine Gruppe (2 bis 4 Personen sind optimal) und bestimmen Sie eine Person, die einige Schritte zum Einrichten des Kochbuches vornehmen soll."
 
-"Sind Sie der \"Auserwählte\"? Antworten Sie mit `echo`!"
+"Sind Sie dieser \"Auserwählte\"? Antworten Sie mit `echo ja` beziehungsweise `echo nein`!"
 
 prompt {
     if command =~ `echo\s+(nein|no|nope|nö)` {
         expect("echo nein")
         "Okay, feuern Sie Ihren Auserwählten beim Einrichten an! ;-)"
 
-        "Wenn dann alles fertig eingerichtet ist, gehen Sie in die Küche und führen Sie folgenden Befehl aus:"
+        "Wenn dann alles fertig eingerichtet ist, gehen Sie in die Küche und führen Sie folgenden Befehl aus (\"teamname\" bitte durch den tatsächlichen Namen des Teams ersetzen):"
 
-        `    git clone git@github.com:[Teamname]/rezepte`
+        `git clone git@github.com:teamname/rezepte`
 
         "Die Frage, ob Sie dem Server vertrauen, können Sie beim ersten Mal mit *yes* beantworten."
 
@@ -83,7 +83,7 @@ prompt {
         if command =~ `echo\s+(ja|yes|jau|jo)` {
             expect("echo ja")
 
-            "OK. Klicken Sie auf GitHub's Startseite oben links auf Ihren Benutzernamen und wählen Sie \"Create Organization\". Geben Sie Ihrem Team einen Namen, geben Sie Ihre Mailadresse an (keine Angst, kostet nur etwas für Firmenkunden), und fügen Sie im nächsten Bildschirm die Accounts Ihrer Teamitglieder hinzu."
+            "OK. Gehen Sie auf GitHub's Startseite (per Logo oben links), dann oben links auf Ihren Benutzernamen und wählen Sie \"Create Organization\". Geben Sie Ihrem Team einen Namen, geben Sie Ihre Mailadresse an (keine Angst, kostet nur etwas für Firmenkunden), und fügen Sie im nächsten Bildschirm die Accounts Ihrer Teamitglieder hinzu."
 
             "Anschließend klicken Sie oben rechts auf \"New repository\" (ein *Repository* ist ein Verzeichnis mit Dateien unter Versionskontrolle), geben Sie diesem den Namen \"rezepte\", und klicken Sie schließlich auf den grünen \"Create repository\"-Knopf."
 
@@ -115,8 +115,8 @@ prompt {
 
             "Um die beiden Rezepte, die im Ordner liegen, in die Versionskontrolle zu übernehmen, führen Sie folgende Befehle aus:"
 
-            "    `git add .`"
-            "    `git commit -m \"Erster Commit\"`"
+            "`git add .`"
+            "`git commit -m \"Erster Commit\"`"
 
             prompt {
                 if runs("git rev-parse master") {
@@ -127,9 +127,9 @@ prompt {
 
             "Was das heißt, erklären wir Ihnen gleich."
 
-            "Nun wollen wir noch einstellen, dass dieses neue Git-Repo den GitHub-Dienst nutzt:"
+            "Nun wollen wir noch einstellen, dass dieses neue Git-Repo den GitHub-Dienst nutzt (\"teamname\" bitte durch den tatsächlichen Namen des Teams ersetzen):"
 
-            "    `git remote add origin git@github.com:[Teamname]/rezepte`"
+            "`git remote add origin git@github.com:teamname/rezepte`"
 
             prompt {
                 if !(run(`git config --get remote.origin.url`) == "") {
@@ -140,7 +140,7 @@ prompt {
 
             "Und nun schieben Sie den ersten Commit auf den Server:"
 
-            "    `git push -u origin master`"
+            "`git push -u origin master`"
 
             "Die Frage, ob Sie dem Server vertrauen, können Sie beim ersten Mal mit *yes* beantworten."
 
@@ -204,7 +204,7 @@ prompt {
         if output =~ `\+` {
             "Sieht ganz so aus. Ihr Repo sollte nun auf dem aktuellen Stand sein."
         } else {
-            "Momentan sind Sie vorne ;-)"
+            "Nein, momentan sind Sie vorne ;-)"
         }
         break
     }
@@ -227,7 +227,7 @@ prompt {
 
 "Und nun haben Sie viel Zeit, das ganze nach Herzenslust auszuprobieren. Der Umgang mit einer Versionkontrolle ist vielleich das Wichtigste, das Sie in diesem Vorkurs lernen werden - es ist zur Softwareentwicklung unglaublich praktisch, natürlich vor allem in Gruppen, aber auch, wenn Sie allein ein Programm schreiben und die Gewissheit haben wollen, bei Fehlern zu alten Versionen zurückzukommen."
 
-"Vielleicht hilft Ihnen dieser Spickzettel: http://files.morr.cc/git-sheet.png"
+"Vielleicht hilft Ihnen dieser Spickzettel: http://files.morr.cc/git-spickzettel.png"
 
 "`echo tipp` gibt Ihnen ab jetzt einen bunten Blumenstrauß von wechselnden Tipps aus. Viel Spaß!"
 
