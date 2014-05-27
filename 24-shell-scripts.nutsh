@@ -26,7 +26,7 @@ prompt {
 
 "So, nun wäre es schön, wenn man nicht mehr davorschreiben müsste, dass wir das Skript mit der `bash`-Shell starten wollen. Sie können dazu in die erste Zeile der Datei folgendes schreiben: \"#!/bin/bash -i\" - Raute und Ausrufezeichen sind der sogenannte *Shebang*, dann folgt der absolute Pfad zu dem Programm, mit dem das Skript ausgeführt werden soll. Die Option `-i` startet die Bash im *interaktiven Modus*, das ist notwendig, damit wir nachher im Skript auf die Befehls-History zugreifen können."
 
-"Zweitens müssen Sie das Skript mit `chmod u+x [Datei]` *ausführbar* machen. (Lesen Sie die Manpage und lassen Sie sich die Rechte mit `ls -l` anzeigen, wenn's sie interessiert!)"
+"Zweitens müssen Sie das Skript mit `chmod u+x [Datei]` *ausführbar* machen. (Lesen Sie die Manpage und lassen Sie sich die Rechte mit `ls -l` anzeigen, wenn's Sie interessiert!)"
 
 "Dann können Sie das Skript starten, indem Sie `./[Datei]` schreiben. Der Punkt steht dabei ja für den aktuellen Ordner - ansonsten weiß die Shell nicht, wo sie den Befehl suchen soll."
 

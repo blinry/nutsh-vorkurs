@@ -32,7 +32,7 @@ prompt {
 "Wie `ls` hat auch `df` hat eine Option, die die die Größenangaben in praktischere Formate umrechnet."
 
 prompt {
-    if command =~ `df.*h` && success {
+    if command =~ `df.*[hH]` && success {
         expect("df -h")
         break
     }
@@ -59,7 +59,7 @@ prompt {
 "Auf den Unirechnern zeigt der Befehl `fs listquota` Ihnen an, wie viel des Ihnen zugewiesenen Speicherplatzes Sie bereits belegt haben. Die \"gewisse Option\" heißt hier etwas anders. Finden Sie das heraus?"
 
 prompt {
-    if command =~ `fs\s+listquota\s+-human` {
+    if command =~ `fs\s+(listquota|lq)\s+-human` {
         expect("fs listquota -human")
         break
     }
