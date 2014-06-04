@@ -1,5 +1,6 @@
 lesson_name("Versionskontrolle mit Git")
 make_home
+run("export EDITOR=gedit")
 
 "Vor einigen Lektionen haben wir uns angesehen, wie man mit `diff` und `patch` Änderungen austauschen kann. Das war sehr mühsam und fehleranfällig, und nur noch wenige Leute machen das heutzutage so."
 
