@@ -7,7 +7,7 @@ def success {
 }
 
 def go_home {
-    say("                                 ")
+    run(`ROOT="$HOME"/.nutsh`)
     run(`ROOT="$HOME"/.nutsh`)
     run(`mkdir -p "$ROOT"`)
     run(`cd "$ROOT"`)
