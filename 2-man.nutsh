@@ -1,5 +1,5 @@
 lesson_name("Hilfe zur Selbsthilfe - man")
-go_home
+make_home
 
 "Die Kommandozeile hat eine tolle eingebaute Hilfe: Jeder Befehl bringt sein eigenes kleines \"Handbuch\" mit, in dem man nachschlagen kann, wie man ihn benutzt. Zum Öffnen dieses Handbuchs benutzt man das Kommando `man`, vom Englischen \"manual\", gefolgt vom Namen des Programms, über das man etwas wissen möchte."
 

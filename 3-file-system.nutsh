@@ -1,5 +1,5 @@
 lesson_name("Dateisystem und Pfade")
-go_home
+make_home
 
 "Ihnen steht auf den Rechnern des GITZ ein eigenes Verzeichnis zur Verfügung, in dem Sie Daten speichern können. Dieses heißt unter Linux *Heimat-* oder *Home-Verzeichis*. Weil es so wichtig ist, ist `cd` so eingestellt, dass es standardmäßig ins Home-Verzeichnis geht, wenn man keine Argumente aufführt. Probieren Sie das einmal aus!"
 

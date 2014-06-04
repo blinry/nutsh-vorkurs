@@ -1,5 +1,5 @@
 lesson_name("Dateien erschaffen und ansehen - mkdir und Editoren")
-go_home
+make_home
 run(`rm -rf "$ROOT/wohnzimmer" "$ROOT/schlafzimmer" "$ROOT/badezimmer" "$ROOT/küche"`)
 
 say("Dann wollen wir uns hier mal weiter einrichten. `"+run("pwd")+"` soll in diesem Tutorial Ihr \"Flur\" sein, von dem einige \"Zimmer\" abgehen.")

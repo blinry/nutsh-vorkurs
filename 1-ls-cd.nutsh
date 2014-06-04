@@ -1,5 +1,5 @@
 lesson_name("Umsehen und Bewegen - ls und cd")
-go_home
+make_home
 
 run("touch linker_schuh")
 run("mkdir schrank")
