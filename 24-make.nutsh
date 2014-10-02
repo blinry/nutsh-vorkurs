@@ -4,7 +4,7 @@ make_home
 run(`rm "$ROOT"/wohnzimmer/Heron*`)
 run(`echo -e 'public class Heron {\n    public static void main (String[] args) {\n        double a = 42.0,\n               x = 1.0;\n        for (int i = 1; i <= 7; i++) {\n            x = (x + a / x) / 2.0;\n            System.out.println(x);\n        }\n    }\n}\n' > "$ROOT"/wohnzimmer/Heron.java`)
 
-"Im Wohnzimmer liegt noch die Datei `Heron.java`. Es war ja etwas mühsam, ein Programm jedes Mal neu zu übersetzen und auszuführen, wenn Sie etwas am Quelltext geändert haben. Manchmal weiß man vielleicht auch gar nicht mehr, ob man etwas geändert hat, ob also das Kompilieren notwendig ist."
+"Im Wohnzimmer liegt eine Datei `Heron.java`. Es ist ja etwas mühsam, ein Programm jedes Mal neu zu übersetzen und auszuführen, wenn Sie etwas am Quelltext geändert haben. Manchmal weiß man vielleicht auch gar nicht mehr, ob man etwas geändert hat, ob also das Kompilieren notwendig ist."
 
 "Diese Probleme lösen *Makefiles*, eine der besseren Erfindungen seit geschnitten Brot. Ein kleines Beispiel-Makefile haben wir Ihnen bereits vorbereitet, es liegt ebenfalls im Wohnzimmer. Lassen Sie es sich mit `cat` einmal ausgeben."
 
