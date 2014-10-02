@@ -35,12 +35,12 @@ stop_elephants {
     "Hm, so einfach ist das wohl doch nicht. Können Sie herausfinden, wie groß die Datei ist? Die Manpage von `ls` hilft Ihnen dabei! Erinnerung: Mit \"/[suchbegriff] <Enter>\" können Sie in der Manpage nach Begriffen suchen."
 
     prompt {
-        if output =~ "10M" {
+        if output =~ `1\dM` {
             expect("ls -sh")
             "10 Megabyte? So groß ist der Kühlschrank allerdings wirklich nicht."
             break
         }
-        if output =~ "10240" {
+        if output =~ `1024\d` {
             expect("ls -s")
             "Okay, rund zehntausend Kilobyte. `ls` kann Ihnen das mit der Option `-h` auch noch in eine besser lesbare Größenordnung umrechnen."
         }

@@ -58,7 +58,7 @@ prompt {
 
 prompt {
     if command =~ "du$" && success {
-        expect("du")
+        expect("cd $ROOT; du")
         break
     }
 }
