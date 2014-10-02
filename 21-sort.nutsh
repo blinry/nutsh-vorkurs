@@ -10,7 +10,6 @@ make_home
 prompt {
     if output == run("ls -alh ~ | sort -h -k5") || output == run("ls -Alh ~ | sort -h -k5"){
         if ! command =~ "sort" {
-            expect("ls -alhrS ~")
             "Gut, aber versuchen Sie, diese Aufgabe mit `sort` zu lösen. Leider hat nicht jedes Programm eine eingebaute Sortierfunktion."
         } else {
             expect("ls -alh ~ | sort -h -k5")
