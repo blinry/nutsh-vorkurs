@@ -2,18 +2,17 @@ lesson_name("Intro - Begrüßung und erste Beispiele mit cal")
 make_home
 
 def needs(program) {
-    if ! runs(program+" --version") {
+    if ! runs(program+" --help") {
         say("*Achtung, *`"+program+"`* ist auf diesem System nicht installiert. Spätere Lektionen werden nicht funktionieren.*")
     }
 }
 
 def needs2(program) {
-    if ! runs(program+" -version") {
+    if ! runs(program+" -help") {
         say("*Achtung, `"+program+"` ist auf diesem System nicht installiert. Spätere Lektionen werden nicht funktionieren.*")
     }
 }
 
-needs("locate")
 needs("gedit")
 needs("vim")
 needs("emacs")

@@ -5,29 +5,34 @@ make_home
 
 "Als erstes der schnelle: Er heißt `locate` und nimmt ein Muster als Argument, nach dem dann im gesamten Dateisystem gesucht wird. Am besten gewöhnen Sie sich auch hier an, das Muster immer in (einfache) Anführungszeichen zu setzen, um zu vermeide, dass dort irgendwelche Ersetzugen durch die Shell vorgenommen werden."
 
-"Wie viele Treffer gibt `locate` bei einer Suche nach dem Ausdruck \"javac\" aus? Antworten Sie mit `echo`."
+if ! runs("locate --help") {
+    "*Hinweis:* Auf diesem Rechner ist `locate` leider nicht installiert. Wir müssen deshalb den ersten Teil der Lektion überspringen. Wenn Sie mögen, können Sie diese Lektion später einmal auf Ihrem eigenen Rechner wiederholen."
+} else {
 
-prompt {
-    if command =~ `^echo\s+` && output =~ run("locate -c javac") {
-        expect("echo $(locate -c javac)")
-        break
+    "Wie viele Treffer gibt `locate` bei einer Suche nach dem Ausdruck \"javac\" aus? Antworten Sie mit `echo`."
+
+    prompt {
+        if command =~ `^echo\s+` && output =~ run("locate -c javac") {
+            expect("echo $(locate -c javac)")
+            break
+        }
+    }
+
+    "Das Muster kann Wildcards enthalten (\\* für beliebig viele Zeichen, ? für genau eins). Wenn es keine davon enthält, wird automatisch ein \"\\*\" davor und dahinter gesetzt. Mit diesem Wissen finden Sie heraus, wie viele Dateien auf \"javac\" *enden*."
+
+    prompt {
+        if command =~ `^echo\s+` && output =~ run("locate -c '*javac'") {
+            expect("echo $(locate -c '*javac')")
+            break
+        }
+        if help {
+            expect("echo help")
+            "Das Suchmuster soll auf Dateien passen, die erst beliebige Zeichen im Namen haben, auf die dann \"javac\" folgt."
+        }
     }
 }
 
-"Das Muster kann Wildcards enthalten (\\* für beliebig viele Zeichen, ? für genau eins). Wenn es keine davon enthält, wird automatisch ein \"\\*\" davor und dahinter gesetzt. Mit diesem Wissen finden Sie heraus, wie viele Dateien auf \"javac\" *enden*."
-
-prompt {
-    if command =~ `^echo\s+` && output =~ run("locate -c '*javac'") {
-        expect("echo $(locate -c '*javac')")
-        break
-    }
-    if help {
-        expect("echo help")
-        "Das Suchmuster soll auf Dateien passen, die erst beliebige Zeichen im Namen haben, auf die dann \"javac\" folgt."
-    }
-}
-
-"Ja. An dieser Stelle etwas ganz wichtiges: `locate` sucht nicht in Echtzeit, sondern benutzt eine Datenbank, die veraltet sein kann. Es gibt den Befehl `updatedb`, der regelmäßig vom Administrator des Rechners ausgeführt wird, und der dann das gesamte Dateisystem durchpflügt und sich die vorhandenen Dateien merkt. Die Datenbank, die dabei entsteht, ist deshalb immer nur auf dem Stand der letzten Ausführung. Danach geänderte oder gelöschte Dateien werden dann nicht bzw. fälschlicherweise gefunden."
+"An dieser Stelle etwas ganz wichtiges: `locate` sucht nicht in Echtzeit, sondern benutzt eine Datenbank, die veraltet sein kann. Es gibt den Befehl `updatedb`, der regelmäßig vom Administrator des Rechners ausgeführt wird, und der dann das gesamte Dateisystem durchpflügt und sich die vorhandenen Dateien merkt. Die Datenbank, die dabei entsteht, ist deshalb immer nur auf dem Stand der letzten Ausführung. Danach geänderte oder gelöschte Dateien werden dann nicht bzw. fälschlicherweise gefunden."
 
 "Deshalb kommt nun die langsame, aber genaue Art und Weise, zu suchen: `find`."
 
