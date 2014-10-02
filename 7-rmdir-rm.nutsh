@@ -3,7 +3,7 @@ make_home
 
 run("touch wohnzimmer/datei.txt")
 
-"Nachdem wir gestern Ordner und Dateien angelegt haben (mit `mkdir` und `touch`), lernen Sie heute, wie man diese wieder löscht."
+"Nachdem wir neulich Ordner und Dateien angelegt haben (mit `mkdir` und `touch`), lernen Sie heute, wie man diese wieder löscht."
 
 "Zum Löschen einer Datei benutzen Sie `rm` (\"remove\"). Löschen Sie doch beispielsweise mal die `datei.txt` im Wohnzimmer."
 
@@ -28,11 +28,15 @@ prompt {
     } else {
         expect(" ")
     }
+    if help {
+        expect("echo help")
+        "Der Befehl `find ~/.nutsh` listet alle Dateien und Verzeichnisse in Ihrem \"Haus\" auf, das hilft Ihnen vielleicht, die restlichen Ratten zu finden."
+    }
 }
 
 "Das war die letzte. Puh."
 
-"Was mit `rm` gelöscht wurde, ist nur sehr schwer bis unmöglich wiederherzustellen - mit dem Befehl müssen Sie also ein wenig aufpassen. Es wird von Ihnen erwartet, dass Sie wissen, was Sie tun! :-)"
+"Was mit `rm` gelöscht wurde, ist nur sehr schwer bis unmöglich wiederherzustellen - mit dem Befehl müssen Sie also ein wenig aufpassen. UNIX-Systeme erwarten von Ihnen, dass Sie wissen, was Sie tun! :-)"
 
 "Als nächstes löschen wir Ordner, das geht mit `rmdir` (\"remove directory\"). Aus Sicherheitsgründen funktioniert dies nur mit leeren Ordnern, sie müssen alle Inhalte also vorher bereits entfernt haben."
 
@@ -49,7 +53,7 @@ prompt {
 
 "Wenn das doch immer so einfach wäre."
 
-"Eine etwas größere Aufgabe: In Ihrem Flur steht nun eine Kiste - bitte entfernen Sie diese und ihren Inhalt unter Zuhilfenahme von `rm` und `rmdir`. Sie müssen Sich dabei von unten nach oben vorarbeiten."
+"Eine etwas größere Aufgabe: In Ihrem Flur steht nun eine Kiste - bitte entfernen Sie diese und ihren Inhalt unter Zuhilfenahme von `rm` und `rmdir`. Sie müssen Sich dabei von innen nach außen vorarbeiten, da `rmdir` nur leere Ordner löscht."
 
 def create_box {
     run("cd $ROOT")
@@ -88,7 +92,7 @@ prompt {
     }
 }
 
-"So weit so gut. Mit `echo fertig` schließen Sie die Lektion ab."
+"So weit, so gut. Mit `echo fertig` schließen Sie die Lektion ab."
 
 prompt {
     if ready {

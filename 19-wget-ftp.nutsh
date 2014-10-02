@@ -11,9 +11,9 @@ prompt {
     }
 }
 
-"Natürlich bekommen Sie den HTML-Quelltext der Seite angezeigt. Den können Sie aber zum Beispiel in eine `.html`-Datei umleiten und sich diese mit Firefox anzeigen lassen. (Wenn Firefox bereits läuft, können Sie über `firefox [datei.html]` darin eine neue Seite öffnen.)"
+"Natürlich bekommen Sie den HTML-Quelltext der Seite angezeigt. Den können Sie aber zum Beispiel (mit dem Umleitungsoperator \">\") in eine `.html`-Datei umleiten und sich diese mit Firefox anzeigen lassen. (Wenn Firefox bereits läuft, können Sie über `firefox [datei.html]` darin eine neue Seite öffnen.)"
 
-"Sagen Sie, wenn Sie fertig sind."
+"Sagen Sie Bescheid, wenn Sie fertig sind."
 
 prompt {
     if ready {

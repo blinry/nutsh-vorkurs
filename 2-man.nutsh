@@ -5,7 +5,7 @@ make_home
 
 "Öffnen Sie doch beispielsweise einmal das Handbuch des Befehls `cal`. Innerhalb der Handbuchseite können Sie mit den Pfeiltasten herumscrollen, mit der Taste `q` schließen Sie sie wieder."
 
-"Machen Sie sich ein wenig mit der Struktur dieser Hilfeseiten vertraut. Die Seite nennt auch den Grund für den seltsamen September anno 1752."
+"Machen Sie sich ein wenig mit der Struktur dieser Hilfeseiten vertraut. Die Seite nennt auch den Grund für den seltsamen September im Jahr 1752."
 
 prompt {
     if command =~ `^man\s+cal` {
@@ -28,6 +28,10 @@ prompt {
     if command =~ `^cal\s+.*-3` {
         expect("cal -3")
         break
+    }
+    if help {
+        expect("echo help")
+        "Sie möchten ja *drei* Monate auf einmal anzeigen... ;-)"
     }
 }
 
@@ -55,14 +59,19 @@ prompt {
 
 "Ja. Man kann oft auf Verdacht `--help` an einen Befehl hängen, um eine Zusammenfassung der Manpage angezeigt zu bekommen."
 
-"Oft gibt es Optionen in zwei Varianten: Eine kurze Version mit einem Bindestrich vorneweg sowie eine lange Version mit zwei Bindestrichen."
+"Oft gibt es Optionen in zwei Varianten: Eine kurze Version mit einem Bindestrich vorneweg sowie eine lange Version mit zwei Bindestrichen. `cal` zum Beispiel hat für die Option `--help` die Kurzform `-h`. Dieses Schema wird Ihnen noch oft begegnen."
 
-"Eine letzte Frage: Was, wenn Sie vergessen haben, wie man den Befehl `man` selbst benutzt?"
+"Eine letzte Frage: Was können Sie tun, wenn Sie vergessen haben, wie man den Befehl `man` selbst benutzt?"
 
 prompt {
-    if command =~ `^man\s+man` || command =~ `^man\s+-?-help` {
+    if command =~ `^man\s+man` {
         expect("man man", "q")
+        break
+    }
+
+    if command =~ `^man\s+-?-help` {
         expect("man --help")
+        "Alternativ funktioniert natürlich auch `man man`"
         break
     }
 }

@@ -7,7 +7,7 @@ make_home
 
 "Den Wert kann man sich dann wieder ausgeben lassen, indem man dann ein Dollarzeichen vor den Namen schreibt (`$VARIABLENNAME`) - dies wird vor der Ausführung dann durch den darin gespeicherten Wert ersetzt."
 
-"Es ist ganz, ganz üblich den Variablennamen in Großbuchstaben zu schreiben, um ihn besser von Befehlen unterscheiden zu können."
+"Es ist üblich den Variablennamen in Großbuchstaben zu schreiben, um ihn besser von Befehlen unterscheiden zu können."
 
 "Zur Übung setzen Sie die Variable `ANTWORT` auf den Wert `42`. Lassen Sie sich dann mit `echo` den Wert wieder ausgeben."
 
@@ -77,7 +77,7 @@ prompt {
 prompt {
     if command =~ "ja" {
         expect("echo ja")
-        "Sämtliche Kürzel sind in der Manpage der `bash` aufgeführt. Achtung, diese Manpage ist unglaublich lang (vielleicht möchten Sie Ihre 15 Euro Druckguthaben aufbrauchen? ;-) - Sie können innerhalb der Manpage zum richtigen Abschnitt springen, indem sie einen Schrägstrich tippen, um eine Suche zu starten, und dann \"PROMPTING\" eingeben. Anschließend tippen Sie einige Male \"n\", um zum nächsten Treffer zu springen."
+        "Sämtliche Kürzel sind in der Manpage der `bash` aufgeführt. Achtung, diese Manpage ist unglaublich lang (vielleicht möchten Sie Ihre 15 Euro Druckguthaben aufbrauchen? ;-) - Sie können innerhalb der Manpage zum richtigen Abschnitt springen, indem sie einen Schrägstrich tippen, um eine Suche zu starten, und dann \"PROMPTING\" eingeben und Enter drücken. Anschließend tippen Sie einige Male \"n\", um zum nächsten Treffer zu springen."
         break
     }
     if command =~ "nein" {

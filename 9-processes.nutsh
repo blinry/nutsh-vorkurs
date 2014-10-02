@@ -35,12 +35,13 @@ prompt {
             }
             break
         } else {
+            expect("ps -H")
             "Ja, geben Sie zusätzlich noch die vorherige Option `-e` an, sonst sieht man nicht besonders viel."
         }
     }
 }
 
-"Der `ps`-Prozess gibt übrigens aus, das er selbst läuft. Finden Sie ihn? Er wurde von dem `bash`-Prozess gestartet, der wiederum von dem `nutsh`-Prozess gestartet wurde. Bitte geben Sie die Prozess-ID des bash-Prozesses mit `echo` aus."
+"Der `ps`-Prozess gibt übrigens aus, das er selbst läuft. Finden Sie ihn? Er wurde von dem `bash`-Prozess gestartet, der wiederum von dem `nutsh`-Prozess gestartet wurde. Suchen Sie die Prozess-ID des bash-Prozesses und geben Sie diese mit `echo` aus."
 
 prompt {
     if output =~ run("echo $$") && command =~ "echo" {

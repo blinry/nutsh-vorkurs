@@ -1,7 +1,7 @@
 lesson_name("Dateisystem und Pfade")
 make_home
 
-"Ihnen steht auf den Rechnern des GITZ ein eigenes Verzeichnis zur Verfügung, in dem Sie Daten speichern können. Dieses heißt unter Linux *Heimat-* oder *Home-Verzeichis*. Weil es so wichtig ist, ist `cd` so eingestellt, dass es standardmäßig ins Home-Verzeichnis geht, wenn man keine Argumente aufführt. Probieren Sie das einmal aus!"
+"Auf UNIX-Systemen steht Ihnen ein eigenes Verzeichnis zur Verfügung, in dem Sie Daten speichern können. Dieses heißt unter Linux *Heimat-* oder *Home-Verzeichis*. Weil es so wichtig ist, ist `cd` so eingestellt, dass es standardmäßig ins Home-Verzeichnis geht, wenn man keine Argumente aufführt. Probieren Sie das einmal aus!"
 
 prompt {
     if command == "cd" {
@@ -12,10 +12,10 @@ prompt {
 
 "Der Teil des Promptes, der das aktuelle Verzeichnis anzeigt, enthält nun einfach nur eine Tilde - dies ist eine weitere Abkürzung: Sie können immer, wenn Sie Ihr Home-Verzeichnis meinen, eine Tilde dafür schreiben."
 
-"Um herauszufinden, wie Ihr Homeverzeichnis unabgekürzt heißt, können Sie den Befehl `pwd` benutzen (\"print working directory\")."
+"Um herauszufinden, wie Ihr Homeverzeichnis unabgekürzt heißt, können Sie den Befehl `pwd` benutzen (\"print working directory\"), der den ganzen Pfad des aktuellen Ordners ausgibt."
 
 prompt {
-    if command =~ "^pwd" {
+    if command == "pwd" {
         expect("pwd")
         break
     }
@@ -28,11 +28,15 @@ prompt {
         expect("cd /")
         break
     }
+    if help {
+        expect("echo help")
+        "Um direkt in ein Verzeichnis zu wechseln, gibt es ja den Befehl `cd [verzeichnis]`. Und wir möchten in das Verzeichnis, das `/` heißt."
+    }
 }
 
 "Von hier aus können Sie nicht weiter \"hochgehen\". Wenn Sie mögen, schauen Sie sich hier kurz um und gehen Sie in einige Ordner hinein. Interessant sind beispielsweise die Ordner `/bin` (enthält Programme), `/dev` (enthält Gerätedateien) oder `/etc` (Konfigurationsdateien). Kaputtmachen können Sie dabei nichts - Sie haben nur in Ihrem Homeverzeichnis Schreibrechte."
 
-"Wenn Sie weitermachen möchten, gehen Sie wieder dorthin zurück (zum Beispiel mit `cd ~`)."
+"Wenn Sie weitermachen möchten, gehen Sie wieder dorthin zurück (zum Beispiel mit `cd ~` oder einfach mit `cd`.)."
 
 prompt {
     if run("pwd") == run(`echo "$HOME"`) {
@@ -43,9 +47,11 @@ prompt {
 
 "Zwei ganz wesentliche Konzepte sind *absolute* und *relative* Pfade."
 
-"Immer, wenn Sie einen Pfad \"vom aktuellen Verzeichnis aus\" angeben, ist das ein relativer Pfad. Absolute Pfade beginnen mit einem Slash, und beziehen sich aufs Wurzelverzeichnis."
+"Immer, wenn Sie einen Pfad \"vom aktuellen Verzeichnis aus\" angeben, ist das ein relativer Pfad. Sie haben ja zum Beispiel schon den Befehl `cd schrank` benutzt, \"schrank\" ist hierbei ein relativer Pfad, weil Sie damit das Verzeichnis \"schrank\" im aktuellen Verzeichnis meinen."
 
-"Beispiel. Wenn Sie hinter `ls` einen Verzeichnisnamen schreiben, listet es die Inhalte dieses Verzeichnisses auf. Lassen Sie sich (von hier aus) die Inhalte des Wurzelverzeichnisses anzeigen."
+"Absolute Pfade hingegen beginnen immer mit einem Slash, und beziehen sich aufs Wurzelverzeichnis. Der Befehl `cd /schrank` zum Beispiel würde versuchen, in das Verzeichnis \"schrank\" im Wurzelverzeichnis, ganz oben in der Verzeichnishierarchie zu wechseln."
+
+"Noch ein Beispiel: Wenn Sie hinter `ls` einen Verzeichnisnamen schreiben, listet es die Inhalte dieses Verzeichnisses auf. Lassen Sie sich (von hier aus) die Inhalte des Wurzelverzeichnisses anzeigen."
 
 prompt {
     if output =~ "var" && output =~ "usr" {
@@ -54,8 +60,12 @@ prompt {
             break
         } else {
             expect("cd /; ls")
-            "OK, aber bitte gehen Sie zurück ins Homeverzeichnis und geben Sie das Verzeichnis als Argument an `ls`."
+            "OK, aber bitte gehen Sie zurück ins Homeverzeichnis und schreiben Sie das Verzeichnis als Argument hinter `ls`."
         }
+    }
+    if help {
+        expect("echo help")
+        "Stellen Sie sicher, dass Sie in Ihrem Homeverzeichnis (~) sind. Dann lassen Sie sich mit `ls` den Inhalt des Verzeichnisses \"/\" ausgeben."
     }
 }
 
@@ -68,7 +78,7 @@ prompt {
             break
         } else {
             expect("cd /dev; pwd; ls")
-            "OK, aber bitte gehen Sie zurück ins Homeverzeichnis und geben Sie das Verzeichnis als Argument an `ls`."
+            "OK, aber bitte gehen Sie zurück ins Homeverzeichnis und schreiben Sie das Verzeichnis als Argument hinter `ls`."
         }
     }
 }
@@ -91,9 +101,13 @@ prompt {
             "Bitte bleiben Sie in Ihrem Homeverzeichnis."
         }
     }
+    if help {
+        expect("echo help")
+        "Probieren Sie erstmal aus, was `ls ..` tut. Und dann, was `ls ../..` tut. Jedes \"..\" lässt den Pfad eine Stufe höher enden. Sobald Sie damit im Wurzelverzeichnis angekommen sind, steigen Sie von dort wieder \"herab\" ins Verzeichnis \"dev\"."
+    }
 }
 
-"Gut gemacht! Probieren Sie das an weiteren Beispielen aus, bis Sie glauben, das Prinzip verstanden zu haben, dann gehen Sie mit `echo fertig` zur nächsten Lektion."
+"Gut gemacht! Probieren Sie das an weiteren Beispielen aus, bis Sie glauben, das Prinzip verstanden zu haben. Dann gehen Sie mit `echo fertig` zur nächsten Lektion."
 
 prompt {
     if ready {

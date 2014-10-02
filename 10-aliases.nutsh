@@ -22,20 +22,20 @@ prompt {
     }
 }
 
-"Genau. Definieren Sie sich noch drei weitere Aliase (die zum Beispiel `ls` standardmäßig mit `-l` aufrufen, `cal` mit `-3` aufrufen, oder die dafür sorgen, dass `j` den Befehl `java` startet. Mit `alias` ohne Argumente können Sie sich alle momentan definierten Aliase ausgeben lassen."
+"Genau. Definieren Sie sich noch drei weitere Aliase (die zum Beispiel `ls` standardmäßig mit `-l` aufrufen, `cal` mit `-3` aufrufen, oder die dafür sorgen, dass `j` den Befehl `java` startet."
 
 "Übrigens: Spannend ist auch die Option `-a` von `ls` - sie zeigt *versteckte* Dateien an, das sind diejenigen, die mit einem Punkt beginnen. In Ihrem Homeverzeichnis befinden sich bereits so einige versteckte Dateien, hauptsächlich Konfigurationsdateien. Schauen Sie einmal nach!"
 
 prompt {
-    if command =~ "alias$" {
-        if run("alias|head -4|wc -l") == "4" {
-            expect("alias x=x; alias y=y; alias z=z; alias")
-            break
-        }
+    if run("alias|head -4|wc -l") == "4" {
+        expect("alias x=x; alias y=y; alias z=z; alias")
+        break
     }
 }
 
-"Probieren Sie die Aliase jeweils einmal aus - mit `echo fertig` können Sie dann zur nächsten Lektion."
+"Mit `alias` ohne Argumente können Sie sich alle momentan definierten Aliase ausgeben lassen."
+
+"Probieren Sie die Aliase dann jeweils einmal aus - mit `echo fertig` können Sie dann zur nächsten Lektion."
 
 prompt {
     if ready {

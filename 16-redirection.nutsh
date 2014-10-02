@@ -10,6 +10,10 @@ prompt {
         expect("ps -e > wohnzimmer/prozesse")
         break
     }
+    if help {
+        expect("echo help")
+        "Tja, wie ging das noch mit den Prozessen? Der notwendige Befehl heißt `ps`, und er hat eine Option, die  ihn jeden (every) Prozess anzeigen lässt."
+    }
 }
 
 "Und wie würden Sie den Text \"$HOME, sweet $HOME\" in eine Datei `schild` in Ihrem Flur schreiben?"
@@ -19,9 +23,13 @@ prompt {
         expect("echo '$HOME, sweet $HOME' > schild")
         break
     }
+    if help {
+        expect("echo help")
+        "Das gemeine ist hier, dass das \"$HOME\" normalerweise durch den Inhalt der Variable `HOME` ersetzt wird. Sie brauchen einfache Anführungszeichen, um den Ausdruck zu *quoten* und die Ersetzung zu verhindern."
+    }
 }
 
-"Sie können den Text auch an eine Datei *anhängen*, indem Sie statt einer spitzen Klammer zwei benutzen. Hängen Sie den gleichen Text wie eben nochmals an das Schild an."
+"Sie können den Text auch an eine Datei *anhängen*, indem Sie statt einer spitzen Klammer zwei (>>) benutzen. Hängen Sie den gleichen Text wie eben nochmals an das Schild an."
 
 prompt {
     if run(`grep '\$HOME, sweet \$HOME' "$ROOT/schild"|wc -l`) == "2" {
@@ -47,7 +55,7 @@ prompt {
 
 "Bisher haben wir immer einzelne Befehle ausgeführt. Es gibt aber eine Möglichkeit, Befehle zu kombinieren, also mehrere Befehle hintereinanderzuhängen. Das geht mit einem senkrechten Strich: `befehl1 | befehl2` (das Symbol erzeugen Sie mit AltGr und der Taste links neben dem Y)."
 
-"Den Strich nennt man auch `Pipe`, weil er die Ausgabe des ersten Befehls wie eine Rohrleitung in den zweiten Befehl hineinleitet."
+"Den Strich nennt man auch `Pipe`, weil er die Ausgabe des ersten Befehls wie eine Rohrleitung in den zweiten Befehl hineinleitet. Der zweite Befehl arbeitet dann auf dem Text, den er über die pipe empfangen hat."
 
 "Bitte gehen Sie zum Üben ins Badezimmer."
 
@@ -65,11 +73,17 @@ prompt {
         expect("man wc", "q")
         break
     }
+    if help {
+        expect("echo help")
+        "Beispielbefehl: `echo dumdidum | wc`"
+    }
 }
 
-"Vielleicht wundert sie, dass die Anzahl der Zeichen stets um 1 höher zu sein scheint? Das liegt daran, dass `echo` einen Zeilenumbruch hinter dem Text mit ausgibt, der ebenfalls mitgezählt wird. `echo` hat die Option `-n`, die das verhindert."
+"Also, `wc` gibt die Anzahl der Zeilen, der Wörter und der Zeichen in dem Text ein, den es empfängt."
 
-"Ein anderer Befehl, den man gut mit Pipes kombinieren kann, ist `sort` - Sie dürfen dreimal raten, was der tut. So können Sie sich zum Beispiel eine Prozessliste oder die Zeilen einer Datei sortiert ausgeben lassen (wie wäre es mit der Java-Datei im Wohnzimmer?)"
+"Vielleicht wundert Sie, dass die Anzahl der Zeichen stets um 1 höher zu sein scheint? Das liegt daran, dass `echo` einen Zeilenumbruch hinter dem Text mit ausgibt, der ebenfalls mitgezählt wird. `echo` hat die Option `-n`, die das verhindert."
+
+"Ein anderer Befehl, den man gut mit Pipes kombinieren kann, ist `sort` - Sie dürfen dreimal raten, was der tut. So können Sie sich zum Beispiel eine Prozessliste oder die Zeilen einer Datei alphabetisch sortiert ausgeben lassen (wie wäre es zum Beispiel mit einer Java-Datei?)"
 
 "Mit `echo fertig` schließen Sie die Lektion ab."
 

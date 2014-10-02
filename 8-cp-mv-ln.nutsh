@@ -74,6 +74,10 @@ prompt {
         expect("ls -l")
         break
     }
+    if command =~ "-1" {
+        expect("ls -1")
+        "Das ist keine Eins, sondern ein kleines L, für \"long\"."
+    }
 }
 
 "Die Option `-l` (\"long\") zeigt mehr Details zu den Dateien und Ordnern an (nämlich Zugriffsrechte, Anzahl der harten Links auf die selbe Datei, Besitzer, besitzende Gruppe, Dateigröße, Zeitpunkt der letzten Änderung)"

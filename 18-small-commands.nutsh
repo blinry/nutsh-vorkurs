@@ -8,6 +8,10 @@ prompt {
         expect("date")
         break
     }
+    if help {
+        expect("echo help")
+        "Was heißt *Datum* auf Englisch?"
+    }
 }
 
 "Finden Sie heraus, wie Sie `date` dazu bringen, die Nanosekunden der aktuellen Uhrzeit auszugeben."
@@ -18,6 +22,10 @@ prompt {
         expect("date --rfc-3339=ns")
         break
     }
+    if help {
+        expect("echo help")
+        "Fallstrick: `date` akzeptiert eine Formatoption als Argument, aber diesem wird ein Pluszeichen vorangestellt, das ist recht ungewöhnlich."
+    }
 }
 
 "Wie könnte ein Befehl heißen, der ausgibt, wie voll die Festplatte ist (wie viel auf der* d*isk noch* f*ree ist?)"
@@ -27,6 +35,10 @@ prompt {
         expect("df")
         break
     }
+    if help {
+        expect("echo help")
+        "Nicht `diskfree`, sondern noch kürzer..."
+    }
 }
 
 "Wie `ls` hat auch `df` hat eine Option, die die die Größenangaben in praktischere Formate umrechnet."
@@ -35,6 +47,10 @@ prompt {
     if command =~ `df.*[hH]` && success {
         expect("df -h")
         break
+    }
+    if help {
+        expect("echo help")
+        "Die Größen sollen so für Menschen (humans) besser lesbar sein."
     }
 }
 
@@ -47,20 +63,26 @@ prompt {
     }
 }
 
-"Pro Tip: Auch hier die gewisse Option benutzen und in `sort -h` pipen!"
+"Pro Tip: Auch hier die Menschen-Option benutzen und die Ausgabe des Befehls in `sort -h` pipen! Sehr praktisch, wenn die Festplatte mal voll ist und Sie große Dateien finden möchten."
 
 prompt {
-    if command =~ `du\s+-h\s*\|\s*sort\s+-h` && success {
+    if command =~ `du\s+.*-h.*\|\s*sort\s+-h` && success {
         expect("du -h|sort -h")
         break
     }
 }
 
-"Auf den Unirechnern zeigt der Befehl `fs listquota` Ihnen an, wie viel des Ihnen zugewiesenen Speicherplatzes Sie bereits belegt haben. Die \"gewisse Option\" heißt hier etwas anders. Finden Sie das heraus?"
+"Auf den Unirechnern zeigt der Befehl `fs listquota` Ihnen an, wie viel des Ihnen zugewiesenen Speicherplatzes Sie bereits belegt haben. Die \"Menschen-Option\" heißt hier etwas anders. Finden Sie das heraus?"
+
+"Falls Sie nicht auf einem Unirechner arbeiten, können Sie diese Aufgabe mit `echo skip` überspringen."
 
 prompt {
     if command =~ `fs\s+(listquota|lq)\s+-human` {
         expect("fs listquota -human")
+        break
+    }
+    if command == "echo skip" {
+        expect("echo skip")
         break
     }
 }
@@ -81,6 +103,10 @@ prompt {
         expect("sleep 5")
         expect("sleep 5s")
         break
+    }
+    if help {
+        expect("echo help")
+        "*Schlafen* Sie gut!"
     }
 }
 

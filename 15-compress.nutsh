@@ -13,11 +13,11 @@ def elephant_in_fridge(n) {
 
 def stop_elephants {
     if elephant_in_fridge("") {
-        "[Der Elefant passt nicht in den Kühlschrank]"
+        "[Der Elefant passt nicht in den Kühlschrank und fällt wieder heraus]"
         run(`mv "$ROOT/küche/kühlschrank/elefant" "$ROOT/küche/elefant"`)
     }
     if elephant_in_fridge("2") {
-        "[Der Elefant passt nicht in den Kühlschrank]"
+        "[Der Elefant passt nicht in den Kühlschrank und fällt wieder heraus]"
         run(`mv "$ROOT/küche/kühlschrank/elefant2" "$ROOT/küche/elefant2"`)
     }
 }
@@ -32,7 +32,7 @@ prompt {
 
 stop_elephants {
 
-    "Hm, so einfach ist das wohl doch nicht. Können Sie herausfinden, wie groß die Datei ist? Die Manpage von `ls` hilft Ihnen dabei!"
+    "Hm, so einfach ist das wohl doch nicht. Können Sie herausfinden, wie groß die Datei ist? Die Manpage von `ls` hilft Ihnen dabei! Erinnerung: Mit \"/[suchbegriff] <Enter>\" können Sie in der Manpage nach Begriffen suchen."
 
     prompt {
         if output =~ "10M" {
@@ -47,6 +47,10 @@ stop_elephants {
         if output =~ "10485760" {
             expect("ls -l")
             "Okay, rund zehn millionen Byte. `ls` kann Ihnen das mit der Option `-h` auch noch in eine besser lesbare Größenordnung umrechnen."
+        }
+        if help {
+            expect("echo help")
+            "Sie möchten ja die Größe (size) der Datei wissen. `ls` hat eine entsprechende Option."
         }
     }
 
@@ -89,15 +93,17 @@ stop_elephants {
         }
     }
 
-    "Mit diesen Befehlen können Sie nur einzelne Dateien komprimieren. Um Ordner zu komprimieren, müssen Sie zunächst den Ordner und seine Inhalte zu einer Datei zusammenfassen, das geht mit `tar -c -f name_der_archivdatei.tar ordner`."
+    "Mit diesen Befehlen können Sie nur einzelne Dateien komprimieren. Um Ordner zu komprimieren, verwendet man daher ein Programm, das den Ordner und seine Inhalte zu einer Datei zusammenfasst. Dieses Programm heißt `tar`, das steht für \"tape archive\" und kommt noch aus alten Zeiten, in denen man Daten auf Magnetbändern gespeichert hat."
 
-    "`-c` steht dabei für \"create\", `-f` für die Angabe des Namens der resultierenden Datei (\"file\"). `tar` steht für \"tape archive\" und kommt noch aus alten Zeiten, in denen man Daten auf Magnetbändern gespeichert hat."
+    "Einen ganzen Ordner mittels `tar` zu komprimieren, das geht mit `tar -c -z -f name_der_archivdatei.tar.gz ordner`."
 
-    "Bitte fassen Sie den Kühlschrank zu `kühlschrank.tar` zusammen."
+    "`-c` steht dabei für \"create\", `-z` für gzip-Kompression und `-f` für die Angabe des Namens der resultierenden Datei (\"file\"). "
+
+    "Die Dateiendung deutet an, dass es sich bei dem Resultat um eine ge-gzip-pte .tar-Datei handelt. Bitte fassen Sie den Kühlschrank zu `kühlschrank.tar.gz` zusammen."
 
     prompt {
-        if file(`"$ROOT/küche/kühlschrank.tar"`) {
-            expect("tar -c -f kühlschrank.tar kühlschrank")
+        if file(`"$ROOT/küche/kühlschrank.tar.gz"`) {
+            expect("tar -czf kühlschrank.tar.gz kühlschrank")
             break
         }
     }
@@ -111,20 +117,11 @@ stop_elephants {
         }
     }
 
-    "Prima, und nun komprimieren Sie noch den sogenannten \"Tarball\" mit einem Komprimierungsverfahren Ihrer Wahl."
-
-    prompt {
-        if file(`"$ROOT/küche/kühlschrank.tar.gz"`) || file(`"$ROOT/küche/kühlschrank.tar.bz2"`) {
-            expect("gzip kühlschrank.tar")
-            break
-        }
-    }
-
     "Den komprimierten Kühlschrank mit den komprimierten Elefanten können wir nun in die Hosentasche stecken und mitnehmen :-)"
 
     "Und irgendwann möchten wir dann wieder an die Elefanten heran. Machen Sie die Schritte rückgängig und sorgen Sie dafür, dass die beiden Elefanten wieder in der Küche stehen."
 
-    "Benutzen Sie die Befehle `gunzip` und `bunzip2`, sowie `tar` mit den Argumenten `-x -f name_der_archivdatei.tar` (`-x` steht für \"extract\")."
+    "Benutzen Sie hierzu `tar` mit den Argumenten `-x -f name_der_archivdatei.tar.gz` (`-x` steht für \"extract\") sowie die Befehle `gunzip` und `bunzip2`."
 
     prompt {
         if file(`"$ROOT/küche/elefant"`) && file(`"$ROOT/küche/elefant2"`) {

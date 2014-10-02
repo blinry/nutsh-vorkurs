@@ -21,6 +21,10 @@ prompt {
         expect("echo $(locate -c '*javac')")
         break
     }
+    if help {
+        expect("echo help")
+        "Das Suchmuster soll auf Dateien passen, die erst beliebige Zeichen im Namen haben, auf die dann \"javac\" folgt."
+    }
 }
 
 "Ja. An dieser Stelle etwas ganz wichtiges: `locate` sucht nicht in Echtzeit, sondern benutzt eine Datenbank, die veraltet sein kann. Es gibt den Befehl `updatedb`, der regelmäßig vom Administrator des Rechners ausgeführt wird, und der dann das gesamte Dateisystem durchpflügt und sich die vorhandenen Dateien merkt. Die Datenbank, die dabei entsteht, ist deshalb immer nur auf dem Stand der letzten Ausführung. Danach geänderte oder gelöschte Dateien werden dann nicht bzw. fälschlicherweise gefunden."
@@ -29,7 +33,7 @@ prompt {
 
 "Ohne Argumente gibt `find` rekursiv alle Verzeichnisse und Ordner unterhalb des aktuellen Verzeichnisses aus - es ist oft bequem, diese Ausgabe dann mit `grep` weiter zu filtern. Man kann mit dem Argument `-name '[Muster]'` aber auch direkt ein Suchmuster angeben (das ebenfalls Wildcards unterstützt)."
 
-"Finden Sie die Anzahl der Dateien in Ihrem Homeverzeichnis heraus, die auf \"rc\" enden."
+"Finden Sie die Anzahl der Dateien innerhalb Ihres Homeverzeichnisses heraus, die auf \"rc\" enden."
 
 prompt {
     if command =~ `^echo\s+` && output =~ run(`find "$HOME" -name '*rc' 2>/dev/null | wc -l`) {

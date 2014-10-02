@@ -65,6 +65,10 @@ prompt {
     if ready {
         break
     }
+    if help {
+        expect("echo help")
+        "Am besten bearbeiten Sie diese Aufgabe schrittweise: Lassen Sie sich in dem Skript zunächst die gesamte Befehlshistory ausgeben. Dann filtern Sie diese Ausgabe mit `grep` nach einem festen Wort (zum Beispiel \"ratte\"). Dann filtern Sie nach dem ersten Argument des Skripts (\"$1\") und schließlich sortieren Sie mit `sort` nach der zweiten Spalte. Rufen Sie dann das Skript mit einem Argument auf (`how elefant`)."
+    }
 }
 
 "Viele Leute legen sich einen Ordner namens `bin` im eigenen Homeverzeichnis an, fügen diesen in der `.bashrc` der PATH-Variable hinzu und sammeln dort ihre Skripts."

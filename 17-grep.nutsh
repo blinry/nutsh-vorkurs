@@ -1,7 +1,7 @@
-lesson_name("Nach Mustern durchsuchen - grep")
+lesson_name("Nach Mustern suchen - grep")
 make_home
 
-"Sehr nützlich im Zusammenhang mit Pipes ist der Befehl `grep`. Er nimmt als Argument einen Regulären Ausdruck und wirft alle Zeilen seiner Eingabe weg, die nicht diesen Ausdruck enthalten."
+"Sehr nützlich im Zusammenhang mit Pipes ist der Befehl `grep`. Er nimmt als Argument einen regulären Ausdruck und wirft alle Zeilen seiner Eingabe weg, die nicht diesen Ausdruck enthalten."
 
 "Wenn Sie das Reguläre-Ausdrücke-Kreuzworträtsel noch nicht kennen, empfehlen wir Ihnen, einmal das Tutorial durchzuspielen: http://regexcrossword.com/ - denn genau diese Muster versteht `grep`."
 
@@ -16,14 +16,22 @@ prompt {
         expect("ps -e | grep \"e\"")
         break
     }
+    if help {
+        expect("echo help")
+        "Der vordere Teil des Befehls sollte `ps -e` sein, dann eine pipe, dann ein `grep 'e'`."
+    }
 }
 
-"Für die folgende Aufgabe brauchen Sie zwei Pipes und einen Befehl aus der letzten Lektion: Finden Sie die Anzahl der Dateien in `/dev`, heraus, die eine Ziffer enthalten. Geben Sie diese dann mit `echo` aus."
+"Für die folgende Aufgabe brauchen Sie zwei Pipes und einen Befehl aus der letzten Lektion: Finden Sie die Anzahl der Dateien in `/dev`, heraus, die eine Ziffer enthalten. Geben Sie diese dann mit `echo [Zahl]` aus."
 
 prompt {
     if command =~ `^echo` && output == run(`ls /dev/|grep '[0-9]'|wc -l`) {
         expect(`echo $(ls /dev|grep '[0-9]'|wc -l)`)
         break
+    }
+    if help {
+        expect("echo help")
+        "Der reguläre Ausdruck für eine beliebige Ziffer ist `[0123456789]`, oder kurz: `[0-9]`. Zeilen zählen ging mit diesem Befehl, der irgendwas mit Toiletten zu tun hatte."
     }
 }
 
@@ -33,6 +41,10 @@ prompt {
     if command =~ `^echo` && output == run(`ls /dev/|grep 'o.$'|wc -l`) {
         expect(`echo $(ls /dev|grep 'o.$'|wc -l)`)
         break
+    }
+    if help {
+        expect("echo help")
+        "Ein Dollarzeichen legt fest, dass an dieser Stelle die Zeile enden soll. Der reguläre Ausdruck für ein beliebiges Zeichen ist der Punkt."
     }
 }
 

@@ -2,11 +2,11 @@ lesson_name("Versionskontrolle mit Git")
 make_home
 run("export EDITOR=gedit")
 
-"Vor einigen Lektionen haben wir uns angesehen, wie man mit `diff` und `patch` Änderungen austauschen kann. Das war sehr mühsam und fehleranfällig, und nur noch wenige Leute machen das heutzutage so."
+"Wenn man früher mit mehreren Leuten eine Software programmieren wollte, benutzte man die Programme `diff` und `patch`, um Änderungen auszutauschen. Das war sehr mühsam und fehleranfällig, und nur noch wenige Leute machen das heutzutage so."
 
 "Alle anderen benutzen *Versionskontrolle*. Die derzeit populärste Software dafür heißt *Git*, und die wollen wir uns heute mal etwas ansehen."
 
-"Als Beispiel wollen wir gemeinsam eine Rezeptesammlung erstellen. Wir werden den Internetdienst *GitHub* verwenden, der Git-Projekte kostenlos öffentlich hostet. Das ist ein wirklich prima Dienst, der bei Programmierern sehr beliebt ist. Legen Sie sich dort als erstes einen Account an: https://github.com"
+"Als Beispiel wollen wir gemeinsam eine Rezeptesammlung erstellen. Wir werden den Internetdienst *GitHub* verwenden, der Git-Projekte kostenlos öffentlich hostet. Das ist ein wirklich prima Dienst, der insbesondere bei Open-Source-Programmierern sehr beliebt ist. Legen Sie sich dort als erstes einen Account an: https://github.com"
 
 "Mit `echo fertig` geht's dann weiter."
 

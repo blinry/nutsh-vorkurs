@@ -41,7 +41,7 @@ def stayin(d) {
 }
 
 def stayinroot {
-    stayin("$HOME")
+    stayin("$ROOT")
 }
 
 def runs(cmd) {

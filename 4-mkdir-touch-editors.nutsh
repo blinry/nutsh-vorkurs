@@ -45,15 +45,15 @@ create_file
 
 "OK, im Wohnzimmer finden Sie eine weitere neue Datei, in der Sie einige Fehler korrigieren sollen."
 
-"Um Dateien zu bearbeiten, gibt es viele Möglichkeiten - wir wollen heute mal drei der verbreitetsten Texteditoren unter Linux ausprobieren: `gedit`, `vim` und `emacs`. Sie starten den Editor jeweils mit `[Editor] [Dateiname]`. Sagen Sie bitte (mit `echo`) mit welchem der drei Sie anfangen möchten."
+"Um Dateien zu bearbeiten, gibt es viele Möglichkeiten - wir wollen heute mal drei der verbreitetsten Texteditoren unter Linux ausprobieren: `gedit`, `vim` und `emacs`. Sagen Sie bitte (mit `echo`) mit welchem der drei Sie anfangen möchten."
 
 def check_file(editor) {
     if runs(`grep 'Papier ist weiß' "$NUTSH_DATEI"`) &&
        runs(`grep 'Wolken sind weiß' "$NUTSH_DATEI"`) &&
-       (runs(`grep 'Kühe trinken Wasser' "$NUTSH_DATEI"`) || runs(`grep 'Kühe geben Milch' "$NUTSH_DATEI"`)){
+       (runs(`grep 'Kühe trinken Wasser' "$NUTSH_DATEI"`) || runs(`grep 'Kühe geben Milch' "$NUTSH_DATEI"`) || runs(`grep '\(Junge Kühe\|Kleine Kühe\|Kälber\) trinken Milch' "$NUTSH_DATEI"`)){
        run("NUTSH_"+editor+"=1")
        if ! editors_done {
-           "Gut. Nennen Sie den Editor, mit dem Sie weitermachen möchten."
+           "Gut. Nennen Sie den Editor (gedit, vim, emacs), mit dem Sie weitermachen möchten."
        }
        return("true")
     } else {
@@ -96,6 +96,8 @@ prompt {
 
         "`cw` (\"change word\") auf dem Anfang eines Wortes löscht dieses Wort und wechselt in den Insert-Modus."
 
+        "Sie können nun die Datei per `vim [Dateiname]` öffnen."
+
         prompt {
             if command =~ "vim?" {
                 if check_file("VIM") {
@@ -109,9 +111,9 @@ prompt {
     }
     if command =~ `echo\s+[Ee]macs` {
         expect("echo emacs")
-        "Emacs ist sehr mächtig und hat viele eingebaute Erweiterungen (Spiele, Chatbots, Mailclients, ... Die Bedienung erfolgt über zahlreiche Tastenkürzel, weshalb manche sagen, sein Name wäre eine Abkürzung für \"Escape-Meta-Alt-Control-Shift\"."
+        "Emacs ist sehr mächtig und hat viele eingebaute Erweiterungen (Spiele, Chatbots, Mailclients, ...) Die Bedienung erfolgt über zahlreiche Tastenkürzel, weshalb manche sagen, sein Name wäre eine Abkürzung für \"Escape-Meta-Alt-Control-Shift\"."
 
-        "Am besten starten Sie die Kommandozeilen-Version von Emacs mittels der Option `-nw` (\"no window\")."
+        "Am besten starten Sie die Kommandozeilen-Version von Emacs mit `emacs -nw [Dateiname]` (steht für \"no window\")."
 
         "Für Emacs müssen Sie folgende Befehle kennen:"
 

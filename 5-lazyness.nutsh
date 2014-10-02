@@ -45,7 +45,7 @@ prompt {
     }
 }
 
-"Sollte es mehrere Möglichkeiten geben, den Pfad zu ergänzen, wird beim ersten Tastendruck nichts passieren, beim zweiten werden Ihnen dann alle Möglichkeiten aufgelistet. Bitte probieren Sie aus, was bei `ls s` *Tab* *Tab* *Tab* `r` *Tab* passiert."
+"Sollte es mehrere Möglichkeiten geben, den Pfad zu ergänzen, wird beim ersten Tastendruck nichts passieren, beim zweiten werden Ihnen dann alle Möglichkeiten aufgelistet. Wenn Sie zum Beispiel `ls s` *Tab* *Tab* *Tab* `r` *Tab* tippen, wird ihnen der Verzeichnisname \"schrank\" ergänzt."
 
 prompt {
     if command =~ "^ls" {
@@ -58,23 +58,18 @@ prompt {
 
 run(`cd "$ROOT"`) // can't hurt
 
-"Als weiteres Beispiel probieren Sie Folgendes: Lassen Sie sich den vollständigen Pfad dieses Verzeichnisses mit `pwd` ausgeben. Wechseln Sie dann ins Wurzelverzeichnis `/` und gehen Sie dann wieder in dieses Verzeichnis zurück, indem Sie den Pfad absolut angeben - also quasi die Ausgabe von `pwd` abtippen, und dabei möglichst oft *Tab* drücken."
+say("Als weiteres Beispiel probieren Sie Folgendes: Sie sind ja momentan im Verzeichnis `"+run("pwd")+"`. Bitte geben Sie erst `echo` ein, und tippen Sie dann diesen Pfad ab (denken Sie an den führenden Slash, der signalisiert, dass es sich um einen absoluten Pfad handelt). Drücken Sie dabei jeweils nach den ersten paar Zeichen eines Verzeichnisnamens die Taste *Tab*. Mit ein wenig Übung lassen sich so sehr schnell Dateipfade eingeben.")
 
 prompt {
-    if run("pwd") == "/" {
-        expect("cd /")
+    if command =~ "^echo /" && output =~ run(`echo "$ROOT"`) {
+        expect("echo /$ROOT") // cheat!
         break
+    } else {
+        expect("pwd")
     }
 }
 
-prompt {
-    if command =~ "^cd" && run("pwd") =~ run(`echo "$ROOT"`) {
-        expect("cd /; cd $ROOT") // cheat!
-        break
-    }
-}
-
-"Benutzen Sie die beiden Funktionen in den kommenden Lektionen möglichst oft - sie machen das Leben auf der Kommandozeile wesentlich bequemer. Mit `echo fertig` schließen Sie die Lektion ab."
+"Denken Sie in den kommenden Lektionen an diese beiden Funktionen und versuchen Sie, sie möglichst oft zu verwenden - sie machen das Leben auf der Kommandozeile wesentlich bequemer. Mit `echo fertig` schließen Sie die Lektion ab."
 
 prompt {
     if ready {

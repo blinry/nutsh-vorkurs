@@ -17,7 +17,7 @@ common_mistakes, stayinroot {
             expect("ls")
             "Genau. `ls` steht kurz für \"list\" und zeigt Ihnen die Dateien und Verzeichnisse an, die sich in Ihrem aktuellen Verzeichnis befinden. Die Verzeichnisse werden dabei blau dargestellt, die weißen Einträge sind Dateien."
 
-            say("Sie sind gerade in einem Ordner namens `"+run("pwd")+"` - der aktuelle Ordner steht auch immer im Prompt, der mit dem Dollarzeichen endet.")
+            say("Sie sind gerade in einem Ordner namens `"+run("pwd")+"` - der aktuelle Ordner steht auch immer im Prompt, der mit dem Dollarzeichen endet, wobei das Zeichen `~` eine Abkürzung ist, die Sie später noch kennen lernen werden.")
 
             break
         }
@@ -29,7 +29,7 @@ common_mistakes, stayinroot {
         if run("pwd") == run("echo $ROOT/schrank") {
             if output =~ "jacke" {
                 expect("cd schrank; pwd; ls")
-                "Genau. Haben Sie bemerkt, wie sich der Prompt geändert hat?"
+                "Genau. Haben Sie bemerkt, wie sich der Prompt geändert hat, als Sie das Verzeichnis gewechselt haben?"
                 break
             }
         }
@@ -44,7 +44,7 @@ common_mistakes, stayinroot {
         }
     }
 
-    "Gut. So, nun brauchen wir ein wenig Magie... *pling*"
+    "Gut. So, nun brauchen wir ein wenig Magie... *pling!*"
 
     "[Der Schrank rumpelt und ächzt]"
 
@@ -64,7 +64,7 @@ common_mistakes, stayinroot {
         if command =~ "ls" {
             if output == "" {
                 expect("ls schrank/magische_tür/tür1")
-				"Dieses Verzeichnis scheint leer zu sein."
+                "Dieses Verzeichnis scheint leer zu sein."
             }
         }
     }
@@ -74,6 +74,10 @@ common_mistakes, stayinroot {
             expect("cd ../../..")
             expect("cd ..; cd ..; cd ..")
             break
+        }
+        if help {
+            expect("echo help")
+            "Sie gehen in der Verzeichnisstruktur nach oben mit `cd ..`."
         }
     }
 
