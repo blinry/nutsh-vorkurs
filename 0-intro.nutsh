@@ -24,7 +24,7 @@ needs2("java") // orrr!
 
 "In den kommenden zwei Wochen möchten wir Sie in die Geheimnisse der Kommandozeile einweihen. Die Kommandozeile ist eine sehr mächtige und effiziente Art und Weise, einen Computer zu bedienen, mit der man oft schneller ist als mit der Maus und grafischen User-Interfaces."
 
-"Bevor wir anfangen, sollten Sie Ihr Terminalprogramm noch hübsch einstellen. Wenn Sie hier rechtsklicken, können Sie unter *Profile -> Profileinstellungen* die Schriftgröße etwas erhöhen und im Reiter *Farben* ein schöneres Farbschema auswählen (zum Beispiel \"Weiß auf Schwarz\"). Mit einerem weiteren Rechtsklick können Sie auch die *Menüleiste ausblenden*."
+"Bevor wir anfangen, sollten Sie Ihr Terminalprogramm noch hübsch einstellen. Wenn Sie hier rechtsklicken, können Sie unter *Profile -> Profileinstellungen* die Schriftgröße etwas erhöhen und im Reiter *Farben* ein schöneres Farbschema auswählen (zum Beispiel \"Weiß auf Schwarz\"). Im Reiter *Rollbalken* können Sie ein Häkchen für unbegrenztes \"Zurückrollen\" setzen. Mit einerem weiteren Rechtsklick können Sie auch die *Menüleiste ausblenden*."
 
 "Drücken Sie dann einfach Enter, wenn Sie soweit sind."
 

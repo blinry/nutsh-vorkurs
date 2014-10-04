@@ -8,14 +8,25 @@ def success {
 
 def go_home {
     run(`ROOT="$HOME"/.nutsh`)
-    run(`ROOT="$HOME"/.nutsh`)
     run(`mkdir -p "$ROOT"`)
     run(`cd "$ROOT"`)
+    if ! run("pwd") == run(`echo "$HOME"/.nutsh`) {
+        run(`ROOT="$HOME"/.nutsh`)
+        run(`mkdir -p "$ROOT"`)
+        run(`cd "$ROOT"`)
+        if ! run("pwd") == run(`echo "$HOME"/.nutsh`) {
+            run(`ROOT="$HOME"/.nutsh`)
+            run(`mkdir -p "$ROOT"`)
+            run(`cd "$ROOT"`)
+            if ! run("pwd") == run(`echo "$HOME"/.nutsh`) {
+                did_not_go_home_error // better crash now
+            }
+        }
+    }
 }
 
 def make_home {
     go_home
-    run(`cd "$ROOT"`)
     run(`mkdir -p schrank wohnzimmer schlafzimmer badezimmer küche küche/esszimmer`)
     run(`touch wohnzimmer/tisch schlafzimmer/bett`)
 }
