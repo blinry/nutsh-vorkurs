@@ -11,7 +11,7 @@ run(`rm "$ROOT/schlafzimmer/how"`)
 prompt {
     if command =~ `b?a?sh\s+.*how` {
         if file("$ROOT/schlafzimmer/how") {
-            if run(`sh "$ROOT"/schlafzimmer/how`) == "hallo" {
+            if run(`sh "$ROOT"/schlafzimmer/how`) =~ "hallo$" {
                 expect(`echo "echo hallo" > schlafzimmer/how; bash how`)
                 break
             } else {
@@ -31,7 +31,7 @@ prompt {
 "Dann können Sie das Skript starten, indem Sie `./[Datei]` schreiben. Der Punkt steht dabei ja für den aktuellen Ordner - ansonsten weiß die Shell nicht, wo sie den Befehl suchen soll."
 
 prompt {
-    if command =~ `\./how` && output == "hallo" {
+    if command =~ `\./how` && output =~ "hallo$" {
         expect(`cd schlafzimmer; echo -e '#!/bin/bash -i\necho hallo' > how; chmod u+x how; ./how`)
         break
     }
@@ -42,7 +42,7 @@ prompt {
 "Danach gehen Sie in ein anderes Zimmer und versuchen Sie, Ihr Skript einfach per `how` zu starten!"
 
 prompt {
-    if command =~ "how$" && output == "hallo" {
+    if command =~ "how$" && output =~ "hallo$" {
         expect("PATH=$PATH:$(pwd); cd ../wohnzimmer; how")
         break
     }
