@@ -45,6 +45,10 @@ prompt {
         expect("cal --version")
         break
     }
+    if help {
+        expect("echo help")
+        "Wenn Sie keine entsprechende Option finden, kann es sein, dass Ihr `cal`-Programm keine Versions-Option besitzt, und sie dementsprechend auch nicht in der Manpage steht. In diesem Fall verraten wir sie Ihnen einfach: `--version`."
+    }
 }
 
 "Die zweite Option, die viele Befehle haben, ist `--help` - sie gibt eine kurze und knappe Hilfe zu dem Befehl aus."
