@@ -50,7 +50,7 @@ create_file
 def check_file(editor) {
     if runs(`grep 'Papier ist weiß' "$NUTSH_DATEI"`) &&
        runs(`grep 'Wolken sind weiß' "$NUTSH_DATEI"`) &&
-       (runs(`grep 'Kühe trinken Wasser' "$NUTSH_DATEI"`) || runs(`grep 'Kühe geben Milch' "$NUTSH_DATEI"`) || runs(`grep '\(Junge Kühe\|Kleine Kühe\|Kälber\) trinken Milch' "$NUTSH_DATEI"`)){
+       (runs(`grep 'Kühe trinken Wasser' "$NUTSH_DATEI"`) || runs(`grep 'Kühe \(geben\|produzieren\) Milch' "$NUTSH_DATEI"`) || runs(`grep '\(Junge Kühe\|Kleine Kühe\|Kälber\) trinken Milch' "$NUTSH_DATEI"`)) {
        run("NUTSH_"+editor+"=1")
        if ! editors_done {
            create_file
