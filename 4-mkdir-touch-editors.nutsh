@@ -53,6 +53,7 @@ def check_file(editor) {
        (runs(`grep 'Kühe trinken Wasser' "$NUTSH_DATEI"`) || runs(`grep 'Kühe geben Milch' "$NUTSH_DATEI"`) || runs(`grep '\(Junge Kühe\|Kleine Kühe\|Kälber\) trinken Milch' "$NUTSH_DATEI"`)){
        run("NUTSH_"+editor+"=1")
        if ! editors_done {
+           create_file
            "Gut. Nennen Sie den Editor (gedit, vim, emacs), mit dem Sie weitermachen möchten."
        }
        return("true")
