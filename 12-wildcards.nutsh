@@ -14,7 +14,7 @@ prompt {
 
 "Ohje, die alle einzeln zu löschen wäre aber viel Arbeit!"
 
-"Für solche Situationen gibt es die sogenannten *Wildcards* (\"Platzhalter\"). Das Zeichen `*` ist eine Abkürzung für eine beliebige Anzahl von Zeichen. Beispielsweise beschreibt `*.txt` alle Dateien, die auf \".txt\" enden. Davor dürfen beliebige andere Zeichen stehen. Lassen Sie sich (mit `ls`) erstmal alle Ratten anzeigen, deren Nummer mit einer 1 beginnt."
+"Für solche Situationen gibt es die sogenannten *Wildcards* (\"Platzhalter\"). Das Zeichen` *` ist eine Abkürzung für eine beliebige Anzahl von Zeichen. Beispielsweise beschreibt `*.txt` alle Dateien, die auf \".txt\" enden. Davor dürfen beliebige andere Zeichen stehen. Lassen Sie sich (mit `ls`) erstmal alle Ratten anzeigen, deren Nummer mit einer 1 beginnt."
 
 prompt {
     if output =~ "ratte1" && output =~ "ratte19" && ! output =~ "ratte2" {
