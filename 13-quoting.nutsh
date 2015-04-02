@@ -38,7 +38,7 @@ prompt {
     }
 }
 
-"Genau. Neben dem Quoting mit doppelten Anführungszeichen kann man auch mit einfachen Anführungszeichen quoten - dies ist noch strenger, und verändert wirklich nichts mehr am Text, während beim doppelten Quoting zum Beispiel noch Variablen ersetzt werden. Sie sehen den Unterschied, wenn Sie versuchen, die Variable `HOME` einmal doppelt und dann einfach gequoted auszugeben."
+"Genau. Neben dem Quoting mit doppelten Anführungszeichen kann man auch mit Paaren von einfachen Anführungszeichen (diesen hier: ') quoten - dies ist noch strenger, und verändert wirklich nichts mehr am Text, während beim doppelten Quoting zum Beispiel noch Variablen ersetzt werden. Sie sehen den Unterschied, wenn Sie versuchen, die Variable `HOME` einmal doppelt und dann einfach gequoted auszugeben."
 
 prompt {
     if command =~ "HOME" {
