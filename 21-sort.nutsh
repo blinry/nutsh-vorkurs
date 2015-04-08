@@ -8,14 +8,19 @@ make_home
 "(`echo help` gibt wechselnde Tipps)"
 
 prompt {
-    if output == run("ls -alh ~ | sort -h -k5") || output == run("ls -Alh ~ | sort -h -k5"){
+    if output == run("ls -alh ~ | sort -h -k5 -b") || output == run("ls -Alh ~ | sort -h -k5 -b"){
         if ! command =~ "sort" {
             "Gut, aber versuchen Sie, diese Aufgabe mit `sort` zu lösen. Leider hat nicht jedes Programm eine eingebaute Sortierfunktion."
         } else {
-            expect("ls -alh ~ | sort -h -k5")
-            expect("ls -Alh ~ | sort -h -k5")
+            expect("ls -alh ~ | sort -h -k5 -b")
+            expect("ls -Alh ~ | sort -h -k5 -b")
             break
         }
+    }
+    if output == run("ls -alh ~ | sort -h -k5") || output == run("ls -Alh ~ | sort -h -k5"){
+        "Das ist schon sehr nah dran. Das sort-Programm, das auf diesem Rechner läuft, enthält noch eine Gemeinheit: Es berücksichtigt die Leerzeichen vor den Spalten, was zu einer unsinnigen Sortierung führt. Mit der zusätzlichen Option `-b` stellen Sie das ab."
+        expect("ls -alh ~ | sort -h -k5")
+        expect("ls -Alh ~ | sort -h -k5")
     }
     if help {
         if run("echo $((RANDOM%2))") == "0" {
